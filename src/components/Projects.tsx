@@ -58,7 +58,7 @@ export default function Projects() {
   return (
     <section id="sagas" className="sec">
       <div className="wrap">
-        <Splash scene="/assets/scenes/battle.jpg" fig="/assets/rod/blue-suit.webp" figAlt="Rodrigo con el aura azul de Super Saiyan Blue" sfx="¡POOF!" tag="Sagas · Estuche de cápsulas Hoi-Poi" title="Mis batallas, *encapsuladas.*">
+        <Splash scene="/assets/scenes/battle.jpg" sfx="¡POOF!" tag="Sagas · Estuche de cápsulas Hoi-Poi" title="Mis batallas, *encapsuladas.*">
           <p>Proyectos propios, prototipos y productos lanzados donde muestro research, arquitectura, UI, automatización y criterio de negocio. Haz clic en una cápsula para abrir su holograma.</p>
         </Splash>
 

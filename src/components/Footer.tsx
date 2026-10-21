@@ -84,7 +84,13 @@ export default function Footer() {
           {PORTALS.map((p, i) => (
             <Reveal key={p.name} delay={i * 0.08}>
             <a className="dbf-portal" href={p.href} target="_blank" rel="noopener" data-cursor onClick={() => sfx("teleport")}>
-              <span className="dbf-ring"><img src={`/assets/proj/${p.img}.webp`} alt={`Vista de ${p.name}`} loading="lazy" /></span>
+              <span className="dbf-radar">
+                <img className="dbf-radar-dev" src="/assets/radar-device.png" alt="" loading="lazy" />
+                <span className="dbf-scope">
+                  <img src={`/assets/proj/${p.img}.webp`} alt={`Vista de ${p.name}`} loading="lazy" />
+                  <i className="dbf-sweep" /><i className="dbf-cross" /><i className="dbf-blip b1" /><i className="dbf-blip b2" />
+                </span>
+              </span>
               <span className="dbf-ptag">{p.tag}</span>
               <b>{p.name}</b>
               <span className="dbf-pdesc">{p.desc}</span>

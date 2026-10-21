@@ -3,13 +3,14 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "framer-motion";
 import { Reveal, DBText } from "../lib";
+import KiFigure from "./KiFigure";
 
 gsap.registerPlugin(ScrollTrigger);
 
 /** Cabecera de sección como viñeta de cómic: escena de fondo + personaje que "sale" del marco.
  *  Las dos capas se mueven a distinta velocidad con el scroll (parallax) para dar profundidad. */
-export default function Splash({ scene, fig, figAlt = "", sfx, tag, title, pos = "right center", side, compact, className = "", children }: {
-  scene: string; fig?: string; figAlt?: string; sfx: string; tag: string; title: string; pos?: string; side?: "right"; compact?: boolean; className?: string; children?: ReactNode;
+export default function Splash({ scene, fig, figAlt = "", sfx, tag, title, pos = "right center", side, ki, compact, className = "", children }: {
+  scene: string; fig?: string; figAlt?: string; sfx: string; tag: string; title: string; pos?: string; side?: "right"; ki?: boolean; compact?: boolean; className?: string; children?: ReactNode;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -30,7 +31,7 @@ export default function Splash({ scene, fig, figAlt = "", sfx, tag, title, pos =
         <div className="splash-bg" aria-hidden>
           <img src={scene} alt="" loading="lazy" decoding="async" style={{ objectPosition: pos }} />
         </div>
-        {fig && <img className="splash-fig" src={fig} alt={figAlt} loading="lazy" decoding="async" />}
+        {fig && (ki ? <KiFigure src={fig} alt={figAlt} /> : <img className="splash-fig" src={fig} alt={figAlt} loading="lazy" decoding="async" />)}
         <div className="sec-tag">{tag}</div>
         <h2><DBText text={title} /></h2>
         {children}

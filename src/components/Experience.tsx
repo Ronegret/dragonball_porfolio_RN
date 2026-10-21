@@ -28,7 +28,7 @@ export default function Experience() {
   return (
     <section id="trayectoria" className="sec">
       <div className="wrap">
-        <Splash scene="/assets/scenes/snake-way.webp" sfx="¡BAM!" tag="Trayectoria de combate" title="Una transición *no convencional.*" pos="center 40%">
+        <Splash scene="/assets/scenes/snake-way.webp" fig="/assets/rod/blue-suit.webp" figAlt="Rodrigo cargando ki con el aura azul de Super Saiyan Blue" ki sfx="¡BAM!" tag="Trayectoria de combate" title="Una transición *no convencional.*" pos="center 40%">
           <p>De la gestión B2B enterprise al diseño de producto con IA: un largo Camino de la Serpiente. Pulsa cada combate para ver el detalle.</p>
         </Splash>
 
