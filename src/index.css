@@ -1099,3 +1099,14 @@ main{overflow-x:clip}.evo-top{max-width:100%}
   .mesa-hint.off{transform:translateX(-50%) translateY(-10px) rotate(1.5deg)}
 }
 @media (prefers-reduced-motion:reduce){.mesa-cv,.mesa-tag,.mesa-role{transition:none}.mesa-scroll i{animation:none}.mesa.shake .mesa-cv{animation:none}.mesa-burst{display:none}}
+
+/* ---- mesa2: figura recortada sobre el cosmos ---- */
+.mesa-aura{position:absolute;left:var(--ax,62%);top:var(--ay,60%);width:calc(var(--as,300px) * 2.4);aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;opacity:0;will-change:transform,opacity;
+  background:radial-gradient(circle,rgba(150,205,255,.38) 0,rgba(90,150,255,.2) 28%,rgba(120,80,255,.1) 48%,transparent 66%);transition:opacity 1s ease}
+.mesa.ready .mesa-aura{opacity:1;animation:aurabeat 3.4s ease-in-out infinite}
+@keyframes aurabeat{0%,100%{transform:translate(-50%,-50%) scale(1)}50%{transform:translate(-50%,-50%) scale(1.07);opacity:.78}}
+.mesa.shake .mesa-aura{animation:auraflash .7s ease-out}
+@keyframes auraflash{0%{transform:translate(-50%,-50%) scale(.9);opacity:1;filter:brightness(2.4)}100%{transform:translate(-50%,-50%) scale(1.25);opacity:1;filter:none}}
+.mesa-shade{background:linear-gradient(0deg,rgba(7,5,15,.6),transparent 28%)!important}
+@media (max-width:900px){.mesa-shade{background:linear-gradient(0deg,rgba(7,5,15,.88) 0%,rgba(7,5,15,.5) 30%,transparent 56%),linear-gradient(180deg,rgba(7,5,15,.5),transparent 16%)!important}}
+@media (prefers-reduced-motion:reduce){.mesa.ready .mesa-aura{animation:none}.mesa.shake .mesa-aura{animation:none}}

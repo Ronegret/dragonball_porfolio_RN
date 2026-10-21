@@ -1,20 +1,21 @@
 import { useEffect, useRef, useState } from "react";
 import { DBText, sfx } from "../lib";
-import { MESA } from "../mesaGaze";
+import { MESA } from "../mesa2Gaze";                 // escena sin oficina (recortada). "../mesaGaze" = la versión con la oficina de fondo
 import { scrollToId } from "./Hud";
 
-/** Escena protagonista (100vw × 100svh): Rodrigo en el laboratorio de Capsule Corp que te sigue con la mirada.
+/** Escena protagonista (100vw × 100svh): Rodrigo, su mesa y su portátil flotando en el cosmos, que te sigue con la mirada.
  *
- *  El vídeo original es un barrido de mirada (frente → derecha → izquierda → arriba → derecha → frente). En vez de
- *  reproducirlo, cada fotograma lleva anotada hacia dónde mira (src/mesaGaze.ts) y el canvas dibuja el fotograma cuya
+ *  El vídeo original es un barrido de mirada (frente → izquierda → arriba → derecha). Los fotogramas están recortados (sin la
+ *  oficina, con transparencia: tools/build-mesa2.py). En vez de reproducirlo, cada fotograma lleva anotada hacia dónde mira
+ *  (src/mesa2Gaze.ts) y el canvas dibuja el fotograma cuya
  *  mirada se parece más a la dirección del cursor. La mirada objetivo se suaviza, así que al mover el ratón la cabeza
  *  recorre los fotogramas intermedios (giro continuo), con un fundido de ~110 ms entre fotogramas.
  *  Sin movimiento del ratón durante unos segundos, vuelve a reproducirse el barrido original (la escena nunca está muerta). */
 
 const F = MESA.frames, N = F.length;
-const src = (i: number) => `/assets/mesa/m${String(i).padStart(2, "0")}.webp`;
+const src = (i: number) => `/assets/mesa2/m${String(i).padStart(2, "0")}.webp`;
 const clamp = (v: number, a: number, b: number) => Math.min(b, Math.max(a, v));
-const MAX_UP = 1.12;                                       // aumento máximo sobre el tamaño original del vídeo (calidad)
+const MAX_UP = 1.18;                                       // aumento máximo sobre el tamaño original del vídeo (calidad)
 const place = (v: number, size: number, view: number) => (size >= view ? clamp(v, view - size, 0) : clamp(v, 0, view - size));
 
 export default function MesaStage() {
@@ -42,7 +43,7 @@ export default function MesaStage() {
     const imgs: (HTMLImageElement | null)[] = Array(N).fill(null);
 
     let W = 0, H = 0, dpr = 1, s = 1, hx = 0.5, hy = 0.3;
-    let X = 0, Y = 0, SW = 1, SH = 1;                       // dónde se dibujó el último fotograma (para saber dónde está la cabeza)
+    let X = 0, Y = 0, SW = 1, SH = 1, ax = -9, ay = -9;     // dónde se dibujó el último fotograma (para saber dónde está la cabeza)
     let cur = 0, prev = -1, fade = 1;
     let gx = 0.05, gy = 0, tx = 0.05, ty = 0, lgx = 9, lgy = 9;
     let mode: "auto" | "gaze" = "auto", lastMove = -1e9, apT = 1;
@@ -55,10 +56,11 @@ export default function MesaStage() {
       W = r.width; H = r.height; dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
       const land = W / H > 1.15;
-      // El vídeo mide 1280×720: ampliarlo para cubrir la pantalla lo vuelve borroso. Se limita el aumento (MAX_UP) y los
-      // bordes se funden con el cosmos del fondo; 1.0 = nítido, más de ~1.2 = blando.
+      // El vídeo mide 1280×720: ampliarlo mucho lo vuelve borroso. Se limita el aumento (MAX_UP); la mesa se desvanece en los
+      // bordes y queda anclada abajo, flotando sobre el cosmos. 1.0 = nítido, más de ~1.2 = blando.
       s = Math.min(Math.max(W / MESA.w, H / MESA.h) * (land ? 1.1 : 1), land ? MAX_UP : W < 600 ? 1 : 1.15);
-      hx = land ? 0.63 : 0.5; hy = land ? 0.40 : 0.36;
+      s = Math.max(0.8, Math.min(s, (H - 79) / 670));         // en pantallas bajas la cabeza no debe salirse por arriba (barra superior ~70 px)
+      hx = land ? 0.63 : 0.5;
       dirty = true;
     };
 
@@ -67,23 +69,22 @@ export default function MesaStage() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       SW = MESA.w * s; SH = MESA.h * s;
       X = place(hx * W - MESA.head[0] * SW - gx * 8, SW, W);          // la escena se mueve un poco al revés que la mirada
-      Y = place(hy * H - MESA.head[1] * SH - gy * 6, SH, H);
+      Y = place(H - SH + 6 - gy * 5, SH, H);                           // anclada abajo: la mesa es el suelo de la escena
       ctx.clearRect(0, 0, W, H);
-      if (fade < 1 && prev >= 0 && imgs[prev]) { ctx.globalAlpha = 1; ctx.drawImage(imgs[prev]!, X, Y, SW, SH); ctx.globalAlpha = fade; }
-      else ctx.globalAlpha = 1;
-      ctx.drawImage(im, X, Y, SW, SH);
+      if (fade < 1 && prev >= 0 && imgs[prev]) {
+        // fundido correcto entre imágenes con transparencia: mezcla lineal de los valores premultiplicados
+        ctx.globalAlpha = 1 - fade; ctx.drawImage(imgs[prev]!, X, Y, SW, SH);
+        ctx.globalCompositeOperation = "lighter"; ctx.globalAlpha = fade; ctx.drawImage(im, X, Y, SW, SH);
+        ctx.globalCompositeOperation = "source-over";
+      } else ctx.drawImage(im, X, Y, SW, SH);
       ctx.globalAlpha = 1;
-      // los bordes del fotograma que quedan dentro de la pantalla se funden en transparencia (se ve el cosmos detrás)
-      ctx.globalCompositeOperation = "destination-out";
-      const fx = SW * 0.16, fy = SH * 0.14, edge = (x0: number, y0: number, x1: number, y1: number, w: number, h: number) => {
-        const g = ctx.createLinearGradient(x0, y0, x1, y1); g.addColorStop(0, "rgba(0,0,0,1)"); g.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.fillStyle = g; ctx.fillRect(Math.min(x0, x1), Math.min(y0, y1), w, h);
-      };
-      if (X > 0.5) edge(X, 0, X + fx, 0, fx, H);
-      if (X + SW < W - 0.5) edge(X + SW, 0, X + SW - fx, 0, fx, H);
-      if (Y > 0.5) edge(0, Y, 0, Y + fy, W, fy);
-      if (Y + SH < H - 0.5) edge(0, Y + SH, 0, Y + SH - fy, W, fy);
-      ctx.globalCompositeOperation = "source-over";
+      // el resplandor de ki de detrás sigue al personaje
+      if (Math.abs(X - ax) > 1 || Math.abs(Y - ay) > 1) {
+        ax = X; ay = Y;
+        el.style.setProperty("--ax", (X + SW * MESA.head[0]).toFixed(0) + "px");
+        el.style.setProperty("--ay", (Y + SH * 0.5).toFixed(0) + "px");
+        el.style.setProperty("--as", (SW * 0.5).toFixed(0) + "px");
+      }
     };
 
     const setFrame = (i: number) => { if (i !== cur) { prev = cur; cur = i; fade = 0; dirty = true; } };
@@ -182,7 +183,8 @@ export default function MesaStage() {
 
   return (
     <section id="inicio" ref={stage} className={"mesa" + (ready && go ? " ready" : "")} onPointerDown={power}>
-      <canvas ref={cv} className="mesa-cv" role="img" aria-label="Rodrigo Negrete sentado en el laboratorio de Capsule Corp. Su mirada sigue a tu cursor." />
+      <div className="mesa-aura" aria-hidden />
+      <canvas ref={cv} className="mesa-cv" role="img" aria-label="Rodrigo Negrete sentado a su mesa con el portátil. Su mirada sigue a tu cursor." />
       <div className="mesa-shade" aria-hidden />
       <div className="wrap mesa-ui">
         <div className="mesa-copy">
