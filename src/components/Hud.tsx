@@ -50,7 +50,7 @@ export default function Hud() {
 
   return (
     <header className="hud">
-      <a className="brand" href="#hero" onClick={go("hero")} aria-label="Rodrigo Negrete — volver al inicio">
+      <a className="brand" href="#inicio" onClick={go("inicio")} aria-label="Rodrigo Negrete — volver al inicio">
         <img className="radar-logo-img" src="/assets/radar-device.png" alt="" />
         <div><b>RODRIGO NEGRETE</b><span>DRAGON RADAR · DEV LAB</span></div>
       </a>

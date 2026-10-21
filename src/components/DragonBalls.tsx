@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useBalls } from "../lib";
 
 // cada visita las esferas se esconden en sitios distintos: 7 de estas zonas, a una altura y lado al azar
-const ZONES = ["hero", "perfil", "poderes", "stack", "sagas", "trayectoria", "referencias", "multiverso"];
+const ZONES = ["inicio", "hero", "perfil", "poderes", "stack", "sagas", "trayectoria", "referencias", "multiverso"];
 const rnd = (a: number, b: number) => a + Math.random() * (b - a);
 function randomSpots(): [string, number, number][] {
   const z = [...ZONES];

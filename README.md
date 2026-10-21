@@ -12,6 +12,7 @@ Portfolio interactivo y gamificado (Dragon Ball Z + Capsule Corp) construido com
 - **Evolución de fondo** (Normal → Super Saiyan → Blue → Ultra Instinto → SSJ4) sincronizada con las 5 etapas reales de tu carrera. La forma del vídeo y la tarjeta del CV coinciden fase a fase.
 - **Secciones completas:** Hero · Perfil · Poderes (transformaciones) · Arsenal (stack con barras de ki) · Sagas (proyectos = cápsulas Hoi-Poi con explosión y holograma) · Trayectoria (timeline + formación) · Referencias · Invocación de Shen Long (contacto).
 - **Gamificación:** 7 esferas del dragón escondidas, contador en el HUD, **Modo Reclutador** y desbloqueo de Shen Long a 7/7.
+- **Escena protagonista** (`MesaStage.tsx`): Rodrigo en el laboratorio de Capsule Corp que **te sigue con la mirada**. El vídeo original es un barrido de mirada; cada fotograma lleva anotada hacia dónde mira (`src/mesaGaze.ts`, generado por `tools/build-mesa.py`) y el canvas dibuja el que mejor coincide con la dirección del cursor (con giro continuo y fundido entre fotogramas). Sin ratón, reproduce el barrido original; un clic carga ki. Se limita el aumento a ×1,12 sobre el tamaño del vídeo (1280×720) para que se vea nítida, y los bordes se funden con el cosmos.
 - **Intro cinematográfica** (`TitleCard.tsx`, línea de tiempo GSAP): la bola del dragón se enciende, estalla con ondas de choque y las letras del nombre caen una a una; "Comenzar" toca la música de apertura.
 - **Universo de fondo** (`SpaceBackground.tsx`): campo de partículas en canvas que reacciona al ratón (se apartan, hilos de constelación, onda de choque al hacer clic, estiramiento al hacer scroll rápido), nebulosa, planetas con parallax anclados a su sección y la cápsula de Goku cruzando el cielo.
 - **Cabeceras tipo viñeta** (`Splash.tsx`): escena de fondo + personaje que sale del marco, con parallax por capas.
@@ -71,6 +72,7 @@ _source/                 # originales (no se versiona ni se despliega)
 | `fix-pockets.py` | Convierte en transparencia los huecos blancos encerrados (p. ej. entre brazo y torso) |
 | `build-nuevas2.py` | Recorta y optimiza las ilustraciones de `_source/nuevas2` (cutouts WebP, escenas) |
 | `cutout.py` | Recorte genérico de fondo blanco con sombra translúcida |
+| `build-mesa.py` | Elige los fotogramas de `_source/mesa/mesa.mp4` según la mirada, los exporta a WebP y genera `src/mesaGaze.ts` (requiere ffmpeg) |
 | `build-capsules.py` | Genera las 16 cápsulas Hoi-Poi |
 | `build-space.py` | Genera la nebulosa procedural |
 

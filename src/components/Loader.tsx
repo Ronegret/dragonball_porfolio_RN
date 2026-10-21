@@ -62,6 +62,8 @@ export default function Loader() {
     if (show) return;
     document.body.classList.remove("lock");
     (window as any).lenis?.start();
+    (window as any).__introDone = true;
+    window.dispatchEvent(new Event("rn-intro-done"));
   }, [show]);
 
   const found = Math.min(7, Math.floor(p * 7 + 0.0001));

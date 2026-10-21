@@ -1052,3 +1052,50 @@ main{overflow-x:clip}.evo-top{max-width:100%}
   .dbf-portal:hover .dbf-sweep{animation-duration:1.2s}
 }
 @media (prefers-reduced-motion:reduce){.dbf-sweep,.dbf-blip{animation:none}}
+
+/* ===================== ESCENA PROTAGONISTA (MesaStage) ===================== */
+.mesa{position:relative;width:100%;height:100svh;min-height:560px;overflow:hidden;background:transparent;
+  -webkit-mask-image:linear-gradient(180deg,#000 86%,transparent 100%);mask-image:linear-gradient(180deg,#000 86%,transparent 100%)}
+.mesa-cv{position:absolute;inset:0;width:100%;height:100%;display:block;opacity:0;transition:opacity .9s ease}
+.mesa.ready .mesa-cv{opacity:1}
+.mesa-shade{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(7,5,15,.78) 0%,rgba(7,5,15,.45) 26%,rgba(7,5,15,0) 50%),linear-gradient(0deg,rgba(7,5,15,.6),transparent 30%)}
+.mesa-ui{position:absolute;left:0;right:0;bottom:clamp(86px,14vh,150px);z-index:2;pointer-events:none}
+.mesa-copy{max-width:min(620px,52%);display:flex;flex-direction:column;align-items:flex-start;gap:14px}
+.mesa-tag{font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:#c4122f;border:2.5px solid #000;box-shadow:4px 4px 0 #000;padding:6px 14px;transform:rotate(-2deg);opacity:0;transition:opacity .6s ease .1s}
+.mesa.ready .mesa-tag{opacity:1}
+.mesa-name{margin:0;display:flex;flex-direction:column;font-family:var(--f-db);font-weight:400;line-height:.98;font-size:clamp(50px,7.6vw,128px);letter-spacing:.012em;color:#fff;
+  -webkit-text-stroke:.07em #000;paint-order:stroke fill;text-shadow:0 .06em 0 #c4122f,0 .11em 0 #000}
+.mesa-name .dbt .hl{color:#ffcf2e}
+.mesa-role{margin:0;font-family:var(--f-mono);font-size:clamp(12px,1.2vw,15px);color:#e4d8ff;letter-spacing:.04em;text-shadow:0 2px 12px rgba(0,0,0,.8);opacity:0;transition:opacity .8s ease .9s}
+.mesa.ready .mesa-role{opacity:1}
+.mesa-hint{position:absolute;z-index:3;right:clamp(16px,4vw,56px);bottom:clamp(86px,14vh,150px);display:flex;flex-direction:column;align-items:flex-end;gap:6px;pointer-events:none;
+  background:#ffcf2e;color:#0a0a0a;border:3px solid #000;box-shadow:5px 5px 0 #000;padding:10px 14px;transform:rotate(1.5deg);transition:opacity .5s ease,transform .5s var(--ease-out);font-family:var(--f-mono);font-weight:700;font-size:12.5px}
+.mesa-hint small{font-weight:500;font-size:11px;opacity:.75}
+.mesa-hint.off{opacity:0;transform:translateY(10px) rotate(1.5deg)}
+.mesa-hint .h-coarse{display:none}
+@media (hover:none),(pointer:coarse){.mesa-hint .h-fine{display:none}.mesa-hint .h-coarse{display:inline}}
+.mesa-scroll{position:absolute;z-index:3;left:50%;bottom:22px;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:0;padding:10px 14px;cursor:pointer;
+  font-family:var(--f-mono);font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:#cbbdf0}
+.mesa-scroll i{width:12px;height:12px;border-right:2px solid #ffcf2e;border-bottom:2px solid #ffcf2e;transform:rotate(45deg);animation:bob2 1.6s ease-in-out infinite}
+@keyframes bob2{0%,100%{transform:translateY(0) rotate(45deg)}50%{transform:translateY(7px) rotate(45deg)}}
+.mesa-scroll:focus-visible{outline:3px solid #ffcf2e;outline-offset:3px;border-radius:10px}
+/* clic: onda de ki desde el punto pulsado + destello + sacudida */
+.mesa-burst{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden}
+.mesa-burst span{position:absolute;inset:0}
+.mesa-burst i{position:absolute;left:var(--bx,50%);top:var(--by,50%);width:340px;height:340px;margin:-170px 0 0 -170px;border-radius:50%;border:6px solid rgba(120,200,255,.95);box-shadow:0 0 40px rgba(80,170,255,.9),inset 0 0 40px rgba(80,170,255,.7);opacity:0;animation:mring 1.1s linear forwards}
+.mesa-burst i+i{border-color:#fff;animation-delay:.12s}
+.mesa-burst b{position:absolute;inset:0;background:radial-gradient(circle at var(--bx,50%) var(--by,50%),#fff 0,rgba(150,210,255,.7) 18%,transparent 52%);opacity:0;animation:mflash .6s linear forwards}
+@keyframes mring{0%{opacity:.95;transform:scale(.15)}35%{opacity:.8;transform:scale(1.1)}100%{opacity:0;transform:scale(3.4)}}
+@keyframes mflash{0%{opacity:.85}100%{opacity:0}}
+.mesa.shake .mesa-cv{animation:mshake .42s linear}
+@keyframes mshake{0%,100%{transform:translate3d(0,0,0)}15%{transform:translate3d(-7px,4px,0)}30%{transform:translate3d(6px,-5px,0)}45%{transform:translate3d(-5px,-3px,0)}60%{transform:translate3d(5px,4px,0)}80%{transform:translate3d(-2px,2px,0)}}
+@media (max-width:900px){
+  .mesa-shade{background:linear-gradient(0deg,rgba(7,5,15,.92) 0%,rgba(7,5,15,.55) 34%,transparent 62%),linear-gradient(180deg,rgba(7,5,15,.6),transparent 18%)}
+  .mesa-ui{bottom:clamp(96px,16vh,150px)}
+  .mesa-copy{max-width:none;align-items:center;text-align:center}
+  .mesa-name{align-items:center;font-size:clamp(46px,13vw,92px)}
+  .mesa-hint{right:auto;left:50%;transform:translateX(-50%) rotate(1.5deg);bottom:auto;top:116px;align-items:center;text-align:center;width:max-content;max-width:88vw}
+  .mesa-hint.off{transform:translateX(-50%) translateY(-10px) rotate(1.5deg)}
+}
+@media (prefers-reduced-motion:reduce){.mesa-cv,.mesa-tag,.mesa-role{transition:none}.mesa-scroll i{animation:none}.mesa.shake .mesa-cv{animation:none}.mesa-burst{display:none}}

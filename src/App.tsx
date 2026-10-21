@@ -8,6 +8,7 @@ import CursorAvatar from "./components/CursorAvatar";
 import Hud, { scrollToId } from "./components/Hud";
 import Footer from "./components/Footer";
 import ContactDock from "./components/ContactDock";
+import MesaStage from "./components/MesaStage";
 import Hero from "./components/Hero";
 import Profile from "./components/Profile";
 import Transformations from "./components/Transformations";
@@ -43,6 +44,7 @@ export default function App() {
       <CursorAvatar />
       <Hud />
       <main>
+        <MesaStage />
         <Hero />
         <Profile />
         <Transformations />

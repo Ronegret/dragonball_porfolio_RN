@@ -5,16 +5,15 @@ import { scrollToId } from "./Hud";
 /** Dock inferior para móvil/tablet: el contacto siempre a un toque. Se oculta en el hero (ya tiene sus botones)
  *  y cuando las opciones de contacto del footer ya están a la vista. */
 export default function ContactDock() {
-  const [vis, setVis] = useState({ hero: true, contact: false });
+  const [seen, setSeen] = useState<string[]>(["inicio"]);
   useEffect(() => {
     const io = new IntersectionObserver((es) => es.forEach((e) => {
-      const key = e.target.id === "hero" ? "hero" : "contact";
-      setVis((v) => (v[key] === e.isIntersecting ? v : { ...v, [key]: e.isIntersecting }));
+      setSeen((v) => (e.isIntersecting ? (v.includes(e.target.id) ? v : [...v, e.target.id]) : v.filter((x) => x !== e.target.id)));
     }), { threshold: 0.05 });
-    ["hero", "contacto"].forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+    ["inicio", "hero", "contacto"].forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
     return () => io.disconnect();
   }, []);
-  const show = !vis.hero && !vis.contact;
+  const show = seen.length === 0;
   return (
     <div className={"cdock" + (show ? " on" : "")} role="region" aria-label="Acciones de contacto" aria-hidden={!show}>
       <button className="btn solid cd-main" tabIndex={show ? 0 : -1} onClick={() => scrollToId("contacto", -110)}>✉ Contactar</button>
