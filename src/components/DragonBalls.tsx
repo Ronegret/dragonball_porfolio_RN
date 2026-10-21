@@ -1,11 +1,15 @@
 import { useEffect, useRef } from "react";
 import { useBalls } from "../lib";
 
-// [sección, left%, top%] — una esfera por sección
-const SPOTS: [string, number, number][] = [
-  ["hero", 4, 44], ["perfil", 92, 16], ["poderes", 85, 20],
-  ["stack", 95, 42], ["sagas", 94, 8], ["trayectoria", 95, 26], ["referencias", 92, 80],
-];
+// cada visita las esferas se esconden en sitios distintos: 7 de estas zonas, a una altura y lado al azar
+const ZONES = ["hero", "perfil", "poderes", "stack", "sagas", "trayectoria", "referencias", "multiverso"];
+const rnd = (a: number, b: number) => a + Math.random() * (b - a);
+function randomSpots(): [string, number, number][] {
+  const z = [...ZONES];
+  for (let i = z.length - 1; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [z[i], z[j]] = [z[j], z[i]]; }
+  // siempre en los márgenes (izquierda o derecha) para no tapar contenido
+  return z.slice(0, 7).map((id) => [id, Math.random() < 0.5 ? rnd(1.5, 5) : rnd(89, 94), rnd(8, 82)]);
+}
 
 export default function DragonBalls() {
   const { collect, isDone } = useBalls();
@@ -15,7 +19,7 @@ export default function DragonBalls() {
 
   useEffect(() => {
     const made: HTMLDivElement[] = [];
-    SPOTS.forEach(([id, left, top], idx) => {
+    randomSpots().forEach(([id, left, top], idx) => {
       const star = idx + 1;
       const sec = document.getElementById(id);
       if (!sec) return;

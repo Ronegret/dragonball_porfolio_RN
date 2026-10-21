@@ -17,6 +17,7 @@ import References from "./components/References";
 import Shenron from "./components/Shenron";
 import DragonBalls from "./components/DragonBalls";
 import Loader from "./components/Loader";
+import SpaceBackground from "./components/SpaceBackground";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -36,7 +37,7 @@ export default function App() {
     <BallsProvider>
       <Loader />
       <div className="bg-layer bg-tint" />
-      <div className="bg-layer bg-grid" />
+      <SpaceBackground />
       <CursorAvatar />
       <Hud />
       <main>

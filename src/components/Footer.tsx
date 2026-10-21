@@ -47,7 +47,7 @@ export function DBLogo() {
 export default function Footer() {
   const { reset } = useBalls();
   return (
-    <footer className="dbfoot">
+    <footer className="dbfoot" id="multiverso">
       <div className="dbf-sky" aria-hidden />
       <div className="wrap">
         <div className="dbf-head">
