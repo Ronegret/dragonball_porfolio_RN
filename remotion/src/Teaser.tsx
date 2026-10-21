@@ -137,7 +137,7 @@ const Cta: React.FC = () => {
       <div style={{ position: "absolute", left: 60, right: 60, top: 1230, display: "flex", flexDirection: "column", alignItems: "center", gap: 26, opacity: url, transform: `translateY(${(1 - url) * 80}px)` }}>
         <div style={{ fontFamily: INTER, fontWeight: 700, fontSize: 46, color: "#e4d8ff", textAlign: "center" }}>Reúne las 7 esferas e invoca a Shen Long</div>
         <Caption rotate={-1.5} style={{ padding: "20px 40px" }}>
-          <div style={{ fontFamily: DB, fontSize: 50 }}>dragonball-porfolio-rn.vercel.app</div>
+          <div style={{ fontFamily: DB, fontSize: 50 }}>db.rodrigonegrete.es</div>
         </Caption>
         <div style={{ fontFamily: INTER, fontWeight: 700, fontSize: 40, color: "#ffcf2e" }}>Proyecto estrella: rodd.es</div>
       </div>
