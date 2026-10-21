@@ -64,6 +64,8 @@ export default function Shenron() {
         <AnimatePresence mode="wait">
           {!unlocked ? (
             <motion.div key="lock" className="shen-lock" exit={{ opacity: 0, transform: "scale(0.98)" }} transition={{ duration: 0.25, ease: EASE_OUT }}>
+              <img className="shen-rod" src="/assets/rod/radar.webp" alt="Rodrigo rastreando las esferas con el Radar del Dragón" loading="lazy" />
+              <div className="shen-lock-body">
               <div className="shen-balls" aria-label={`Llevas ${count} de 7 esferas`}>
                 {[1, 2, 3, 4, 5, 6, 7].map((s) => (
                   <img key={s} src={`/assets/db/ball${s}.webp`} alt="" className={isDone(s) ? "got" : ""} />
@@ -72,6 +74,7 @@ export default function Shenron() {
               <h2><DBText text="El cielo aún está *en calma…*" /></h2>
               <p>Reúne las <b>7 esferas del dragón</b> escondidas por la web para invocar a Shen Long y desbloquear todas mis vías de contacto. Llevas <b>{count} de 7</b>.</p>
               <button className="btn gold" data-cursor onClick={recruiter}>⚡ Soy reclutador: reunirlas ahora</button>
+              </div>
             </motion.div>
           ) : (
             <motion.div key="open" className="shen-open" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.4 }}>
@@ -79,8 +82,15 @@ export default function Shenron() {
               <motion.img className="shen-img" src="/assets/shenron.jpg" alt="Shen Long emerge de las 7 esferas del dragón"
                 initial={{ opacity: 0, transform: "scale(0.96)" }} animate={{ opacity: 1, transform: "scale(1)" }}
                 transition={{ duration: 0.9, ease: EASE_OUT, delay: 0.15 }} />
-              <h2><DBText text="HAS REUNIDO LAS *7 ESFERAS*" /></h2>
-              <p className="shen-says">«Dime tu deseo, y te lo concederé.»</p>
+              <div className="shen-title">
+                <motion.img className="shen-kneel" src="/assets/rod/kneel-balls.webp" alt="Rodrigo con las 7 esferas del dragón reunidas"
+                  initial={{ opacity: 0, transform: "translateY(28px) scale(0.94)" }} animate={{ opacity: 1, transform: "translateY(0px) scale(1)" }}
+                  transition={{ type: "spring", duration: 0.7, bounce: 0.3, delay: 0.6 }} />
+                <div>
+                  <h2><DBText text="HAS REUNIDO LAS *7 ESFERAS*" /></h2>
+                  <p className="shen-says">«Dime tu deseo, y te lo concederé.»</p>
+                </div>
+              </div>
 
               <div className="shen-wishes">
                 <a className="btn solid big" data-cursor href={INTERVIEW}><DBIcon name="calendar" size={34} /> Deseo una entrevista con Rodrigo</a>

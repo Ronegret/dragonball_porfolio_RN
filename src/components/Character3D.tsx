@@ -254,7 +254,8 @@ export default function Character3D() {
           <motion.p className="balloon" role="note"
             initial={{ opacity: 0, transform: "translateY(8px) scale(0.92)" }} animate={{ opacity: 1, transform: "translateY(0px) scale(1)" }}
             exit={{ opacity: 0, transform: "translateY(-6px) scale(0.95)" }} transition={{ type: "spring", duration: 0.5, bounce: 0.3, delay: 1.2 }}>
-            ¡Hola! Soy Rodrigo. <b>Pulsa sobre mí</b> y mira cómo me transformo.
+            <span className="bl-long">¡Hola! Soy Rodrigo. <b>Pulsa sobre mí</b> y mira cómo me transformo.</span>
+            <span className="bl-short">¡Hola! <b>Tócame</b> y me transformo.</span>
           </motion.p>
         )}
       </AnimatePresence>

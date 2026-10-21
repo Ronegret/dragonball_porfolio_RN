@@ -1,8 +1,24 @@
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { motion, animate, useReducedMotion } from "framer-motion";
 import { PROFILE, STATS } from "../data";
 import { scrollToId } from "./Hud";
 import Character3D from "./Character3D";
 import { DBText } from "../lib";
+
+/** "50+" -> cuenta de 0 a 50 y mantiene el sufijo */
+function CountUp({ value }: { value: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const reduce = useReducedMotion();
+  useEffect(() => {
+    const m = value.match(/^(\d+)(.*)$/);
+    if (!m || reduce) return;
+    const [, num, suf] = m;
+    const c = animate(0, Number(num), { duration: 1.2, delay: 1, ease: [0.23, 1, 0.32, 1],
+      onUpdate: (v) => { if (ref.current) ref.current.textContent = Math.round(v) + suf; } });
+    return () => c.stop();
+  }, [value, reduce]);
+  return <span ref={ref}>{reduce ? value : value.replace(/^\d+/, "0")}</span>;
+}
 
 export default function Hero() {
   return (
@@ -37,7 +53,7 @@ export default function Hero() {
           <motion.div className="hero-stats"
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.9, duration: 0.8 }}>
             {STATS.map((s) => (
-              <div className="st" key={s.l}><b>{s.n}</b><span>{s.l}</span></div>
+              <div className="st" key={s.l}><b><CountUp value={s.n} /></b><span>{s.l}</span></div>
             ))}
           </motion.div>
         </div>

@@ -24,6 +24,7 @@ export default function SpaceBackground() {
 
   return (
     <div className="bg-layer space" ref={ref} aria-hidden>
+      <div className="nebula" />
       {[["s1", 0.03], ["s2", 0.07], ["s3", 0.13]].map(([c, d]) => (
         <div key={c} className={"sp-par " + c} data-depth={d}><div className="sp-stars" /></div>
       ))}

@@ -145,7 +145,8 @@ section{position:relative;z-index:1}
 .evo-card .sk i{font-style:normal;font-family:var(--f-mono);font-size:10.5px;padding:5px 10px;border-radius:999px;border:1px solid var(--aura);color:#fff;background:var(--aura-soft)}
 .evo-card .pw{display:flex;align-items:center;gap:12px;margin-top:18px;font-family:var(--f-mono);font-size:10.5px;color:var(--mut);letter-spacing:.08em}
 .evo-card .pw .bar{flex:1;height:7px;border-radius:4px;background:rgba(255,255,255,.08);overflow:hidden}
-.evo-card .pw .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--aura),#fff);box-shadow:0 0 12px var(--aura);transition:width .6s}
+.evo-card .pw .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--aura),#fff);box-shadow:0 0 12px var(--aura);transform:scaleX(0);transform-origin:0 50%;transition:transform .7s var(--ease-out) .15s}
+.evo-card.on .pw .bar i{transform:scaleX(1)}
 .evo-dots{position:absolute;right:26px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:14px}
 .evo-dots b{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,.22);cursor:pointer;transition:.4s;display:block}
 .evo-dots b.on{background:var(--aura);box-shadow:0 0 14px var(--aura);transform:scale(1.4)}
@@ -815,14 +816,7 @@ main{overflow-x:clip}.evo-top{max-width:100%}
   box-shadow:0 0 0 2px rgba(150,255,200,.22),0 0 46px 12px rgba(80,220,150,.25)}
 /* mapa: tesela repetida en X (el bucle a -50% es continuo) con continentes de varios verdes e islas */
 .namek-map,.namek-clouds{position:absolute;top:0;left:0;width:200%;height:100%;background-repeat:repeat-x;background-size:50% 100%}
-.namek-map{animation:nspin 70s linear infinite;
-  background-image:
-    radial-gradient(9% 7% at 14% 22%,#7fdc8a 55%,transparent 60%),radial-gradient(16% 12% at 20% 30%,#2f8d4e 60%,transparent 64%),
-    radial-gradient(11% 15% at 34% 58%,#3c9c5a 60%,transparent 64%),radial-gradient(6% 5% at 30% 52%,#8ee59a 55%,transparent 60%),
-    radial-gradient(18% 10% at 58% 26%,#2b7f47 60%,transparent 64%),radial-gradient(8% 6% at 66% 36%,#4fb36a 60%,transparent 64%),
-    radial-gradient(14% 13% at 76% 70%,#2f8d4e 60%,transparent 64%),radial-gradient(4% 3% at 48% 80%,#4fb36a 60%,transparent 64%),
-    radial-gradient(3% 3% at 88% 44%,#4fb36a 60%,transparent 64%),radial-gradient(5% 4% at 6% 74%,#3c9c5a 60%,transparent 64%),
-    linear-gradient(180deg,#6fd8bb,#41b294 50%,#2a8b73)}
+.namek-map{width:400%;animation:nspin 80s linear infinite;background-image:url(/assets/space/namek.webp)}
 .namek-clouds{animation:nspin 42s linear infinite;opacity:.7;
   background-image:radial-gradient(14% 3% at 20% 40%,rgba(255,255,255,.75),transparent 70%),radial-gradient(10% 2.5% at 64% 62%,rgba(255,255,255,.65),transparent 70%),
     radial-gradient(18% 3% at 84% 22%,rgba(255,255,255,.55),transparent 70%),radial-gradient(8% 2% at 40% 84%,rgba(255,255,255,.5),transparent 70%)}
@@ -861,3 +855,45 @@ main{overflow-x:clip}.evo-top{max-width:100%}
   .space *{animation:none!important}
   .pod-fly,.ship-fly,.shoot{display:none}
 }
+
+/* ===== nuevas ilustraciones de Rodrigo ===== */
+.bl-short{display:none}
+@media (max-width:1000px){
+  .bl-long{display:none}.bl-short{display:inline}
+  .balloon{left:0;top:4%;max-width:118px;padding:8px 10px;font-size:12.5px;line-height:1.25}
+  .balloon::after{right:14px;bottom:-14px;width:16px;height:16px}
+}
+
+.shen-lock{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);align-items:center;gap:20px;text-align:center}
+.shen-rod{width:100%;max-width:300px;justify-self:center;-webkit-mask-image:linear-gradient(180deg,#000 74%,transparent);mask-image:linear-gradient(180deg,#000 74%,transparent)}
+.shen-lock-body{min-width:0}
+.shen-title{display:flex;align-items:center;justify-content:center;gap:26px;text-align:left;margin-bottom:8px}
+.shen-kneel{width:min(240px,34vw);flex:none;filter:drop-shadow(0 14px 26px rgba(0,0,0,.5))}
+@media (max-width:760px){
+  .shen-lock{grid-template-columns:1fr;padding-top:36px}
+  .shen-rod{max-width:200px}
+  .shen-title{flex-direction:column;text-align:center;gap:6px}
+  .shen-kneel{width:200px}
+}
+
+.ref-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
+.ref-rod{width:250px;flex:none;margin-bottom:-6px;-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent);mask-image:linear-gradient(180deg,#000 70%,transparent)}
+@media (max-width:900px){.ref-rod{display:none}}
+
+.dbf-stage{position:relative}
+.dbf-rod{position:absolute;left:-2%;bottom:-40px;height:440px;width:auto;pointer-events:none;
+  -webkit-mask-image:linear-gradient(180deg,#000 68%,transparent);mask-image:linear-gradient(180deg,#000 68%,transparent)}
+@media (max-width:1100px){
+  .dbf-rod{position:relative;display:block;left:auto;bottom:auto;height:260px;margin:40px auto -70px}
+}
+
+/* ===== fondo realista: nebulosa procedural que respira despacio ===== */
+.nebula{position:absolute;inset:-5%;background:url(/assets/space/nebula.webp) center/cover no-repeat;opacity:.95;will-change:transform;animation:nebdrift 120s ease-in-out infinite alternate}
+@keyframes nebdrift{from{transform:scale(1) translate3d(0,0,0)}to{transform:scale(1.08) translate3d(-1.5%,-1%,0)}}
+.galaxy{opacity:.32}.g2{opacity:.22}.g3{opacity:.26}
+.s1 .sp-stars{opacity:.35}
+
+/* ===== feedback al pulsar tarjetas y portales ===== */
+.capsule:active,.lab-card:active,.dbf-portal:active,.dbf-unis a:active,.link-card:active{transform:scale(.97)!important;transition:transform .12s var(--ease-out)}
+@media (prefers-reduced-motion:reduce){.nebula{animation:none}.evo-card .pw .bar i{transition:none}}
+.hero-stats .st b>span{all:inherit;display:inline}   /* el contador hereda el estilo del número, no el de la etiqueta */

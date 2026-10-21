@@ -29,9 +29,9 @@ export default function Stack() {
                   <div className="tool" key={t.n}>
                     <div className="t"><b>{t.n}</b><span>{t.lv}</span></div>
                     <div className="ki">
-                      <motion.i style={{ display: "block", height: "100%" }}
-                        initial={{ width: 0 }} whileInView={{ width: t.k + "%" }}
-                        viewport={{ once: true }} transition={{ duration: 1, ease: [0.22, 0.61, 0.36, 1] }} />
+                      <motion.i style={{ display: "block", height: "100%", width: t.k + "%", transformOrigin: "0 50%" }}
+                        initial={{ transform: "scaleX(0)" }} whileInView={{ transform: "scaleX(1)" }}
+                        viewport={{ once: true }} transition={{ duration: 1, ease: [0.23, 1, 0.32, 1] }} />
                     </div>
                   </div>
                 ))}

@@ -5,6 +5,7 @@ export default function References() {
   return (
     <section id="referencias" className="sec">
       <div className="wrap">
+        <div className="ref-top">
         <Reveal>
           <div className="sec-head" data-sfx="¡WOW!">
             <div className="sec-tag">Aliados · Referencias verificadas</div>
@@ -12,6 +13,8 @@ export default function References() {
             <p>Opiniones reales de colaboradores y clientes. Solo publico referencias con permiso explícito de cada persona.</p>
           </div>
         </Reveal>
+        <img className="ref-rod" src="/assets/rod/jacket.webp" alt="Rodrigo Negrete" loading="lazy" />
+        </div>
 
         <div className="ref-grid">
           {REFERENCES.map((r, i) => (

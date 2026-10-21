@@ -1,4 +1,4 @@
-import { useBalls, sfx, DBText } from "../lib";
+import { useBalls, sfx, DBText, Reveal } from "../lib";
 import { CONTACT } from "../data";
 import { scrollToId } from "./Hud";
 
@@ -57,31 +57,36 @@ export default function Footer() {
         </div>
 
         <div className="dbf-portals">
-          {PORTALS.map((p) => (
-            <a key={p.name} className="dbf-portal" href={p.href} target="_blank" rel="noopener" data-cursor onClick={() => sfx("teleport")}>
+          {PORTALS.map((p, i) => (
+            <Reveal key={p.name} delay={i * 0.08}>
+            <a className="dbf-portal" href={p.href} target="_blank" rel="noopener" data-cursor onClick={() => sfx("teleport")}>
               <span className="dbf-ring"><img src={`/assets/proj/${p.img}.webp`} alt={`Vista de ${p.name}`} loading="lazy" /></span>
               <span className="dbf-ptag">{p.tag}</span>
               <b>{p.name}</b>
               <span className="dbf-pdesc">{p.desc}</span>
               <span className="dbf-go">{p.cta} ↗</span>
             </a>
+            </Reveal>
           ))}
         </div>
 
         <h3 className="dbf-uh"><DBText text="Elige tu universo" /></h3>
         <ul className="dbf-unis">
-          {UNIVERSES.map((u) => (
-            <li key={u.n}>
+          {UNIVERSES.map((u, i) => (
+            <li key={u.n}><Reveal delay={i * 0.06}>
               <a href={u.href} target={u.href.startsWith("mailto") ? undefined : "_blank"} rel="noopener" data-cursor style={{ ["--u" as any]: u.c }}>
                 <span className="dbf-un">U{u.n}</span>
                 <b>{u.label}</b>
                 <small>{u.sub}</small>
               </a>
-            </li>
+            </Reveal></li>
           ))}
         </ul>
 
-        <DBLogo />
+        <div className="dbf-stage">
+          <img className="dbf-rod" src="/assets/rod/look-up.webp" alt="" loading="lazy" />
+          <DBLogo />
+        </div>
 
         <div className="dbf-end">
           <span>¡Continuará!</span>
