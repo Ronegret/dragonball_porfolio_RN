@@ -12,11 +12,10 @@ export function hexA(hex: string, a: number) {
 }
 
 /* ---------- audio (Howler + efectos en public/assets/sfx) ---------- */
-export type Sfx = "poof" | "intro" | "powerup" | "teleport" | "radar" | "shenlong";
+export type Sfx = "capsule" | "intro" | "powerup" | "teleport" | "radar" | "shenlong";
 // volúmenes: los efectos de interfaz van ~10 dB por debajo de la música (los archivos ya vienen ajustados en tools/build-sfx-user.py)
-const VOL: Record<Sfx, number> = { poof: 0.2, intro: 0.6, powerup: 0.7, teleport: 0.6, radar: 0.7, shenlong: 0.8 };
-const WAV = new Set<Sfx>(["poof"]);                                // el resto son mp3 (sonidos de la serie)
-const SOLO = new Set<Sfx>(["powerup", "shenlong", "intro"]);       // efectos largos: una sola instancia a la vez
+const VOL: Record<Sfx, number> = { capsule: 0.7, intro: 0.6, powerup: 0.7, teleport: 0.6, radar: 0.7, shenlong: 0.8 };
+const SOLO = new Set<Sfx>(["powerup", "shenlong", "intro", "capsule"]);       // efectos largos: una sola instancia a la vez
 const _howls: Partial<Record<Sfx, Howl>> = {};
 const _last: Partial<Record<Sfx, number>> = {};
 // sonido activado por defecto (se recuerda si el visitante lo silencia)
@@ -32,7 +31,7 @@ export const setMuted = (m: boolean) => {
   if (m) Object.values(_howls).forEach((h) => h?.stop());
   window.dispatchEvent(new CustomEvent("rn-mute", { detail: m }));
 };
-const howl = (name: Sfx) => _howls[name] || (_howls[name] = new Howl({ src: [`/assets/sfx/${name}.${WAV.has(name) ? "wav" : "mp3"}`], volume: VOL[name] }));
+const howl = (name: Sfx) => _howls[name] || (_howls[name] = new Howl({ src: [`/assets/sfx/${name}.mp3`], volume: VOL[name] }));
 /** descarga el sonido por adelantado (p. ej. la intro mientras se ve la cartela) */
 export const preloadSfx = (name: Sfx) => { howl(name); };
 /** gap: ms mínimos entre dos reproducciones del mismo efecto (para hovers) */
@@ -44,6 +43,11 @@ export function sfx(name: Sfx, gap = 0) {
   const h = howl(name);
   if (SOLO.has(name)) h.stop();
   h.play();
+}
+/** baja y detiene un efecto largo (p. ej. el tema de las cápsulas al cerrar el proyecto) */
+export function fadeOutSfx(name: Sfx, ms = 450) {
+  const h = _howls[name]; if (!h || !h.playing()) return;
+  h.fade(h.volume(), 0, ms); setTimeout(() => { h.stop(); h.volume(VOL[name]); }, ms + 30);
 }
 /** música de la intro: suena fuerte al abrir, baja para convivir con la web y se apaga sola */
 export function playIntroMusic() {

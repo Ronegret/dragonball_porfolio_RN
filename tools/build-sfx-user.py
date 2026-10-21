@@ -16,6 +16,7 @@ JOBS = {
     "powerup":  ("evolucion.mp3",            0,    2.6,  0.15, 1.1, -14),    # clic sobre el personaje: transformación breve
     "teleport": ("dbz_teleport.mp3",         0.12, None, 0.02, 0.15, -17),   # salto de sección
     "radar":    ("dragonball-radar.mp3",     0,    None, 0,    0,   -18),    # esfera encontrada
+    "capsule":  ("dbz-vegeta-theme-beginning.mp3", 0, None, 0.02, 0.9, -12),   # abrir una cápsula (tema de Vegeta, 5 s)
     "shenlong": ("shenlong_effect.mp3",      0,    None, 0.05, 0.6, -12),    # invocación de Shen Long
 }
 

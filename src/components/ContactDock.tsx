@@ -5,12 +5,12 @@ import { scrollToId } from "./Hud";
 /** Dock inferior para móvil/tablet: el contacto siempre a un toque. Se oculta en el hero (ya tiene sus botones)
  *  y cuando las opciones de contacto del footer ya están a la vista. */
 export default function ContactDock() {
-  const [seen, setSeen] = useState<string[]>(["inicio"]);
+  const [seen, setSeen] = useState<string[]>(["hero"]);
   useEffect(() => {
     const io = new IntersectionObserver((es) => es.forEach((e) => {
       setSeen((v) => (e.isIntersecting ? (v.includes(e.target.id) ? v : [...v, e.target.id]) : v.filter((x) => x !== e.target.id)));
     }), { threshold: 0.05 });
-    ["inicio", "hero", "contacto"].forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+    ["hero", "contacto"].forEach((id) => { const el = document.getElementById(id); if (el) io.observe(el); });
     return () => io.disconnect();
   }, []);
   const show = seen.length === 0;

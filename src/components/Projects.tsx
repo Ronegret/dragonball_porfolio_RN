@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 import { gsap } from "gsap";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { PROJECTS, PROJECT_CATS, LAB } from "../data";
-import { Reveal, hexA, sfx, More, DBText } from "../lib";
+import { Reveal, hexA, sfx, fadeOutSfx, More, DBText } from "../lib";
 import Splash from "./Splash";
 
 function capsuleBurst(x: number, y: number, color: string) {
@@ -35,6 +35,7 @@ export default function Projects() {
   const list = allCaps ? filtered : filtered.slice(0, 10);
 
   useEffect(() => {
+    if (sel === null) fadeOutSfx("capsule");        // al cerrar el proyecto el tema se apaga con un fundido
     document.body.classList.toggle("lock", sel !== null);
     const esc = (e: KeyboardEvent) => { if (e.key === "Escape") setSel(null); };
     window.addEventListener("keydown", esc);
@@ -45,7 +46,7 @@ export default function Projects() {
     const el = e.currentTarget as HTMLElement;
     const r = el.getBoundingClientRect();
     capsuleBurst(r.left + r.width / 2, r.top + r.height / 2, PROJECTS[gi].cap);
-    sfx("poof");
+    sfx("capsule");        // tema de Vegeta al abrir una cápsula
     if (!seen.includes(gi)) { const n = [...seen, gi]; setSeen(n); try { localStorage.setItem("rn_caps", JSON.stringify(n)); } catch { /* sin almacenamiento */ } }
     el.style.transition = "transform .18s"; el.style.transform = "scale(.35) translateY(8px)";
     setTimeout(() => { el.style.transform = ""; setSel(gi); }, 300);
