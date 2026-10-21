@@ -74,6 +74,17 @@ _source/                 # originales (no se versiona ni se despliega)
 | `build-capsules.py` | Genera las 16 cápsulas Hoi-Poi |
 | `build-space.py` | Genera la nebulosa procedural |
 
+## 🎬 Remotion (imagen para compartir y teaser)
+La carpeta `remotion/` es un proyecto aparte (no entra en el build de la web) que usa los mismos assets y la misma tipografía:
+```bash
+cd remotion
+npm install
+npm run assets   # copia a remotion/public los assets de la web
+npm run og       # imagen Open Graph 1200x630 -> out/og.jpg  (copiar a public/og.jpg)
+npm run teaser   # teaser vertical 1080x1920, 14 s, con la música de apertura -> out/teaser.mp4
+npx remotion studio   # previsualizar y ajustar las composiciones
+```
+
 ## 🎞️ Regenerar los frames (si cambias el vídeo)
 ```bash
 ffmpeg -i tu-video.mp4 -vf "select=not(mod(n\,5)),scale=900:-2" -vsync 0 -q:v 4 public/assets/frames/f%04d.jpg -y

@@ -107,6 +107,22 @@ def drop_specks(rgba, min_area=150, near=6, thr=25):
     return out
 
 
+def feather(rgba, px=24, sides="tlrb", protect=None):
+    """Rampa de alfa hacia los bordes para lo semitransparente (aura, sombra, niebla): no deja un corte seco donde el borde
+    toca un halo. Se respeta lo opaco (alfa >= 250, personajes cortados por el marco) o, si se da, la máscara `protect`."""
+    h, w = rgba.shape[:2]
+    yy, xx = np.mgrid[0:h, 0:w]
+    ramp = np.ones((h, w), np.float32)
+    if "t" in sides: ramp = np.minimum(ramp, smoothstep(yy, 0, px))
+    if "b" in sides: ramp = np.minimum(ramp, smoothstep(h - 1 - yy, 0, px))
+    if "l" in sides: ramp = np.minimum(ramp, smoothstep(xx, 0, px))
+    if "r" in sides: ramp = np.minimum(ramp, smoothstep(w - 1 - xx, 0, px))
+    out = rgba.copy()
+    keep = (rgba[..., 3] >= 250) if protect is None else protect
+    out[..., 3] = np.where(keep, rgba[..., 3], rgba[..., 3] * ramp)
+    return out
+
+
 def inpaint(rgb, mask):
     import cv2
     return cv2.inpaint(rgb.astype(np.uint8), (mask * 255).astype(np.uint8), 3, cv2.INPAINT_TELEA).astype(np.float32)
@@ -344,18 +360,37 @@ def glow(rgb, body, inset=2, floor=0.03, gain=1.2, gamma=0.7, core_sigma=16, cor
 
 def planet(key, cx, cy, r, half):
     """Planeta (disco opaco) + brillo exterior como luz translúcida, en un cuadrado de lado 2*half con desvanecido radial.
-    El polvo y las lunas oscuras sueltas se rellenan antes (inpaint) para que no dejen agujeros en el brillo."""
+    Antes de separar la luz se rellenan (inpaint) el polvo y las lunas oscuras sueltas y los destellos blancos finos, que
+    por la fórmula del alfa saldrían como muescas negras; los destellos se devuelven después como luz blanca-cian."""
     rgb = load(key)
     h, w = rgb.shape[:2]
     body = disc((h, w), cx, cy, r - 1) > 0.5
+    ring = ndi.binary_dilation(body, iterations=3)
     sat = (rgb.max(-1) - rgb.min(-1)) / np.maximum(rgb.max(-1), 1)
-    speck = ndi.binary_dilation((rgb.mean(-1) < 150) & (sat < 0.25) & ~body, iterations=2)
-    rgb = inpaint(rgb, speck)
-    out = glow(rgb, body, inset=0)
+    m = rgb.min(-1)
+    top = m - ndi.maximum_filter(ndi.minimum_filter(m, size=31), size=31)             # top-hat: blanco más brillante que su entorno
+    yy, xx = np.mgrid[0:h, 0:w]
+    cand = (top > 8) & (m >= 235) & ~ring & (np.hypot(xx - cx, yy - cy) < r + 28)         # solo destellos pegados al limbo
+    lab, n = ndi.label(cand)
+    area = ndi.sum(cand, lab, np.arange(1, n + 1))
+    flare = ndi.binary_dilation(np.isin(lab, 1 + np.flatnonzero((area >= 40) & (area < 3000))), iterations=2) & ~ring   # destellos, no niebla
+    lab, n = ndi.label(flare)
+    lights = [(xc, yc, 1.5 * np.sqrt(a / np.pi) + 10, 1.5 * np.sqrt(a / np.pi) + 10, (225, 250, 255), 0.85)
+              for (yc, xc), a in zip(ndi.center_of_mass(flare, lab, range(1, n + 1)), ndi.sum(flare, lab, range(1, n + 1)))]
+    dark = (rgb.mean(-1) < 150) & (sat < 0.25) & ~ring                                # polvo y lunas grises
+    sun = (rgb[..., 0] >= 200) & (rgb[..., 1] >= 140) & (rgb[..., 2] < 170) & (rgb[..., 0] - rgb[..., 2] > 70) & ~ring   # soles pequeños
+    lab, n = ndi.label(dark | sun)
+    area = ndi.sum(dark | sun, lab, np.arange(1, n + 1))
+    big = np.isin(lab, 1 + np.flatnonzero(area >= 60))                                # objetos con halo propio: relleno más amplio
+    speck = ndi.binary_dilation(big, iterations=9) | ndi.binary_dilation(dark & ~big, iterations=2) | flare
+    speck &= ~ring
+    iy, ix = ndi.distance_transform_edt(ring, return_distances=False, return_indices=True)
+    base = np.where(ring[..., None], rgb[iy, ix], rgb)                                # el planeta no contamina el relleno
+    rgb = np.where(ring[..., None], rgb, inpaint(base, speck))
+    out = glow(rgb, body, inset=0, lights=lights)
     a = disc((h, w), cx, cy, r - 1, 1.5)                                     # borde suave del planeta
     out[..., 3] = np.maximum(out[..., 3] * (1 - a), a * 255)
     out[..., :3] = np.where((a > 0.999)[..., None], rgb, out[..., :3])
-    yy, xx = np.mgrid[0:h, 0:w]
     out[..., 3] *= 1 - smoothstep(np.hypot(xx - cx, yy - cy), half * 0.80, half * 0.99)
     x0, y0, n = int(round(cx - half)), int(round(cy - half)), 2 * int(half)
     sq = np.zeros((n, n, 4), np.float32)
@@ -381,7 +416,7 @@ def b_vest():
 
 
 def b_suit_full():
-    return crop_alpha(solid(load("suit-full"), "tlrb", shadow_y=880)), "rod/suit-full.webp", 260
+    return feather(crop_alpha(solid(load("suit-full"), "tlrb", shadow_y=880), thr=14), 30, "lrb"), "rod/suit-full.webp", 260
 
 
 def b_portrait():
@@ -389,7 +424,7 @@ def b_portrait():
 
 
 def b_roshi():
-    return crop_alpha(solid(load("roshi"), "tlrb", shadow_y=850)), "rod/roshi.webp", 260
+    return feather(crop_alpha(solid(load("roshi"), "tlrb", shadow_y=850), thr=14), 30, "lrb"), "rod/roshi.webp", 260
 
 
 def b_blue_suit():
@@ -397,26 +432,32 @@ def b_blue_suit():
     ref = load("suit-full"); tgt = load("blue-suit")
     body = align_figure(ref, solid(ref, "tlrb", shadow_y=880)[..., 3], tgt, skip_rows=210)
     out = glow(tgt, body, inset=2, lights=[(386, 830, 52, 150, (190, 232, 255), 0.8)])   # núcleo blanco entre las piernas
-    return crop_alpha(out, pad=4, thr=8), "rod/blue-suit.webp", 260
+    return crop_alpha(feather(out, 28, protect=body), pad=4, thr=8), "rod/blue-suit.webp", 260
 
 
 def b_clash():
     rgb = load("clash")
-    out = glow(rgb, figure_by_outline(rgb), inset=1, lights=[(550, 235, 48, 100, (255, 238, 190), 0.9)])   # destello del choque
-    return crop_alpha(out, pad=4, thr=8), "rod/clash.webp", 260
+    body = figure_by_outline(rgb)
+    out = glow(rgb, body, inset=1, lights=[(550, 235, 48, 100, (255, 238, 190), 0.9)])   # destello del choque
+    return crop_alpha(feather(out, 24, protect=body), pad=4, thr=8), "rod/clash.webp", 260
 
 
 def b_team():
-    return crop_alpha(team(), pad=2, thr=8), "rod/team.webp", 260
+    return feather(crop_alpha(team(), pad=2, thr=8), 36, "bl"), "rod/team.webp", 260
 
 
 def b_pod():
     rgb = load("pod")
     body = disc(rgb.shape[:2], 534, 281, 152, 1.5) > 0.5                      # la nave es una esfera: círculo ajustado a mano
+    sat = (rgb.max(-1) - rgb.min(-1)) / np.maximum(rgb.max(-1), 1)
+    dark = (rgb.mean(-1) < 120) & (sat < 0.4) & ~ndi.binary_dilation(body, iterations=3)           # escombros oscuros sueltos
+    rgb = np.where(body[..., None], rgb, inpaint(rgb, ndi.binary_dilation(dark, iterations=2) & ~body))
     out = glow(rgb, body, inset=0, neutral_cut=(0.07, 0.2), core_lo=0.15, core_hi=0.35)
     a = disc(rgb.shape[:2], 534, 281, 152, 1.6)
     out[..., 3] = np.maximum(out[..., 3] * (1 - a), a * 255)
     out[..., :3] = np.where((a > 0.999)[..., None], rgb, out[..., :3])
+    smoke = (1 - smoothstep(out[..., :3].mean(-1), 50, 110)) * (1 - disc(rgb.shape[:2], 534, 281, 166, 8))   # humo oscuro tras la nave
+    out[..., 3] *= 1 - 0.7 * smoke                                           # se aclara para que no parezcan manchas negras
     out = crop_alpha(drop_specks(out), pad=6, thr=30)                         # líneas de velocidad y escombros fuera
     return fit(out, width=700), "space/pod.webp", 260
 
@@ -459,7 +500,7 @@ def scene(key, sides, fade_corners, budget=220, inscribed=False):
 
 
 def b_snake_way():
-    out, kb = scene("snake-way", "t", False)                                 # solo el cielo blanco de arriba; las nubes son contenido
+    out, kb = scene("snake-way", "tl", False)                                # cielo blanco de arriba y borde izquierdo; el resto son nubes (contenido)
     return out, "scenes/snake-way.webp", kb
 
 

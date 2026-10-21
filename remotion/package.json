@@ -1,0 +1,39 @@
+{
+  "name": "rodrigo-negrete-remotion",
+  "version": "1.0.0",
+  "description": "Imagen Open Graph y teaser vertical del portfolio",
+  "repository": {},
+  "license": "UNLICENSED",
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
+  "private": true,
+  "dependencies": {
+    "@remotion/cli": "4.0.537",
+    "@remotion/google-fonts": "4.0.537",
+    "@remotion/media": "4.0.537",
+    "react": "19.2.3",
+    "react-dom": "19.2.3",
+    "remotion": "4.0.537"
+  },
+  "devDependencies": {
+    "@remotion/eslint-config-flat": "4.0.537",
+    "@types/react": "19.2.7",
+    "@types/web": "0.0.166",
+    "eslint": "10.12.0",
+    "prettier": "3.8.1",
+    "typescript": "5.9.3"
+  },
+  "scripts": {
+    "dev": "remotion studio",
+    "build": "remotion bundle",
+    "upgrade": "remotion upgrade",
+    "lint": "eslint src && tsc",
+    "assets": "node scripts/sync-assets.mjs",
+    "og": "remotion still src/index.ts OG out/og.jpg --image-format=jpeg --jpeg-quality=92",
+    "teaser": "remotion render src/index.ts Teaser out/teaser.mp4 --codec=h264 --crf=20"
+  },
+  "allowScripts": {
+    "esbuild": false
+  }
+}
