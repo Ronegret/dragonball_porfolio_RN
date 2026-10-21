@@ -72,7 +72,7 @@ export default function Character3D() {
 
     const size = () => {
       const r = cv.getBoundingClientRect(); if (!r.width) return;
-      dpr = Math.min(window.devicePixelRatio || 1, 2); W = r.width; H = r.height;
+      dpr = 1; W = r.width; H = r.height;   // el aura es un brillo difuso: a 1x se ve igual y pinta 4x menos píxeles en pantallas retina
       cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     };
     size(); window.addEventListener("resize", size);
@@ -128,8 +128,19 @@ export default function Character3D() {
       ctx.closePath();
     };
 
-    const loop = () => {
-      raf = requestAnimationFrame(loop); t += reduce ? 0 : 0.016;
+    // solo anima mientras el hero está en pantalla y la pestaña visible
+    let onScreen = true;
+    const resume = () => { if (!raf && onScreen && !document.hidden) loop(); };
+    const io = new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; resume(); });
+    io.observe(cv);
+    document.addEventListener("visibilitychange", resume);
+
+    let last = 0;
+    const loop = (now = 0) => {
+      if (!onScreen || document.hidden) { raf = 0; return; }
+      raf = requestAnimationFrame(loop);
+      if (now - last < 15) return;   // tope de 60 fps: en pantallas de 120/144 Hz el aura iba al doble de velocidad y coste
+      last = now; t += reduce ? 0 : 0.016;
       const f = formRef.current, S0 = SIZE[f];
       if (burstRef.current > 0) {
         boost = Math.max(boost, 2.6); for (let k = 0; k < 4; k++) bolt();
@@ -211,7 +222,7 @@ export default function Character3D() {
       ctx.globalAlpha = 1; ctx.globalCompositeOperation = "source-over";
     };
     loop();
-    return () => { cancelAnimationFrame(raf); window.removeEventListener("resize", size); window.removeEventListener("mousemove", onMove); };
+    return () => { cancelAnimationFrame(raf); io.disconnect(); document.removeEventListener("visibilitychange", resume); window.removeEventListener("resize", size); window.removeEventListener("mousemove", onMove); };
   }, []);
 
   // ---- precarga imágenes para que el cambio sea instantáneo ----
@@ -231,7 +242,8 @@ export default function Character3D() {
   return (
     <div className="char3d">
       <canvas className="ki-canvas" ref={canvasRef} aria-hidden />
-      <button className="ki-figure" ref={figRef} onClick={evolve} data-cursor style={{ ["--aura" as any]: AURA[form] }}
+      <button className="ki-figure" ref={figRef} onClick={evolve} data-cursor data-snd
+        onPointerEnter={(e) => { if (e.pointerType === "mouse") sfx("charge", 1800); }} style={{ ["--aura" as any]: AURA[form] }}
         aria-label={`${NAMES[form]} — ${STUDY[form]}. Clic para evolucionar.`}>
         <img className="ki-img" ref={imgRef} src={FORMS[form]} alt={NAMES[form]} draggable={false} />
         <span className="ki-ring" ref={ringRef} aria-hidden />

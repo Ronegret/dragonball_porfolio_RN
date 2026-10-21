@@ -12,14 +12,25 @@ export function hexA(hex: string, a: number) {
 }
 
 /* ---------- audio (Howler + efectos en public/assets/sfx) ---------- */
-export type Sfx = "bip" | "pling" | "powerup" | "poof" | "roar" | "thunder";
-const VOL: Record<Sfx, number> = { bip: 0.35, pling: 0.5, powerup: 0.5, poof: 0.5, roar: 0.7, thunder: 0.55 };
+export type Sfx = "bip" | "pling" | "powerup" | "poof" | "roar" | "thunder" | "charge" | "teleport" | "kiblast" | "scouter";
+const VOL: Record<Sfx, number> = { bip: 0.35, pling: 0.5, powerup: 0.6, poof: 0.5, roar: 0.7, thunder: 0.55, charge: 0.4, teleport: 0.45, kiblast: 0.3, scouter: 0.35 };
 const _howls: Partial<Record<Sfx, Howl>> = {};
-let _muted = true; // empieza en silencio: el navegador bloquea audio sin gesto del usuario
+const _last: Partial<Record<Sfx, number>> = {};
+// sonido activado por defecto (se recuerda si el visitante lo silencia)
+let _muted = (() => { try { return localStorage.getItem("rn_muted") === "1"; } catch { return false; } })();
+// no suena nada hasta el primer gesto: así no se acumulan sonidos que el navegador soltaría de golpe al desbloquear
+let _armed = false;
+const arm = () => { _armed = true; };
+window.addEventListener("pointerdown", arm, { once: true, capture: true });
+window.addEventListener("keydown", arm, { once: true, capture: true });
 export const getMuted = () => _muted;
-export const setMuted = (m: boolean) => { _muted = m; };
-export function sfx(name: Sfx) {
-  if (_muted) return;
+export const setMuted = (m: boolean) => { _muted = m; try { localStorage.setItem("rn_muted", m ? "1" : "0"); } catch { /* sin almacenamiento */ } };
+/** gap: ms mínimos entre dos reproducciones del mismo efecto (para hovers) */
+export function sfx(name: Sfx, gap = 0) {
+  if (_muted || !_armed) return;
+  const now = performance.now();
+  if (gap && now - (_last[name] ?? -1e9) < gap) return;
+  _last[name] = now;
   const h = _howls[name] || (_howls[name] = new Howl({ src: [`/assets/sfx/${name}.wav`], volume: VOL[name] }));
   h.play();
 }

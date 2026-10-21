@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { sfx } from "../lib";
 
 /** Cursor: Radar del Dragón que sigue el ratón con inercia; se activa sobre elementos interactivos. */
 export default function CursorAvatar() {
@@ -10,6 +11,8 @@ export default function CursorAvatar() {
     const down = (e: PointerEvent) => {
       const el = (e.target as Element | null)?.closest?.("a,button,.capsule,.dball,[data-cursor],summary,select,label");
       if (!el) return;
+      // ráfaga de ki, salvo en elementos que ya tienen su propio sonido
+      if (!el.closest("[data-snd],.capsule,.dball,.hud-nav a,.brand,.hero-cta,.dbf-portal,.dbf-meta a,.evo-dots")) sfx("kiblast");
       const ki = getComputedStyle(el).getPropertyValue("--ki").trim() || "73,240,138";
       const b = document.createElement("span");
       b.className = "click-ki"; b.style.left = e.clientX + "px"; b.style.top = e.clientY + "px"; b.style.setProperty("--ki", ki);
@@ -32,15 +35,16 @@ export default function CursorAvatar() {
       const t = e.target as Element | null;
       const near = !!(t && t.closest && t.closest("a,button,.capsule,.dball,[data-cursor],input,select,textarea"));
       wrap.current?.classList.toggle("near", near);
+      if (!raf) raf = requestAnimationFrame(loop);
     };
     window.addEventListener("mousemove", mm);
 
+    // la inercia solo corre mientras el radar no ha alcanzado al ratón; quieto = 0 trabajo por frame
     const loop = () => {
       rx += (mx - rx) * 0.22; ry += (my - ry) * 0.22;
       if (wrap.current) wrap.current.style.transform = `translate(${rx}px,${ry}px)`;
-      raf = requestAnimationFrame(loop);
+      raf = Math.abs(mx - rx) + Math.abs(my - ry) > 0.3 ? requestAnimationFrame(loop) : 0;
     };
-    loop();
 
     return () => { window.removeEventListener("mousemove", mm); cancelAnimationFrame(raf); document.body.classList.remove("cursor-hidden"); };
   }, []);

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useBalls, getMuted, setMuted, sfx } from "../lib";
 
 const NAV: [string, string][] = [
@@ -9,6 +9,7 @@ const NAV: [string, string][] = [
 
 export const scrollToId = (id: string) => {
   const t = document.getElementById(id);
+  sfx("teleport");   // teletransportación al saltar de sección
   const l = (window as any).lenis;
   if (l) l.scrollTo(t, { offset: -10 }); else t?.scrollIntoView({ behavior: "smooth" });
 };
@@ -18,8 +19,13 @@ export default function Hud() {
   const [m, setM] = useState(getMuted());
   const [menu, setMenu] = useState(false);
   const [active, setActive] = useState("");
-  const { scrollYProgress } = useScroll();
-  const ki = useSpring(scrollYProgress, { stiffness: 160, damping: 30 });
+  const ki = useRef<HTMLDivElement>(null);
+
+  // barra de ki: solo trabaja mientras hay scroll (useScroll de framer medía en cada frame)
+  useEffect(() => {
+    const st = ScrollTrigger.create({ start: 0, end: "max", onUpdate: (s) => { if (ki.current) ki.current.style.transform = `scaleX(${s.progress})`; } });
+    return () => st.kill();
+  }, []);
 
   // sección activa en el menú
   useEffect(() => {
@@ -58,7 +64,7 @@ export default function Hud() {
           </div>
         </div>
         <button className="btn gold" onClick={recruiter} aria-label="Modo Reclutador">⚡ <span className="rec-txt">Modo Reclutador</span></button>
-        <button className="btn icon-btn" aria-label={m ? "Activar sonido" : "Silenciar sonido"} aria-pressed={!m}
+        <button className="btn icon-btn" data-snd aria-label={m ? "Activar sonido" : "Silenciar sonido"} aria-pressed={!m}
           onClick={() => { const nm = !m; setMuted(nm); setM(nm); if (!nm) sfx("bip"); }}>
           {m ? "🔇" : "🔊"}
         </button>
@@ -66,7 +72,7 @@ export default function Hud() {
           <span className={"burger" + (menu ? " x" : "")} aria-hidden><i /><i /><i /></span>
         </button>
       </div>
-      <motion.div className="ki-bar" style={{ scaleX: ki }} aria-hidden />
+      <div className="ki-bar" ref={ki} style={{ transform: "scaleX(0)" }} aria-hidden />
     </header>
   );
 }

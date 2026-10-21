@@ -1,14 +1,15 @@
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useReducedMotion } from "framer-motion";
+import { gsap } from "gsap";
 import { TRANSFORMATIONS } from "../data";
-import { Reveal } from "../lib";
+import { Reveal, sfx } from "../lib";
 import EvolutionBackground from "./EvolutionBackground";
 
 export default function Transformations() {
   const [i, setI] = useState(0);
 
   useEffect(() => {
-    const h = (e: Event) => setI((e as CustomEvent).detail as number);
+    const h = (e: Event) => { setI((e as CustomEvent).detail as number); sfx("scouter"); };   // el scouter lee el nuevo nivel
     window.addEventListener("evo-phase", h);
     return () => window.removeEventListener("evo-phase", h);
   }, []);
@@ -24,10 +25,15 @@ export default function Transformations() {
   const t = TRANSFORMATIONS[i];
   const banner = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: banner, offset: ["start end", "end start"] });
-  const poseT = useTransform(scrollYProgress, [0, 1], reduce
-    ? ["translateY(0%) scale(1.1)", "translateY(0%) scale(1.1)"]
-    : ["translateY(-10%) scale(1.18)", "translateY(10%) scale(1.18)"]);
+  // parallax de la pose con ScrollTrigger (solo calcula durante el scroll)
+  useEffect(() => {
+    const img = banner.current?.querySelector("img");
+    if (!img) return;
+    if (reduce) { gsap.set(img, { scale: 1.1 }); return; }
+    const tw = gsap.fromTo(img, { yPercent: -10, scale: 1.18 }, { yPercent: 10, scale: 1.18, ease: "none",
+      scrollTrigger: { trigger: banner.current, start: "top bottom", end: "bottom top", scrub: true } });
+    return () => { tw.scrollTrigger?.kill(); tw.kill(); };
+  }, [reduce]);
 
   return (
     <section id="poderes">
@@ -41,7 +47,7 @@ export default function Transformations() {
             </div>
           </Reveal>
           <div className="ultra-banner" ref={banner}>
-            <motion.img src="/assets/ultra-pose.jpg" alt="Rodrigo concentrando su ki antes de transformarse" style={{ transform: poseT }} />
+            <img src="/assets/ultra-pose.jpg" alt="Rodrigo concentrando su ki antes de transformarse" />
             <Reveal className="ultra-copy">
               <span>Concentrando el ki…</span>
               <p>Ningún nivel se regala: cada transformación la desbloqueé entrenando — estudio, proyectos reales y +17 años de batalla en B2B.</p>
