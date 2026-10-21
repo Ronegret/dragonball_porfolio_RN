@@ -1,4 +1,4 @@
-import { useBalls, sfx } from "../lib";
+import { useBalls, sfx, DBText } from "../lib";
 import { CONTACT } from "../data";
 import { scrollToId } from "./Hud";
 
@@ -19,7 +19,7 @@ const PORTALS = [
 ];
 
 /** Letras estilo logo de la serie: arco dorado con contorno negro y extrusión */
-function DBLogo() {
+export function DBLogo() {
   const layers = [
     { dy: 14, fill: "#120400", stroke: "#120400", sw: 20 },
     { dy: 7, fill: "#b32400", stroke: "#000", sw: 16 },
@@ -52,7 +52,7 @@ export default function Footer() {
       <div className="wrap">
         <div className="dbf-head">
           <span className="dbf-kicker">Saga del multiverso</span>
-          <h2>Cruza a mis <em>otros universos</em></h2>
+          <h2><DBText text="Cruza a mis *otros universos*" /></h2>
           <p>Este portfolio es solo un capítulo. El resto de la historia vive aquí:</p>
         </div>
 
@@ -68,7 +68,7 @@ export default function Footer() {
           ))}
         </div>
 
-        <h3 className="dbf-uh">Elige tu universo</h3>
+        <h3 className="dbf-uh"><DBText text="Elige tu universo" /></h3>
         <ul className="dbf-unis">
           {UNIVERSES.map((u) => (
             <li key={u.n}>

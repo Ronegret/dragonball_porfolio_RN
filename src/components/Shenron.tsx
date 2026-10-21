@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView, useReducedMotion, animate } from "framer-motion";
-import { useBalls, DBIcon } from "../lib";
+import { useBalls, DBIcon, DBText } from "../lib";
 import { CONTACT, PROFILE, LANGS } from "../data";
 
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
@@ -69,7 +69,7 @@ export default function Shenron() {
                   <img key={s} src={`/assets/db/ball${s}.webp`} alt="" className={isDone(s) ? "got" : ""} />
                 ))}
               </div>
-              <h2>El cielo aún está en calma…</h2>
+              <h2><DBText text="El cielo aún está *en calma…*" /></h2>
               <p>Reúne las <b>7 esferas del dragón</b> escondidas por la web para invocar a Shen Long y desbloquear todas mis vías de contacto. Llevas <b>{count} de 7</b>.</p>
               <button className="btn gold" data-cursor onClick={recruiter}>⚡ Soy reclutador: reunirlas ahora</button>
             </motion.div>
@@ -79,7 +79,7 @@ export default function Shenron() {
               <motion.img className="shen-img" src="/assets/shenron.jpg" alt="Shen Long emerge de las 7 esferas del dragón"
                 initial={{ opacity: 0, transform: "scale(0.96)" }} animate={{ opacity: 1, transform: "scale(1)" }}
                 transition={{ duration: 0.9, ease: EASE_OUT, delay: 0.15 }} />
-              <h2>HAS REUNIDO LAS 7 ESFERAS</h2>
+              <h2><DBText text="HAS REUNIDO LAS *7 ESFERAS*" /></h2>
               <p className="shen-says">«Dime tu deseo, y te lo concederé.»</p>
 
               <div className="shen-wishes">

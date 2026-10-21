@@ -1,4 +1,4 @@
-import { Reveal, isWide } from "../lib";
+import { Reveal, isWide, DBText } from "../lib";
 import { REFERENCES } from "../data";
 
 export default function References() {
@@ -8,7 +8,7 @@ export default function References() {
         <Reveal>
           <div className="sec-head" data-sfx="¡WOW!">
             <div className="sec-tag">Aliados · Referencias verificadas</div>
-            <h2>Lo que dicen quienes han trabajado conmigo.</h2>
+            <h2><DBText text="Lo que dicen quienes han *trabajado conmigo.*" /></h2>
             <p>Opiniones reales de colaboradores y clientes. Solo publico referencias con permiso explícito de cada persona.</p>
           </div>
         </Reveal>

@@ -64,3 +64,8 @@ out = []
 for fr in (1800, 2100, 2500):
     tt = t_(0.06); out += [np.sign(np.sin(2 * np.pi * fr * tt)) * env(len(tt), 0.002, 0.01), np.zeros(int(SR * 0.035))]
 save("scouter", lp(np.concatenate(out), 5000), 0.35)
+
+# destello al aparecer un título: campanilla metálica brillante
+d = 0.45; t = t_(d); n = len(t)
+z = sum(np.sin(2 * np.pi * f * t) * np.exp(-t * k) for f, k in ((2637, 9), (3951, 12), (5274, 16), (7040, 22)))
+save("zing", (z + hp(rng.standard_normal(n), 6000) * 0.25 * np.exp(-t * 25)) * env(n, 0.003, 0.1), 0.5)

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Reveal, More } from "../lib";
+import { Reveal, More, DBText } from "../lib";
 import { EXPERIENCE, EDUCATION } from "../data";
 
 export default function Experience() {
@@ -12,7 +12,7 @@ export default function Experience() {
         <Reveal>
           <div className="sec-head splash" data-sfx="¡BAM!" style={{ ["--scene" as any]: "url(/assets/scenes/battle.jpg)" }}>
             <div className="sec-tag">Trayectoria de combate</div>
-            <h2>Una transición no convencional.</h2>
+            <h2><DBText text="Una transición *no convencional.*" /></h2>
             <p>De la gestión B2B enterprise al diseño de producto con IA. Pulsa cada combate para ver el detalle.</p>
           </div>
         </Reveal>
@@ -38,7 +38,7 @@ export default function Experience() {
         <Reveal>
           <div className="sec-head" data-sfx="¡ZAS!" style={{ margin: "70px 0 26px" }}>
             <div className="sec-tag">Cámara de gravedad · Formación</div>
-            <h2 style={{ fontSize: "clamp(26px,3.6vw,40px)" }}>Entrenamiento académico.</h2>
+            <h2 style={{ fontSize: "clamp(26px,3.6vw,40px)" }}><DBText text="Entrenamiento *académico.*" /></h2>
           </div>
         </Reveal>
 

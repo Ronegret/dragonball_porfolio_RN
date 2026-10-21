@@ -1,4 +1,4 @@
-import { Reveal, isWide } from "../lib";
+import { Reveal, isWide, DBText } from "../lib";
 import { PROFILE, LANGS, CONTACT } from "../data";
 
 export default function Profile() {
@@ -8,7 +8,7 @@ export default function Profile() {
         <Reveal>
           <div className="sec-head splash" data-sfx="¡SCAN!" style={{ ["--scene" as any]: "url(/assets/scenes/kame-house.jpg)" }}>
             <div className="sec-tag">Scouter · Lectura de combate</div>
-            <h2>Diseño de producto con IA aplicada.</h2>
+            <h2><DBText text="Diseño de producto con *IA aplicada.*" /></h2>
             <p>Base de operaciones: Kame House, Barcelona. Desde aquí entreno cada día producto, UX y automatización con IA.</p>
           </div>
         </Reveal>

@@ -33,6 +33,12 @@ export default function Hud() {
     NAV.forEach(([id]) => { const el = document.getElementById(id); if (el) io.observe(el); });
     return () => io.disconnect();
   }, []);
+  // la cartela de intro puede activar/silenciar el sonido
+  useEffect(() => {
+    const h = (e: Event) => setM((e as CustomEvent).detail as boolean);
+    window.addEventListener("rn-mute", h);
+    return () => window.removeEventListener("rn-mute", h);
+  }, []);
   useEffect(() => {
     if (!menu) return;
     const esc = (e: KeyboardEvent) => { if (e.key === "Escape") setMenu(false); };

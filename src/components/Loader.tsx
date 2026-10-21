@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { sfx, setMuted } from "../lib";
+import { DBLogo } from "./Footer";
 
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 // assets que deben estar listos antes de entrar
@@ -14,6 +16,8 @@ const BLIPS = [[30, 34], [66, 26], [74, 58], [42, 70], [22, 56], [56, 44], [60, 
 export default function Loader() {
   const [show, setShow] = useState(() => { try { return !sessionStorage.getItem("rn_intro"); } catch { return true; } });
   const [p, setP] = useState(0);
+  const [ready, setReady] = useState(false);   // radar completo -> cartela de título con intro musical
+  const [launch, setLaunch] = useState(false);
   const reduce = useReducedMotion();
   const finishRef = useRef<() => void>(() => {});
 
@@ -35,12 +39,24 @@ export default function Loader() {
       if (!alive) return;
       const timeP = Math.min(1, (performance.now() - t0) / MIN);
       setP(Math.min(done / PRELOAD.length, timeP));
-      if (done >= PRELOAD.length && timeP >= 1) finish(); else requestAnimationFrame(tick);
+      if (done >= PRELOAD.length && timeP >= 1) { setP(1); setReady(true); } else requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
-    const safety = setTimeout(finish, 8000); // red lenta: no bloquear nunca la entrada
+    const safety = setTimeout(() => setReady(true), 8000); // red lenta: no bloquear nunca la entrada
     return () => { alive = false; clearTimeout(stop); clearTimeout(safety); };
   }, [show, reduce]);
+
+  useEffect(() => {
+    if (!ready || launch) return;
+    const auto = setTimeout(() => finishRef.current(), 9000);
+    return () => clearTimeout(auto);
+  }, [ready, launch]);
+
+  const start = () => {   // el clic es el gesto que desbloquea el audio: suena la intro y entramos
+    setMuted(false); sfx("intro"); setLaunch(true);
+    setTimeout(() => finishRef.current(), reduce ? 200 : 1700);
+  };
+  const silent = () => { setMuted(true); finishRef.current(); };
 
   useEffect(() => {
     if (show) return;
@@ -55,22 +71,38 @@ export default function Loader() {
       {show && (
         <motion.div className="loader" role="status" aria-live="polite"
           exit={{ opacity: 0, transform: "scale(1.04)" }} transition={{ duration: 0.6, ease: EASE_OUT }}>
-          <div className="loader-radar">
-            <img src="/assets/radar-device.png" alt="" />
-            <div className="loader-scope" aria-hidden>
-              <span className="loader-sweep" />
-              {BLIPS.slice(0, found).map(([x, y], i) => (
-                <motion.i key={i} style={{ left: x + "%", top: y + "%" }}
-                  initial={{ opacity: 0, transform: "translate(-50%,-50%) scale(0.6)" }}
-                  animate={{ opacity: 1, transform: "translate(-50%,-50%) scale(1)" }}
-                  transition={{ duration: 0.3, ease: EASE_OUT }} />
-              ))}
-            </div>
-          </div>
-          <p className="loader-title">RADAR DEL DRAGÓN</p>
-          <p className="loader-sub">{found < 7 ? `Rastreando esferas del dragón… ${found}/7` : "¡7 esferas localizadas!"}</p>
-          <div className="loader-bar"><i style={{ transform: `scaleX(${p})` }} /></div>
-          <button className="loader-skip" onClick={() => finishRef.current()}>Saltar intro</button>
+          {!ready ? (
+            <>
+              <div className="loader-radar">
+                <img src="/assets/radar-device.png" alt="" />
+                <div className="loader-scope" aria-hidden>
+                  <span className="loader-sweep" />
+                  {BLIPS.slice(0, found).map(([x, y], i) => (
+                    <motion.i key={i} style={{ left: x + "%", top: y + "%" }}
+                      initial={{ opacity: 0, transform: "translate(-50%,-50%) scale(0.6)" }}
+                      animate={{ opacity: 1, transform: "translate(-50%,-50%) scale(1)" }}
+                      transition={{ duration: 0.3, ease: EASE_OUT }} />
+                  ))}
+                </div>
+              </div>
+              <p className="loader-title">RADAR DEL DRAGÓN</p>
+              <p className="loader-sub">{found < 7 ? `Rastreando esferas del dragón… ${found}/7` : "¡7 esferas localizadas!"}</p>
+              <div className="loader-bar"><i style={{ transform: `scaleX(${p})` }} /></div>
+              <button className="loader-skip" onClick={() => finishRef.current()}>Saltar intro</button>
+            </>
+          ) : (
+            <motion.div className={"title-card" + (launch ? " go" : "")}
+              initial={{ opacity: 0, transform: "scale(0.9)" }} animate={{ opacity: 1, transform: "scale(1)" }}
+              transition={{ duration: 0.5, ease: EASE_OUT }}>
+              <span className="tc-saga">Saga del diseño de producto · Episodio 1</span>
+              <DBLogo />
+              <p className="tc-sub">AI Product Designer · UX/UI · Automatización con IA</p>
+              <div className="tc-actions">
+                <button className="btn gold tc-start" onClick={start} autoFocus>▶ Comenzar la aventura</button>
+                <button className="loader-skip" onClick={silent}>Entrar sin sonido</button>
+              </div>
+            </motion.div>
+          )}
         </motion.div>
       )}
     </AnimatePresence>

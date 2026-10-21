@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import { gsap } from "gsap";
 import { TRANSFORMATIONS } from "../data";
-import { Reveal, sfx } from "../lib";
+import { Reveal, sfx, DBText } from "../lib";
 import EvolutionBackground from "./EvolutionBackground";
 
 export default function Transformations() {
@@ -42,7 +42,7 @@ export default function Transformations() {
           <Reveal>
             <div className="sec-head" data-sfx="¡FWOOSH!">
               <div className="sec-tag">Transformaciones · Niveles de poder</div>
-              <h2>Mi evolución profesional, fase a fase.</h2>
+              <h2><DBText text="Mi evolución profesional, *fase a fase.*" /></h2>
               <p>Cada transformación es una etapa real de mi carrera. Haz scroll: el aura cambia detrás de ti y mi currículum sube de nivel contigo — de la forma base hasta el máximo.</p>
             </div>
           </Reveal>
@@ -60,7 +60,7 @@ export default function Transformations() {
         <div className="evo-sticky">
           <div className="evo-top">
             <div className="pno">FASE 0{i + 1} / 05 · {t.form}</div>
-            <h2>{t.title}</h2>
+            <h2><DBText key={t.title} text={t.title} /></h2>
           </div>
           <div className="evo-dots">
             {TRANSFORMATIONS.map((_, k) => (

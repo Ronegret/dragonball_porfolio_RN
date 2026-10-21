@@ -12,8 +12,9 @@ export function hexA(hex: string, a: number) {
 }
 
 /* ---------- audio (Howler + efectos en public/assets/sfx) ---------- */
-export type Sfx = "bip" | "pling" | "powerup" | "poof" | "roar" | "thunder" | "charge" | "teleport" | "kiblast" | "scouter";
-const VOL: Record<Sfx, number> = { bip: 0.35, pling: 0.5, powerup: 0.6, poof: 0.5, roar: 0.7, thunder: 0.55, charge: 0.4, teleport: 0.45, kiblast: 0.3, scouter: 0.35 };
+export type Sfx = "bip" | "pling" | "powerup" | "poof" | "roar" | "thunder" | "charge" | "teleport" | "kiblast" | "scouter" | "zing" | "intro";
+const VOL: Record<Sfx, number> = { bip: 0.35, pling: 0.5, powerup: 0.6, poof: 0.5, roar: 0.7, thunder: 0.55, charge: 0.4, teleport: 0.45, kiblast: 0.3, scouter: 0.35, zing: 0.22, intro: 0.6 };
+const EXT: Partial<Record<Sfx, string>> = { intro: "mp3" };
 const _howls: Partial<Record<Sfx, Howl>> = {};
 const _last: Partial<Record<Sfx, number>> = {};
 // sonido activado por defecto (se recuerda si el visitante lo silencia)
@@ -24,14 +25,18 @@ const arm = () => { _armed = true; };
 window.addEventListener("pointerdown", arm, { once: true, capture: true });
 window.addEventListener("keydown", arm, { once: true, capture: true });
 export const getMuted = () => _muted;
-export const setMuted = (m: boolean) => { _muted = m; try { localStorage.setItem("rn_muted", m ? "1" : "0"); } catch { /* sin almacenamiento */ } };
+export const setMuted = (m: boolean) => {
+  _muted = m; try { localStorage.setItem("rn_muted", m ? "1" : "0"); } catch { /* sin almacenamiento */ }
+  if (m) Object.values(_howls).forEach((h) => h?.stop());
+  window.dispatchEvent(new CustomEvent("rn-mute", { detail: m }));
+};
 /** gap: ms mínimos entre dos reproducciones del mismo efecto (para hovers) */
 export function sfx(name: Sfx, gap = 0) {
   if (_muted || !_armed) return;
   const now = performance.now();
   if (gap && now - (_last[name] ?? -1e9) < gap) return;
   _last[name] = now;
-  const h = _howls[name] || (_howls[name] = new Howl({ src: [`/assets/sfx/${name}.wav`], volume: VOL[name] }));
+  const h = _howls[name] || (_howls[name] = new Howl({ src: [`/assets/sfx/${name}.${EXT[name] || "wav"}`], volume: VOL[name] }));
   h.play();
 }
 
@@ -201,6 +206,35 @@ export function DBIcon({ name, size = 44 }: { name: string; size?: number }) {
 }
 
 /* ---------- botón "Ver más / Ver menos" para listas plegadas ---------- */
+/** Título estilo logo de la serie: las letras saltan una a una al entrar en pantalla (+ destello sonoro).
+ *  Marca con *asteriscos* la parte que va en dorado: "Cruza a mis *otros universos*". */
+export function DBText({ text }: { text: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    const el = ref.current!;
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      el.classList.add("in"); sfx("zing", 700); io.disconnect();
+    }, { threshold: 0.3 });
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+  let i = 0;
+  const parts = text.split("*");
+  return (
+    <span ref={ref} className="dbt">
+      <span className="sr-only">{text.replace(/\*/g, "")}</span>
+      <span aria-hidden>
+        {parts.map((seg, k) => seg.split(/(\s+)/).map((w, j) => /^\s+$/.test(w) || !w ? w : (
+          <span key={k + "-" + j} className={"dbw" + (k % 2 ? " hl" : "")}>
+            {[...w].map((ch, c) => <span key={c} className="dbl" style={{ ["--d" as any]: Math.min(i++, 34) * 26 + "ms" }}>{ch}</span>)}
+          </span>
+        )))}
+      </span>
+    </span>
+  );
+}
+
 /** En escritorio los desplegables arrancan abiertos; en tablet/móvil, plegados */
 export const isWide = () => window.matchMedia("(min-width:901px)").matches;
 

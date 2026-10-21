@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import { AnimatePresence, motion } from "framer-motion";
 import { PROJECTS, PROJECT_CATS, LAB } from "../data";
-import { Reveal, hexA, sfx, More } from "../lib";
+import { Reveal, hexA, sfx, More, DBText } from "../lib";
 
 function capsuleBurst(x: number, y: number, color: string) {
   const wrap = document.createElement("div");
@@ -54,7 +54,7 @@ export default function Projects() {
         <Reveal>
           <div className="sec-head" data-sfx="¡POOF!">
             <div className="sec-tag">Sagas · Estuche de cápsulas Hoi-Poi</div>
-            <h2>Mis batallas, encapsuladas.</h2>
+            <h2><DBText text="Mis batallas, *encapsuladas.*" /></h2>
             <p>Proyectos propios, prototipos y productos lanzados donde muestro research, arquitectura, UI, automatización y criterio de negocio. Haz clic en una cápsula para abrir su holograma.</p>
           </div>
         </Reveal>
@@ -89,7 +89,7 @@ export default function Projects() {
         <Reveal>
           <div className="sec-head lab-head" data-sfx="¡BZZT!">
             <div className="sec-tag">Laboratorio de Capsule Corp</div>
-            <h2>Webs y experimentos en vivo.</h2>
+            <h2><DBText text="Webs y experimentos *en vivo.*" /></h2>
             <p>Además de los casos, mantengo un laboratorio de webs y herramientas reales para validar UX, IA aplicada, automatización, SEO y medición.</p>
           </div>
         </Reveal>

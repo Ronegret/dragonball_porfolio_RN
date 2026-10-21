@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { PROFILE, STATS } from "../data";
 import { scrollToId } from "./Hud";
 import Character3D from "./Character3D";
+import { DBText } from "../lib";
 
 export default function Hero() {
   return (
@@ -18,13 +19,7 @@ export default function Hero() {
 
           <h1>
             {PROFILE.headline.map((line, i) => (
-              <span className="ln" key={i}>
-                <motion.span style={{ display: "block" }} className={i === 2 ? "em" : ""}
-                  initial={{ y: "115%" }} animate={{ y: 0 }}
-                  transition={{ duration: 0.85, delay: 0.15 + i * 0.12, ease: [0.22, 0.61, 0.36, 1] }}>
-                  {line}
-                </motion.span>
-              </span>
+              <span className="ln" key={i}><DBText text={i === 2 ? `*${line}*` : line} /></span>
             ))}
           </h1>
 

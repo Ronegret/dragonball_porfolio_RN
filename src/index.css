@@ -25,12 +25,13 @@ h1,h2,h3,h4{font-family:var(--f-head);line-height:1.02;margin:0;letter-spacing:-
 
 /* ===== capas de fondo ===== */
 .bg-layer{position:fixed;inset:0;z-index:0;pointer-events:none}
-.bg-grid{background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
-  background-size:70px 70px;-webkit-mask-image:radial-gradient(130% 90% at 50% 0%,#000 30%,transparent 80%);mask-image:radial-gradient(130% 90% at 50% 0%,#000 30%,transparent 80%);opacity:.5}
+.bg-grid{opacity:.75;background-image:radial-gradient(1.6px 1.6px at 22px 34px,#fff,transparent),radial-gradient(1px 1px at 96px 122px,#fff,transparent),
+  radial-gradient(1.3px 1.3px at 168px 64px,#ffe8a8,transparent),radial-gradient(1px 1px at 236px 176px,#cfe8ff,transparent),radial-gradient(1.8px 1.8px at 300px 20px,#fff,transparent);background-size:320px 210px}
 .bg-tint{background:
-  radial-gradient(900px 600px at 82% -8%, rgba(224,56,59,.10), transparent 60%),
-  radial-gradient(760px 560px at 6% 12%, rgba(47,184,255,.09), transparent 60%),
-  linear-gradient(180deg,#05070c,#04060b 55%,#05070c)}
+  radial-gradient(1200px 720px at 88% -8%, rgba(150,60,255,.22), transparent 60%),
+  radial-gradient(1000px 700px at -4% 18%, rgba(47,120,255,.17), transparent 62%),
+  radial-gradient(1100px 760px at 50% 118%, rgba(255,120,0,.14), transparent 62%),
+  linear-gradient(180deg,#0a0716,#0b0818 50%,#07050f)}
 /* canvas de evolución (fondo) */
 .evo-aura{position:fixed;left:50%;top:44%;transform:translate(-50%,-50%);width:110vmin;height:110vmin;border-radius:50%;
   z-index:0;pointer-events:none;opacity:.5;background:radial-gradient(circle,var(--aura-soft),transparent 62%)}
@@ -726,3 +727,52 @@ main{overflow-x:clip}.evo-top{max-width:100%}
   .dbf-meta{flex-direction:column;align-items:flex-start}
 }
 @media (prefers-reduced-motion:reduce){.dbf-sky{animation:none}}
+
+/* ===================== ESTILO DRAGON BALL GLOBAL (Z · GT · Daima) ===================== */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* títulos con letra de logo: blanco + dorado, contorno negro y extrusión roja/negra */
+.hero h1,.sec-head h2,.evo-top h2,.shen-lock h2,.shen-open h2{font-family:var(--f-db);font-weight:400;letter-spacing:.012em;line-height:1.04;color:#fff;
+  -webkit-text-stroke:2.6px #000;paint-order:stroke fill;text-shadow:0 4px 0 #c4122f,0 7px 0 #000}
+.sec-head h2{font-size:clamp(32px,4.7vw,60px)}
+.hero h1{font-size:clamp(34px,4.1vw,62px)}
+.hero h1 .ln{overflow:visible}
+.hero h1 .ln>span:not(.em){-webkit-text-stroke:2.6px #000}
+.evo-top h2{font-size:clamp(30px,5vw,62px)}
+.shen-open h2{color:#eafff1}
+.dbt .hl{color:#ffcf2e}
+.dbf-head h2,.dbf-uh{text-shadow:0 4px 0 #c4122f,0 7px 0 #000}
+.evo-card h3,.pm-body h3,#pm-title,.stack-col .h b{font-family:var(--f-db);font-weight:400;letter-spacing:.02em}
+.evo-card h3{-webkit-text-stroke:1.5px #000;paint-order:stroke fill;text-shadow:0 3px 0 #000}
+@media (max-width:620px){.hero h1{font-size:clamp(30px,9vw,40px);letter-spacing:.01em}.sec-head h2{font-size:clamp(28px,8.4vw,40px)}.hero h1,.sec-head h2,.evo-top h2{-webkit-text-stroke:2px #000;text-shadow:0 3px 0 #c4122f,0 5px 0 #000}}
+
+/* letras que saltan una a una (una sola vez, transform/opacity) */
+.dbw{display:inline-block;white-space:nowrap}
+.dbl{display:inline-block;opacity:0;transform:translateY(.5em) scale(.45) rotate(-10deg)}
+.dbt.in .dbl{animation:dbpop .6s cubic-bezier(.34,1.56,.64,1) var(--d) forwards}
+@keyframes dbpop{0%{opacity:0;transform:translateY(.5em) scale(.45) rotate(-10deg)}55%{opacity:1}100%{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.dbl{opacity:1;transform:none}.dbt.in .dbl{animation:none}}
+
+/* etiqueta de saga igual que en el footer */
+.sec-tag{background:#c4122f;color:#fff;border:2.5px solid #000;box-shadow:4px 4px 0 #000;transform:rotate(-2deg);letter-spacing:.18em}
+
+/* cada saga con su cielo */
+#perfil{background:radial-gradient(900px 520px at 8% 12%,rgba(47,184,255,.13),transparent 70%)}
+#poderes{background:radial-gradient(1000px 600px at 90% 6%,rgba(255,140,0,.14),transparent 70%)}
+#stack{background:radial-gradient(900px 520px at 92% 14%,rgba(47,228,198,.12),transparent 70%)}
+#sagas{background:radial-gradient(1000px 600px at 6% 8%,rgba(120,90,255,.15),transparent 70%)}
+#trayectoria{background:radial-gradient(900px 560px at 94% 10%,rgba(224,56,59,.15),transparent 70%)}
+#referencias{background:radial-gradient(900px 520px at 8% 20%,rgba(255,60,160,.12),transparent 70%)}
+#shenron{background:radial-gradient(1000px 640px at 50% 20%,rgba(73,240,138,.12),transparent 70%)}
+
+/* ===== cartela de título con intro musical ===== */
+.loader{background:radial-gradient(900px 600px at 50% 40%,rgba(150,60,255,.28),transparent 65%),radial-gradient(700px 500px at 50% 110%,rgba(255,120,0,.2),transparent 65%),#07050f!important}
+.title-card{display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 16px;text-align:center;width:min(760px,100%)}
+.title-card .dbf-logo{margin:0;width:min(640px,92vw)}
+.tc-saga{font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:#c4122f;border:2.5px solid #000;box-shadow:4px 4px 0 #000;padding:6px 14px;transform:rotate(-2deg)}
+.tc-sub{margin:0;font-family:var(--f-mono);font-size:13px;color:#d9cdf2}
+.tc-actions{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:14px}
+.tc-start{font-size:15px;padding:14px 26px}
+.title-card.go .dbf-logo{animation:tclaunch 1.6s var(--ease-out) forwards}
+@keyframes tclaunch{0%{transform:scale(1)}18%{transform:scale(1.08)}100%{transform:scale(1.6);opacity:0}}
+@media (prefers-reduced-motion:reduce){.title-card.go .dbf-logo{animation:none}}
+.sec-head[data-sfx]::after,.evo-screen-lvl{font-family:var(--f-db)!important;font-weight:400!important;letter-spacing:.03em}
