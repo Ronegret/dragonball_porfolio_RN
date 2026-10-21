@@ -2,15 +2,17 @@ import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "framer-motion";
 import { gsap } from "gsap";
 import { TRANSFORMATIONS } from "../data";
-import { Reveal, sfx, DBText } from "../lib";
+import { Reveal, DBText } from "../lib";
 import EvolutionBackground from "./EvolutionBackground";
 import Splash from "./Splash";
 
 export default function Transformations() {
   const [i, setI] = useState(0);
+  const [pulse, setPulse] = useState(0);
+  const last = useRef(0);
 
   useEffect(() => {
-    const h = (e: Event) => { setI((e as CustomEvent).detail as number); sfx("scouter"); };   // el scouter lee el nuevo nivel
+    const h = (e: Event) => { const d = (e as CustomEvent).detail as number; setI(d); if (d !== last.current) { last.current = d; setPulse((n) => n + 1); } };   // destello de ki en cada cambio de fase (sin sonido)
     window.addEventListener("evo-phase", h);
     return () => window.removeEventListener("evo-phase", h);
   }, []);
@@ -69,6 +71,7 @@ export default function Transformations() {
             <EvolutionBackground />
             <span className="evo-screen-tag">● REC · SCOUTER</span>
             <span className="evo-screen-lvl">{t.form}</span>
+            {pulse > 0 && <span key={pulse} className="evo-burst" aria-hidden><i /><i /><b /></span>}
           </div>
           <div className="evo-cards">
             {TRANSFORMATIONS.map((tr, k) => (

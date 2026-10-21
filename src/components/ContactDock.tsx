@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { CONTACT } from "../data";
 import { scrollToId } from "./Hud";
-import { sfx } from "../lib";
 
 /** Dock inferior para móvil/tablet: el contacto siempre a un toque. Se oculta en el hero (ya tiene sus botones)
  *  y cuando las opciones de contacto del footer ya están a la vista. */
@@ -18,7 +17,7 @@ export default function ContactDock() {
   const show = !vis.hero && !vis.contact;
   return (
     <div className={"cdock" + (show ? " on" : "")} role="region" aria-label="Acciones de contacto" aria-hidden={!show}>
-      <button className="btn solid cd-main" tabIndex={show ? 0 : -1} onClick={() => { sfx("teleport"); scrollToId("contacto", -110); }}>✉ Contactar</button>
+      <button className="btn solid cd-main" tabIndex={show ? 0 : -1} onClick={() => scrollToId("contacto", -110)}>✉ Contactar</button>
       <a className="btn cd-wa" tabIndex={show ? 0 : -1} aria-label="Escribir por WhatsApp" target="_blank" rel="noopener"
         href={`https://wa.me/${CONTACT.whatsapp}?text=${encodeURIComponent(CONTACT.waText)}`}>WhatsApp</a>
       <a className="btn cd-cv" tabIndex={show ? 0 : -1} target="_blank" rel="noopener" href={CONTACT.cv}>CV</a>

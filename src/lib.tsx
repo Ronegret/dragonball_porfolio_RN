@@ -12,10 +12,11 @@ export function hexA(hex: string, a: number) {
 }
 
 /* ---------- audio (Howler + efectos en public/assets/sfx) ---------- */
-export type Sfx = "poof" | "scouter" | "zing" | "intro" | "powerup" | "charge" | "teleport" | "kiblast" | "radar" | "shenlong";
-const VOL: Record<Sfx, number> = { poof: 0.5, scouter: 0.35, zing: 0.22, intro: 0.75, powerup: 0.6, charge: 0.55, teleport: 0.5, kiblast: 0.3, radar: 0.5, shenlong: 0.8 };
-const WAV = new Set<Sfx>(["poof", "scouter", "zing"]);              // el resto son mp3 (sonidos de la serie)
-const SOLO = new Set<Sfx>(["powerup", "charge", "shenlong", "intro"]); // efectos largos: una sola instancia a la vez
+export type Sfx = "poof" | "intro" | "powerup" | "teleport" | "radar" | "shenlong";
+// volúmenes: los efectos de interfaz van ~10 dB por debajo de la música (los archivos ya vienen ajustados en tools/build-sfx-user.py)
+const VOL: Record<Sfx, number> = { poof: 0.2, intro: 0.6, powerup: 0.7, teleport: 0.6, radar: 0.7, shenlong: 0.8 };
+const WAV = new Set<Sfx>(["poof"]);                                // el resto son mp3 (sonidos de la serie)
+const SOLO = new Set<Sfx>(["powerup", "shenlong", "intro"]);       // efectos largos: una sola instancia a la vez
 const _howls: Partial<Record<Sfx, Howl>> = {};
 const _last: Partial<Record<Sfx, number>> = {};
 // sonido activado por defecto (se recuerda si el visitante lo silencia)
@@ -43,11 +44,6 @@ export function sfx(name: Sfx, gap = 0) {
   const h = howl(name);
   if (SOLO.has(name)) h.stop();
   h.play();
-}
-/** baja y detiene un efecto largo (p. ej. la carga de ki al sacar el ratón del personaje) */
-export function fadeOutSfx(name: Sfx, ms = 350) {
-  const h = _howls[name]; if (!h || !h.playing()) return;
-  h.fade(h.volume(), 0, ms); setTimeout(() => { h.stop(); h.volume(VOL[name]); }, ms + 30);
 }
 /** música de la intro: suena fuerte al abrir, baja para convivir con la web y se apaga sola */
 export function playIntroMusic() {
@@ -224,7 +220,7 @@ export function DBIcon({ name, size = 44 }: { name: string; size?: number }) {
 }
 
 /* ---------- botón "Ver más / Ver menos" para listas plegadas ---------- */
-/** Título estilo logo de la serie: las letras saltan una a una al entrar en pantalla (+ destello sonoro).
+/** Título estilo logo de la serie: las letras saltan una a una al entrar en pantalla.
  *  Marca con *asteriscos* la parte que va en dorado: "Cruza a mis *otros universos*". */
 export function DBText({ text }: { text: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -232,7 +228,7 @@ export function DBText({ text }: { text: string }) {
     const el = ref.current!;
     const io = new IntersectionObserver(([e]) => {
       if (!e.isIntersecting) return;
-      el.classList.add("in"); sfx("zing", 700); io.disconnect();
+      el.classList.add("in"); io.disconnect();
     }, { threshold: 0.3 });
     io.observe(el);
     return () => io.disconnect();

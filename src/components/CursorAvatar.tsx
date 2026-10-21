@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { sfx } from "../lib";
 
 /** Cursor: Radar del Dragón que sigue el ratón con inercia; se activa sobre elementos interactivos. */
 export default function CursorAvatar() {
@@ -11,8 +10,6 @@ export default function CursorAvatar() {
     const down = (e: PointerEvent) => {
       const el = (e.target as Element | null)?.closest?.("a,button,.capsule,.dball,[data-cursor],summary,select,label");
       if (!el) return;
-      // ráfaga de ki, salvo en elementos que ya tienen su propio sonido
-      if (!el.closest("[data-snd],.capsule,.dball,.hud-nav a,.brand,.hero-cta,.dbf-portal,.dbf-meta a,.evo-dots")) sfx("kiblast");
       const ki = getComputedStyle(el).getPropertyValue("--ki").trim() || "73,240,138";
       const b = document.createElement("span");
       b.className = "click-ki"; b.style.left = e.clientX + "px"; b.style.top = e.clientY + "px"; b.style.setProperty("--ki", ki);

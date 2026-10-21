@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { gsap } from "gsap";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { PROJECTS, PROJECT_CATS, LAB } from "../data";
 import { Reveal, hexA, sfx, More, DBText } from "../lib";
 import Splash from "./Splash";
@@ -51,11 +52,13 @@ export default function Projects() {
   };
 
   const p = sel !== null ? PROJECTS[sel] : null;
+  const drag = useDragControls();
+  const sheet = typeof window !== "undefined" && window.matchMedia("(max-width:760px)").matches;   // en móvil el proyecto se abre como hoja inferior
 
   return (
     <section id="sagas" className="sec">
       <div className="wrap">
-        <Splash scene="/assets/scenes/battle.jpg" fig="/assets/rod/clash.webp" figAlt="Goku y Vegeta chocando en Super Saiyan Blue" sfx="¡POOF!" tag="Sagas · Estuche de cápsulas Hoi-Poi" title="Mis batallas, *encapsuladas.*">
+        <Splash scene="/assets/scenes/battle.jpg" fig="/assets/rod/blue-suit.webp" figAlt="Rodrigo con el aura azul de Super Saiyan Blue" sfx="¡POOF!" tag="Sagas · Estuche de cápsulas Hoi-Poi" title="Mis batallas, *encapsuladas.*">
           <p>Proyectos propios, prototipos y productos lanzados donde muestro research, arquitectura, UI, automatización y criterio de negocio. Haz clic en una cápsula para abrir su holograma.</p>
         </Splash>
 
@@ -86,7 +89,7 @@ export default function Projects() {
         <More open={allCaps} onToggle={() => setAllCaps((v) => !v)} more={filtered.length - 10} label="Ver todas las cápsulas" />
         <div className="cap-hint"><span className="cc-logo" style={{ width: 18, height: 18 }} /> *POOF* — cada cápsula guarda un proyecto real.</div>
 
-        <Splash scene="/assets/scenes/office.webp" sfx="¡BZZT!" tag="Laboratorio de Capsule Corp" title="Webs y experimentos *en vivo.*" pos="68% center" compact className="lab-head">
+        <Splash scene="/assets/scenes/office.webp" sfx="¡BZZT!" tag="Laboratorio de Capsule Corp" title="Webs y experimentos *en vivo.*" side="right" compact className="lab-head">
           <p>Además de los casos, mantengo un laboratorio de webs y herramientas reales para validar UX, IA aplicada, automatización, SEO y medición.</p>
         </Splash>
         <ul className="lab-grid">
@@ -107,39 +110,50 @@ export default function Projects() {
         <More open={allLab} onToggle={() => setAllLab((v) => !v)} more={LAB.length - 4} label="Ver todo el laboratorio" />
       </div>
 
-      <AnimatePresence>
-        {p && (
-          <motion.div className="modal-bg" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }} onClick={(e) => { if (e.target === e.currentTarget) setSel(null); }}>
-            <motion.div className="pmodal" role="dialog" aria-modal="true" aria-labelledby="pm-title"
-              style={{ ["--cap" as any]: p.cap, ["--capsoft" as any]: hexA(p.cap, 0.18) }}
-              initial={{ opacity: 0, transform: "translateY(16px) scale(0.94)" }} animate={{ opacity: 1, transform: "translateY(0px) scale(1)" }}
-              exit={{ opacity: 0, transform: "translateY(8px) scale(0.97)" }} transition={{ type: "spring", duration: 0.45, bounce: 0.15 }}>
-              <div className="pm-media">
-                <img src={`/assets/proj/${p.img}.webp`} alt={`${p.name} — imagen del proyecto`} />
-                <img className="pm-cap" src={`/assets/caps/cap${String(sel! + 1).padStart(2, "0")}.webp`} alt="" />
-                <span className="pm-no">Nº{String(sel! + 1).padStart(2, "0")}</span>
-              </div>
-              <div className="pm-body">
+      {/* el modal va en <body>: dentro de la sección (isolation) quedaba por debajo de la barra superior y del dock */}
+      {createPortal(
+        <AnimatePresence>
+          {p && (
+            <motion.div className="modal-bg" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }} onClick={(e) => { if (e.target === e.currentTarget) setSel(null); }}>
+              <motion.div className="pmodal" role="dialog" aria-modal="true" aria-labelledby="pm-title"
+                style={{ ["--cap" as any]: p.cap, ["--capsoft" as any]: hexA(p.cap, 0.18) }}
+                {...(sheet
+                  ? { initial: { y: "100%" }, animate: { y: 0 }, exit: { y: "100%" }, transition: { type: "spring", duration: 0.5, bounce: 0.12 },
+                      drag: "y" as const, dragListener: false, dragControls: drag, dragConstraints: { top: 0, bottom: 0 }, dragElastic: { top: 0, bottom: 0.6 },
+                      onDragEnd: (_: unknown, i: { offset: { y: number }; velocity: { y: number } }) => { if (i.offset.y > 110 || i.velocity.y > 600) setSel(null); } }
+                  : { initial: { opacity: 0, transform: "translateY(16px) scale(0.94)" }, animate: { opacity: 1, transform: "translateY(0px) scale(1)" },
+                      exit: { opacity: 0, transform: "translateY(8px) scale(0.97)" }, transition: { type: "spring", duration: 0.45, bounce: 0.15 } })}>
+                <button className="pm-grab" aria-hidden tabIndex={-1} onPointerDown={(e) => drag.start(e)}><i /></button>
                 <button className="close" data-cursor onClick={() => setSel(null)} aria-label="Cerrar">✕</button>
-                <div className="pm-tag">{p.tag} · {p.year}</div>
-                <h3 id="pm-title">{p.name}</h3>
-                <p className="pm-sub">{p.title}</p>
-                <p className="pm-desc">{p.desc}</p>
-                <dl className="pm-meta">
-                  <div><dt>Mi papel</dt><dd>{p.role}</dd></div>
-                  <div><dt>Categoría</dt><dd>{p.cat}</dd></div>
-                </dl>
-                <div className="pm-chips">{p.tech.map((t) => <i key={t}>{t}</i>)}</div>
-                <div className="pm-cta">
-                  <a className="btn solid" data-cursor href={p.caseUrl} target="_blank" rel="noopener">Ver caso completo ↗</a>
-                  {p.live && <a className="btn gold" data-cursor href={p.live} target="_blank" rel="noopener">{p.liveLabel ?? "Ver en vivo"} ↗</a>}
+                <div className="pm-media" onPointerDown={(e) => { if (sheet) drag.start(e); }}>
+                  <img src={`/assets/proj/${p.img}.webp`} alt={`${p.name} — imagen del proyecto`} />
+                  <img className="pm-cap" src={`/assets/caps/cap${String(sel! + 1).padStart(2, "0")}.webp`} alt="" />
+                  <span className="pm-no">Nº{String(sel! + 1).padStart(2, "0")}</span>
                 </div>
-              </div>
+                <div className="pm-body">
+                  <div className="pm-scroll">
+                    <div className="pm-tag">{p.tag} · {p.year}</div>
+                    <h3 id="pm-title">{p.name}</h3>
+                    <p className="pm-sub">{p.title}</p>
+                    <p className="pm-desc">{p.desc}</p>
+                    <dl className="pm-meta">
+                      <div><dt>Mi papel</dt><dd>{p.role}</dd></div>
+                      <div><dt>Categoría</dt><dd>{p.cat}</dd></div>
+                    </dl>
+                    <div className="pm-chips">{p.tech.map((t) => <i key={t}>{t}</i>)}</div>
+                  </div>
+                  <div className="pm-cta">
+                    <a className="btn solid" data-cursor href={p.caseUrl} target="_blank" rel="noopener">Ver caso completo ↗</a>
+                    {p.live && <a className="btn gold" data-cursor href={p.live} target="_blank" rel="noopener">{p.liveLabel ?? "Ver en vivo"} ↗</a>}
+                  </div>
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          )}
+        </AnimatePresence>,
+        document.body,
+      )}
     </section>
   );
 }

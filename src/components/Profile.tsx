@@ -14,7 +14,7 @@ export default function Profile() {
           <Reveal>
             <div style={{ position: "relative", display: "grid", placeItems: "center" }}>
               <div className="hero-ring r1" style={{ width: "min(80%,340px)" }} />
-              <img src="/assets/rod/portrait.webp" alt="Rodrigo Negrete con su camiseta de Capsule Corp"
+              <img className="perfil-ava" src="/assets/rod/portrait.webp" alt="Rodrigo Negrete con su camiseta de Capsule Corp"
                 style={{ width: "min(88%,360px)", filter: "drop-shadow(0 26px 46px rgba(0,0,0,.6))", position: "relative", zIndex: 2 }} />
             </div>
           </Reveal>

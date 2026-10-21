@@ -8,8 +8,8 @@ gsap.registerPlugin(ScrollTrigger);
 
 /** Cabecera de sección como viñeta de cómic: escena de fondo + personaje que "sale" del marco.
  *  Las dos capas se mueven a distinta velocidad con el scroll (parallax) para dar profundidad. */
-export default function Splash({ scene, fig, figAlt = "", sfx, tag, title, pos = "right center", compact, className = "", children }: {
-  scene: string; fig?: string; figAlt?: string; sfx: string; tag: string; title: string; pos?: string; compact?: boolean; className?: string; children?: ReactNode;
+export default function Splash({ scene, fig, figAlt = "", sfx, tag, title, pos = "right center", side, compact, className = "", children }: {
+  scene: string; fig?: string; figAlt?: string; sfx: string; tag: string; title: string; pos?: string; side?: "right"; compact?: boolean; className?: string; children?: ReactNode;
 }) {
   const box = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -26,7 +26,7 @@ export default function Splash({ scene, fig, figAlt = "", sfx, tag, title, pos =
 
   return (
     <Reveal>
-      <div ref={box} className={"sec-head splash" + (fig ? " has-fig" : "") + (compact ? " compact" : "") + (className ? " " + className : "")} data-sfx={sfx}>
+      <div ref={box} className={"sec-head splash" + (fig ? " has-fig" : "") + (side ? " img-" + side : "") + (compact ? " compact" : "") + (className ? " " + className : "")} data-sfx={sfx}>
         <div className="splash-bg" aria-hidden>
           <img src={scene} alt="" loading="lazy" decoding="async" style={{ objectPosition: pos }} />
         </div>

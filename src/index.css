@@ -194,7 +194,7 @@ section{position:relative;z-index:1}
 .burst .puff{position:absolute;left:0;top:0;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fff,#dfe5ee 45%,rgba(175,185,200,.35) 72%,transparent)}
 
 /* modal holograma */
-.modal-bg{position:fixed;inset:0;z-index:80;background:rgba(3,6,11,.82);backdrop-filter:blur(7px);display:grid;place-items:center;padding:24px}
+.modal-bg{position:fixed;inset:0;z-index:80;background:rgba(3,6,11,.9);display:grid;place-items:center;padding:24px;overscroll-behavior:contain}
 .modal{width:min(660px,100%);border:1px solid var(--line2);border-radius:22px;overflow:hidden;
   background:linear-gradient(180deg,rgba(16,26,44,.96),rgba(9,14,24,.97));
   box-shadow:0 40px 90px rgba(0,0,0,.6),inset 0 0 70px var(--cap,rgba(47,184,255,.14))}
@@ -446,7 +446,7 @@ html.lenis,html.lenis body{height:auto}
 .pm-chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:22px}
 .pm-chips i{font-style:normal;font-family:var(--f-mono);font-size:11px;padding:6px 11px;border:2px solid var(--cap);border-radius:999px;background:var(--capsoft)}
 .pm-cta{display:flex;gap:10px;flex-wrap:wrap}.pm-cta .btn{flex:1 1 180px;text-align:center;text-decoration:none;justify-content:center;padding:13px 16px}
-@media (max-width:760px){.pmodal{grid-template-columns:1fr}.pm-media{border-right:none;border-bottom:3px solid #000;min-height:220px}.pm-media img:first-child{max-height:220px}.pm-cap{height:70px}}
+
 
 /* ===== Laboratorio ===== */
 .lab-head{margin-top:100px}
@@ -665,12 +665,9 @@ main{overflow-x:clip}.evo-top{max-width:100%}
 /* ===== footer: saga del multiverso (estilo Daima / GT) ===== */
 :root{--f-db:"Luckiest Guy",var(--f-head)}
 .dbfoot{position:relative;z-index:1;overflow:hidden;padding:96px 0 34px;border-top:4px solid #000;color:var(--ink);
-  background:radial-gradient(1100px 520px at 12% 0%,rgba(150,60,255,.38),transparent 62%),radial-gradient(900px 520px at 92% 28%,rgba(255,50,140,.26),transparent 60%),
-  radial-gradient(800px 420px at 50% 112%,rgba(255,140,0,.32),transparent 62%),linear-gradient(180deg,#0b0616,#140a28 48%,#07040f)}
-.dbf-sky{position:absolute;inset:0;pointer-events:none;opacity:.85;
-  background-image:radial-gradient(1.6px 1.6px at 22px 34px,#fff,transparent),radial-gradient(1px 1px at 96px 122px,#fff,transparent),radial-gradient(1.3px 1.3px at 168px 64px,#ffe8a8,transparent),radial-gradient(1px 1px at 236px 176px,#cfe8ff,transparent),radial-gradient(1.8px 1.8px at 300px 20px,#fff,transparent);
-  background-size:320px 210px;animation:twinkle 5s ease-in-out infinite}
-@keyframes twinkle{0%,100%{opacity:.85}50%{opacity:.45}}
+  background:radial-gradient(1100px 520px at 12% 0%,rgba(150,60,255,.30),transparent 62%),radial-gradient(900px 520px at 92% 28%,rgba(255,50,140,.20),transparent 60%),
+  radial-gradient(800px 420px at 50% 112%,rgba(255,140,0,.26),transparent 62%),linear-gradient(180deg,rgba(7,4,15,.15),rgba(7,4,15,.45) 60%,rgba(7,4,15,.78))}
+
 .dbfoot .wrap{position:relative}
 .dbf-head{text-align:center;max-width:760px;margin:0 auto 38px}
 .dbf-kicker{display:inline-block;font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:#c4122f;border:2.5px solid #000;box-shadow:4px 4px 0 #000;padding:6px 14px;transform:rotate(-2deg)}
@@ -693,13 +690,6 @@ main{overflow-x:clip}.evo-top{max-width:100%}
 .dbf-portal:focus-visible,.dbf-unis a:focus-visible{outline:3px solid #ffcf2e;outline-offset:4px}
 
 .dbf-uh{font-family:var(--f-db);font-weight:400;text-align:center;font-size:clamp(26px,3.4vw,38px);margin:62px 0 20px;color:#fff;-webkit-text-stroke:2px #000;paint-order:stroke fill;text-shadow:0 4px 0 #8b3dff}
-.dbf-unis{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
-.dbf-unis a{display:flex;flex-direction:column;align-items:center;gap:3px;text-align:center;text-decoration:none;color:var(--ink);padding:16px 10px 14px;min-height:44px;
-  background:#120a22;border:3px solid #000;border-radius:14px;box-shadow:5px 5px 0 var(--u);transition:transform .18s var(--ease-out),box-shadow .18s ease}
-.dbf-un{font-family:var(--f-db);font-size:34px;line-height:1;color:var(--u);-webkit-text-stroke:2px #000;paint-order:stroke fill;text-shadow:0 3px 0 #000}
-.dbf-unis b{font-size:15px}.dbf-unis small{font-family:var(--f-mono);font-size:11px;color:#b9a9d9}
-@media (hover:hover) and (pointer:fine){.dbf-unis a:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--u)}}
-
 .dbf-logo{display:block;width:min(820px,100%);height:auto;margin:64px auto 0;overflow:visible}
 .dbf-arc{font-family:var(--f-db);font-size:150px;letter-spacing:4px}
 .dbf-sub{font-family:var(--f-db);font-size:118px;letter-spacing:6px}
@@ -727,7 +717,7 @@ main{overflow-x:clip}.evo-top{max-width:100%}
   .dbf-unis li:last-child{grid-column:1/-1}
   .dbf-meta{flex-direction:column;align-items:flex-start}
 }
-@media (prefers-reduced-motion:reduce){.dbf-sky{animation:none}}
+
 
 /* ===================== ESTILO DRAGON BALL GLOBAL (Z · GT · Daima) ===================== */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
@@ -811,7 +801,7 @@ main{overflow-x:clip}.evo-top{max-width:100%}
 .space{overflow:hidden}
 .starfield{position:absolute;inset:0;width:100%;height:100%}
 .sp-obj{position:absolute;top:0;visibility:hidden;pointer-events:none;will-change:transform}
-.side-left{left:-7%}.side-right{right:-7%}
+.sp-obj.side-left{left:-7%}.sp-obj.side-right{right:-7%}
 .o-earth{width:min(300px,24vw)}.o-namek{width:min(420px,32vw)}.o-island{width:min(330px,26vw)}
 .obj-float{display:block;width:100%;height:auto;opacity:.92;animation:objbob 14s ease-in-out infinite}
 .o-namek .obj-float{animation-duration:17s}.o-island .obj-float{animation-duration:11s}
@@ -941,3 +931,100 @@ main{overflow-x:clip}.evo-top{max-width:100%}
 .perfil-more>summary{display:flex!important;align-items:center;gap:14px}
 .fiche-ava{width:58px;height:58px;flex:none;border-radius:50%;object-fit:cover;object-position:50% 12%;border:3px solid #000;background:#1d2a3d;box-shadow:3px 3px 0 #ffcf2e}
 .fiche-txt{min-width:0}
+
+/* ===== proyecto abierto: escritorio con dos columnas, móvil como hoja inferior ===== */
+.pmodal{position:relative}
+.pmodal>.close{position:absolute;top:14px;right:14px;z-index:6;cursor:pointer;border:3px solid #000;background:#ffcf2e;color:#0a0a0a;width:42px;height:42px;border-radius:12px;font-size:17px;font-weight:700;box-shadow:3px 3px 0 #000}
+.pm-body{padding:0;display:flex;flex-direction:column;min-height:0}
+.pm-scroll{padding:30px 30px 8px}
+.pm-cta{padding:14px 30px 26px}
+.pm-grab{display:none}
+@media (max-width:760px){
+  .modal-bg{padding:0;place-items:end center}
+  .pmodal{width:100%;max-height:92dvh;display:flex;flex-direction:column;overflow:hidden;border-radius:24px 24px 0 0;border-bottom:none;touch-action:pan-y}
+  .pm-media{flex:none;min-height:0;height:min(34dvh,250px);padding:30px 20px 14px;border-right:none;border-bottom:3px solid #000;touch-action:none}
+  .pm-media img:first-child{max-height:100%;max-width:100%}
+  .pm-cap{height:66px;left:8px;bottom:6px}
+  .pm-no{top:12px;left:12px}
+  .pm-grab{display:grid;place-items:center;position:absolute;top:0;left:0;right:0;height:26px;z-index:5;background:none;border:0;padding:0;touch-action:none;cursor:grab}
+  .pm-grab i{width:46px;height:5px;border-radius:3px;background:#000;opacity:.5}
+  .pmodal>.close{top:10px;right:10px}
+  .pm-body{flex:1;overflow:hidden}
+  .pm-scroll{flex:1;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:20px 20px 10px;-webkit-overflow-scrolling:touch}
+  .pm-body h3{font-size:30px}
+  .pm-desc{font-size:14.5px}
+  .pm-meta{grid-template-columns:1fr 1fr;gap:12px;margin:16px 0 14px}
+  .pm-chips{margin-bottom:8px}
+  .pm-cta{flex:none;padding:12px 16px calc(14px + env(safe-area-inset-bottom));background:#0b111b;border-top:2px solid rgba(255,255,255,.1);flex-wrap:nowrap}
+  .pm-cta .btn{flex:1 1 0;min-height:48px;font-size:13px;padding:10px 8px}
+}
+@media (max-width:760px) and (max-height:640px){.pm-media{height:120px}}
+
+/* cabecera con imagen a la derecha que se funde hacia el texto (el rostro nunca queda cortado) */
+.sec-head.splash.img-right .splash-bg img{left:auto;right:0;width:64%;height:auto;top:0;min-height:100%;object-fit:cover;object-position:50% 8%;
+  -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 34%);mask-image:linear-gradient(90deg,transparent 0,#000 34%)}
+.sec-head.splash.img-right .splash-bg::after{background:linear-gradient(90deg,rgba(5,7,12,.96) 0%,rgba(5,7,12,.8) 36%,rgba(5,7,12,0) 64%)}
+@media (max-width:760px){
+  .sec-head.splash.img-right .splash-bg img{width:100%;height:100%;min-height:0;object-position:50% 12%;-webkit-mask-image:linear-gradient(180deg,#000 0,#000 38%,transparent 78%);mask-image:linear-gradient(180deg,#000 0,#000 38%,transparent 78%)}
+  .sec-head.splash.img-right .splash-bg::after{background:linear-gradient(180deg,rgba(5,7,12,0) 0,rgba(5,7,12,.9) 62%)}
+}
+
+/* cambio de fase en la evolución: onda de ki + destello con el color del aura (solo transform/opacity, sin sonido) */
+.evo-burst{position:absolute;inset:0;z-index:4;pointer-events:none;overflow:hidden;display:grid;place-items:center}
+.evo-burst i{position:absolute;width:46%;aspect-ratio:1;border-radius:50%;border:5px solid var(--aura);box-shadow:0 0 34px var(--aura),inset 0 0 34px var(--aura);opacity:0;animation:evoring 1.2s linear forwards}
+.evo-burst i+i{animation-delay:.13s;border-color:#fff}
+.evo-burst b{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,#fff 0,var(--aura) 36%,transparent 72%);opacity:0;animation:evoflash .7s linear forwards}
+@keyframes evoring{0%{opacity:.95;transform:scale(.2)}30%{opacity:.85;transform:scale(1.05)}100%{opacity:0;transform:scale(2.6)}}
+@keyframes evoflash{0%{opacity:.85}35%{opacity:.35}100%{opacity:0}}
+@media (prefers-reduced-motion:reduce){.evo-burst{display:none}}
+.sec-head.splash.img-right .splash-bg img{object-position:50% 8%!important}
+
+/* ===== mapa del multiverso: universos como esferas con aura, anillo y satélite ===== */
+.dbf-uhint{text-align:center;margin:-8px 0 38px;color:#cbbdf0;font-size:15px}
+.uni-main,.uni-more{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center}
+.uni-main{gap:30px 44px}
+.uni-more{gap:22px 30px}
+.dbf-uh2{font-family:var(--f-db);font-weight:400;text-align:center;font-size:clamp(22px,2.8vw,32px);margin:64px 0 26px;color:#fff;-webkit-text-stroke:2px #000;paint-order:stroke fill;text-shadow:0 4px 0 #c4122f,0 6px 0 #000}
+.orb{--s:112px;position:relative;display:flex;flex-direction:column;align-items:center;width:calc(var(--s) + 44px);text-align:center;text-decoration:none;color:var(--ink);animation:orbfloat var(--f,7s) ease-in-out var(--d,0s) infinite;-webkit-tap-highlight-color:transparent}
+.orb.mini{--s:62px}
+@keyframes orbfloat{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(0,-9px,0)}}
+.orb-halo{position:absolute;left:50%;top:calc(var(--s) / 2);width:calc(var(--s) * 2);height:calc(var(--s) * 2);margin:calc(var(--s) * -1) 0 0 calc(var(--s) * -1);border-radius:50%;pointer-events:none;opacity:.72;
+  background:radial-gradient(circle,rgba(var(--ur),.42),transparent 64%);transition:opacity .25s ease,transform .35s var(--ease-out)}
+.orb-ring{position:absolute;left:50%;top:calc(var(--s) / 2);width:calc(var(--s) * 1.4);height:calc(var(--s) * 1.4);margin:calc(var(--s) * -.7) 0 0 calc(var(--s) * -.7);pointer-events:none;transition:transform .35s var(--ease-out)}
+.orb-ring i{position:absolute;inset:0;border-radius:50%;border:2px dashed rgba(var(--ur),.7);animation:spin 24s linear infinite}
+.orb-ring em{position:absolute;left:50%;top:-6px;width:11px;height:11px;margin-left:-5.5px;border-radius:50%;background:#fff;box-shadow:0 0 14px 3px rgba(var(--ur),.95)}
+.orb.mini .orb-ring em{width:8px;height:8px;top:-4.5px;margin-left:-4px}
+.orb.mini .orb-ring i{border-width:1.5px;animation-duration:30s}
+.orb-sphere{position:relative;display:grid;place-items:center;width:var(--s);aspect-ratio:1;border-radius:50%;overflow:hidden;z-index:2;
+  background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.95) 0,rgba(255,255,255,0) 20%),radial-gradient(circle at 42% 36%,var(--u) 0,var(--u) 38%,rgba(var(--ur),.55) 62%,#0a0614 100%);
+  box-shadow:0 0 0 3px #000,0 0 34px 4px rgba(var(--ur),.55);transition:transform .3s var(--ease-out),box-shadow .3s ease}
+.orb-swirl{position:absolute;inset:-30%;border-radius:50%;opacity:.3;animation:spin 18s linear infinite;
+  background:repeating-conic-gradient(from 0deg,rgba(255,255,255,.5) 0 7deg,transparent 7deg 22deg);-webkit-mask-image:radial-gradient(circle,transparent 16%,#000 62%);mask-image:radial-gradient(circle,transparent 16%,#000 62%)}
+.orb-shine{position:absolute;left:16%;top:11%;width:34%;height:22%;border-radius:50%;background:rgba(255,255,255,.55);filter:blur(3px);transform:rotate(-28deg)}
+.orb-sphere b{position:relative;z-index:2;font-family:var(--f-db);font-weight:400;font-size:calc(var(--s) * .4);line-height:1;color:#fff;-webkit-text-stroke:calc(var(--s) * .03) #000;paint-order:stroke fill;text-shadow:0 3px 0 #000}
+.orb strong{margin-top:calc(var(--s) * .2);font-size:16px;line-height:1.2;position:relative;z-index:2}
+.orb small{font-family:var(--f-mono);font-size:11px;color:#b9a9d9;margin-top:2px;position:relative;z-index:2;overflow-wrap:anywhere}
+.orb.mini strong{font-size:13.5px;margin-top:16px}.orb.mini small{font-size:10px}
+.orb:focus-visible{outline:3px solid #ffcf2e;outline-offset:6px;border-radius:18px}
+@media (hover:hover) and (pointer:fine){
+  .orb:hover{animation-play-state:paused}
+  .orb:hover .orb-sphere{transform:scale(1.12);box-shadow:0 0 0 3px #000,0 0 60px 10px rgba(var(--ur),.85)}
+  .orb:hover .orb-halo{opacity:1;transform:scale(1.25)}
+  .orb:hover .orb-ring{transform:scale(1.14)}
+}
+.orb:active .orb-sphere{transform:scale(.94)}
+@media (max-width:760px){
+  .uni-main{gap:26px 12px}.uni-more{gap:20px 8px}
+  .orb{--s:76px;width:104px}
+  .orb.mini{--s:56px;width:96px}
+  .orb small{font-size:10px}
+  .orb strong{font-size:14.5px}
+  .orb-swirl{animation-duration:26s}
+}
+@media (prefers-reduced-motion:reduce){.orb,.orb-ring i,.orb-swirl{animation:none}}
+
+/* imágenes recortadas por abajo: se funden en lugar de acabar en una línea recta */
+.perfil-ava{-webkit-mask-image:linear-gradient(180deg,#000 66%,transparent 99%);mask-image:linear-gradient(180deg,#000 66%,transparent 99%)}
+@media (max-width:760px){.splash-fig{-webkit-mask-image:linear-gradient(180deg,#000 62%,transparent 98%);mask-image:linear-gradient(180deg,#000 62%,transparent 98%)}}
+.sec-head.splash.img-right h2,.sec-head.splash.img-right p{max-width:min(600px,58%)}
+@media (max-width:760px){.sec-head.splash.img-right h2,.sec-head.splash.img-right p{max-width:none}}

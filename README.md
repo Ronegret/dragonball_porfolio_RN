@@ -67,8 +67,8 @@ _source/                 # originales (no se versiona ni se despliega)
 ## 🛠️ Pipelines de assets (`tools/`)
 | Script | Qué hace |
 |---|---|
-| `build-sfx-user.py` | Normaliza/recorta los mp3 de `_source/sfx` -> `public/assets/sfx` (requiere ffmpeg) |
-| `build-sfx.py` | Sintetiza los efectos menores (scouter, zing) |
+| `build-sfx-user.py` | Recorta, añade fundidos y ajusta el nivel (por pico) de los mp3 de `_source/sfx` -> `public/assets/sfx` (requiere ffmpeg) |
+| `fix-pockets.py` | Convierte en transparencia los huecos blancos encerrados (p. ej. entre brazo y torso) |
 | `build-nuevas2.py` | Recorta y optimiza las ilustraciones de `_source/nuevas2` (cutouts WebP, escenas) |
 | `cutout.py` | Recorte genérico de fondo blanco con sombra translúcida |
 | `build-capsules.py` | Genera las 16 cápsulas Hoi-Poi |

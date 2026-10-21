@@ -51,7 +51,7 @@ export default function SpaceBackground() {
           bx: Math.random() * W, by: Math.random() * H, z, r: dust ? 60 + Math.random() * 90 : 0.5 + z * 1.5 + (Math.random() < 0.06 ? 1.2 : 0),
           ox: 0, oy: 0, vx: 0, vy: 0, tw: Math.random() * 6.28, ts: 0.6 + Math.random() * 2.2,
           k: dust ? [3, 1, 3, 4][i % 4] : Math.random() < 0.14 ? 4 : Math.random() < 0.3 ? 1 : Math.random() < 0.18 ? 2 : 0,
-          dx: (Math.random() - 0.5) * 0.06 * z, dust,
+          dx: (Math.random() - 0.5) * 0.15 * z, dust,
         };
       });
     };

@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { useBalls, sfx, DBText, Reveal } from "../lib";
-import { CONTACT } from "../data";
+import { CONTACT, LAB } from "../data";
 import { scrollToId } from "./Hud";
 
 const NAV: [string, string][] = [["perfil", "Perfil"], ["poderes", "Poderes"], ["sagas", "Sagas"], ["trayectoria", "Trayectoria"], ["shenron", "Invocar"]];
 
-// "Elige tu universo": cada vía de contacto es un universo del Torneo del Poder
+// Mapa del multiverso: 12 universos como en Dragon Ball Super. Cinco son vías de contacto; los otros siete, mis webs en vivo.
+const rgb = (h: string) => { const n = parseInt(h.slice(1), 16); return `${(n >> 16) & 255},${(n >> 8) & 255},${n & 255}`; };
 const UNIVERSES = [
   { n: 7, label: "Email", sub: "Respuesta en 24 h", href: `mailto:${CONTACT.email}`, c: "#ffcf2e" },
   { n: 2, label: "WhatsApp", sub: CONTACT.phone, href: `https://wa.me/${CONTACT.whatsapp}`, c: "#49f08a" },
@@ -13,6 +15,27 @@ const UNIVERSES = [
   { n: 6, label: "GitHub", sub: "@Ronegret", href: CONTACT.github, c: "#c38bff" },
   { n: 4, label: "CV", sub: "Versión completa", href: CONTACT.cv, c: "#ff6b6b" },
 ];
+const MORE_NUMS = [1, 3, 5, 8, 9, 10, 12];
+const MORE_COLORS = ["#2fe4c6", "#d28bff", "#ff7b6b", "#8fd3ff", "#ffb347", "#8c9cff", "#7cf08a"];
+const MORE = LAB.map((l, i) => ({ n: MORE_NUMS[i], label: l.name.replace(/\.es$/, ""), sub: l.tag.split(" · ")[0], href: l.url, c: MORE_COLORS[i] }));
+
+type U = { n: number; label: string; sub: string; href: string; c: string };
+function Orb({ u, i, mini = false }: { u: U; i: number; mini?: boolean }) {
+  return (
+    <motion.li initial={{ opacity: 0, scale: 0.35, y: 36 }} whileInView={{ opacity: 1, scale: 1, y: 0 }} viewport={{ once: true, margin: "-6% 0px" }}
+      transition={{ type: "spring", duration: 0.75, bounce: 0.38, delay: (i % 7) * 0.07 }}>
+      <a className={"orb" + (mini ? " mini" : "")} href={u.href} target={u.href.startsWith("mailto") ? undefined : "_blank"} rel="noopener" data-cursor
+        aria-label={`Universo ${u.n}: ${u.label}${mini ? "" : ". " + u.sub}`} onClick={() => sfx("teleport")}
+        style={{ ["--u" as any]: u.c, ["--ur" as any]: rgb(u.c), ["--f" as any]: `${6 + (i % 5) * 0.9}s`, ["--d" as any]: `${-(i % 5) * 1.3}s` }}>
+        <span className="orb-halo" aria-hidden />
+        <span className="orb-ring" aria-hidden><i><em /></i></span>
+        <span className="orb-sphere" aria-hidden><i className="orb-swirl" /><i className="orb-shine" /><b>U{u.n}</b></span>
+        <strong>{u.label}</strong>
+        <small>{u.sub}</small>
+      </a>
+    </motion.li>
+  );
+}
 
 const PORTALS = [
   { href: CONTACT.web, img: "portfolio", tag: "Universo principal", name: "rodrigonegrete.es", desc: "Mi portfolio completo: casos de estudio, laboratorio, trayectoria y CV.", cta: "Viajar al portfolio" },
@@ -54,7 +77,6 @@ export default function Footer() {
   };
   return (
     <footer className="dbfoot" id="multiverso">
-      <div className="dbf-sky" aria-hidden />
       <div className="wrap">
         <div className="dbf-head">
           <span className="dbf-kicker">Saga del multiverso</span>
@@ -76,17 +98,15 @@ export default function Footer() {
           ))}
         </div>
 
-        <h3 className="dbf-uh" id="contacto"><DBText text="Elige tu universo" /></h3>
-        <ul className="dbf-unis">
-          {UNIVERSES.map((u, i) => (
-            <li key={u.n}><Reveal delay={i * 0.06}>
-              <a href={u.href} target={u.href.startsWith("mailto") ? undefined : "_blank"} rel="noopener" data-cursor style={{ ["--u" as any]: u.c }}>
-                <span className="dbf-un">U{u.n}</span>
-                <b>{u.label}</b>
-                <small>{u.sub}</small>
-              </a>
-            </Reveal></li>
-          ))}
+        <h3 className="dbf-uh" id="contacto"><DBText text="Elige tu *universo*" /></h3>
+        <p className="dbf-uhint">Cinco caminos para hablar conmigo. Cada universo, una puerta distinta.</p>
+        <ul className="uni-main" aria-label="Vías de contacto">
+          {UNIVERSES.map((u, i) => <Orb key={u.n} u={u} i={i} />)}
+        </ul>
+
+        <h4 className="dbf-uh2"><DBText text="…y siete universos más por explorar" /></h4>
+        <ul className="uni-more" aria-label="Webs del laboratorio">
+          {MORE.map((u, i) => <Orb key={u.n} u={u} i={i} mini />)}
         </ul>
         <div className="dbf-copy">
           <span>¿Prefieres escribir ya?</span>

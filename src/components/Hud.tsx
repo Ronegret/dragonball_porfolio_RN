@@ -69,7 +69,7 @@ export default function Hud() {
             ))}
           </div>
         </div>
-        <button className="btn solid hud-cta" data-snd onClick={() => { sfx("teleport"); scrollToId("contacto", -110); }}>✉ Contactar</button>
+        <button className="btn solid hud-cta" data-snd onClick={() => scrollToId("contacto", -110)}>✉ Contactar</button>
         <button className="btn gold" onClick={recruiter} aria-label="Modo Reclutador" title="Modo Reclutador: reúne las 7 esferas ahora">⚡ <span className="rec-txt">Modo Reclutador</span></button>
         <button className="btn icon-btn" data-snd aria-label={m ? "Activar sonido" : "Silenciar sonido"} aria-pressed={!m}
           onClick={() => { const nm = !m; setMuted(nm); setM(nm); if (!nm) sfx("radar"); }}>
