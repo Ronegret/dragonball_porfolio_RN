@@ -1,20 +1,14 @@
 import { Reveal, isWide, DBText } from "../lib";
 import { REFERENCES } from "../data";
+import Splash from "./Splash";
 
 export default function References() {
   return (
     <section id="referencias" className="sec">
       <div className="wrap">
-        <div className="ref-top">
-        <Reveal>
-          <div className="sec-head" data-sfx="¡WOW!">
-            <div className="sec-tag">Aliados · Referencias verificadas</div>
-            <h2><DBText text="Lo que dicen quienes han *trabajado conmigo.*" /></h2>
-            <p>Opiniones reales de colaboradores y clientes. Solo publico referencias con permiso explícito de cada persona.</p>
-          </div>
-        </Reveal>
-        <img className="ref-rod" src="/assets/rod/jacket.webp" alt="Rodrigo Negrete" loading="lazy" />
-        </div>
+        <Splash scene="/assets/scenes/namek-land.webp" fig="/assets/rod/jacket.webp" figAlt="Rodrigo Negrete" sfx="¡WOW!" tag="Aliados · Referencias verificadas" title="Lo que dicen quienes han *trabajado conmigo.*">
+          <p>Opiniones reales de colaboradores y clientes. Solo publico referencias con permiso explícito de cada persona.</p>
+        </Splash>
 
         <div className="ref-grid">
           {REFERENCES.map((r, i) => (

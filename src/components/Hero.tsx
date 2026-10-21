@@ -48,6 +48,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.72, duration: 0.7 }}>
             <button className="btn solid" onClick={() => scrollToId("poderes")}>Ver mi evolución ↓</button>
             <button className="btn" onClick={() => scrollToId("sagas")}>Abrir mis cápsulas</button>
+            <button className="btn gold" onClick={() => scrollToId("contacto", -110)}>✉ Contactar</button>
           </motion.div>
 
           <motion.div className="hero-stats"

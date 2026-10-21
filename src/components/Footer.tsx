@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useBalls, sfx, DBText, Reveal } from "../lib";
 import { CONTACT } from "../data";
 import { scrollToId } from "./Hud";
@@ -46,6 +47,11 @@ export function DBLogo() {
 
 export default function Footer() {
   const { reset } = useBalls();
+  const [copied, setCopied] = useState(false);
+  const copyEmail = async () => {
+    try { await navigator.clipboard.writeText(CONTACT.email); sfx("radar"); setCopied(true); setTimeout(() => setCopied(false), 2200); }
+    catch { window.location.href = `mailto:${CONTACT.email}`; }   // sin permiso de portapapeles: abre el cliente de correo
+  };
   return (
     <footer className="dbfoot" id="multiverso">
       <div className="dbf-sky" aria-hidden />
@@ -70,7 +76,7 @@ export default function Footer() {
           ))}
         </div>
 
-        <h3 className="dbf-uh"><DBText text="Elige tu universo" /></h3>
+        <h3 className="dbf-uh" id="contacto"><DBText text="Elige tu universo" /></h3>
         <ul className="dbf-unis">
           {UNIVERSES.map((u, i) => (
             <li key={u.n}><Reveal delay={i * 0.06}>
@@ -82,6 +88,12 @@ export default function Footer() {
             </Reveal></li>
           ))}
         </ul>
+        <div className="dbf-copy">
+          <span>¿Prefieres escribir ya?</span>
+          <code>{CONTACT.email}</code>
+          <button type="button" className="btn gold" data-snd onClick={copyEmail}>{copied ? "¡Copiado! ✓" : "Copiar email"}</button>
+          <span className="sr-only" role="status">{copied ? "Email copiado al portapapeles" : ""}</span>
+        </div>
 
         <div className="dbf-stage">
           <img className="dbf-rod" src="/assets/rod/look-up.webp" alt="" loading="lazy" />

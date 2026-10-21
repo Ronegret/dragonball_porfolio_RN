@@ -3,6 +3,7 @@ import { gsap } from "gsap";
 import { AnimatePresence, motion } from "framer-motion";
 import { PROJECTS, PROJECT_CATS, LAB } from "../data";
 import { Reveal, hexA, sfx, More, DBText } from "../lib";
+import Splash from "./Splash";
 
 function capsuleBurst(x: number, y: number, color: string) {
   const wrap = document.createElement("div");
@@ -27,6 +28,8 @@ export default function Projects() {
   const [sel, setSel] = useState<number | null>(null);
   const [allCaps, setAllCaps] = useState(false);
   const [allLab, setAllLab] = useState(false);
+  // la cápsula principal late como un radar hasta que el visitante la abre por primera vez
+  const [seen, setSeen] = useState<number[]>(() => { try { return JSON.parse(localStorage.getItem("rn_caps") || "[]"); } catch { return []; } });
   const filtered = PROJECTS.filter((p) => cat === "Todos" || p.cat === cat);
   const list = allCaps ? filtered : filtered.slice(0, 10);
 
@@ -42,6 +45,7 @@ export default function Projects() {
     const r = el.getBoundingClientRect();
     capsuleBurst(r.left + r.width / 2, r.top + r.height / 2, PROJECTS[gi].cap);
     sfx("poof");
+    if (!seen.includes(gi)) { const n = [...seen, gi]; setSeen(n); try { localStorage.setItem("rn_caps", JSON.stringify(n)); } catch { /* sin almacenamiento */ } }
     el.style.transition = "transform .18s"; el.style.transform = "scale(.35) translateY(8px)";
     setTimeout(() => { el.style.transform = ""; setSel(gi); }, 300);
   };
@@ -51,13 +55,9 @@ export default function Projects() {
   return (
     <section id="sagas" className="sec">
       <div className="wrap">
-        <Reveal>
-          <div className="sec-head" data-sfx="¡POOF!">
-            <div className="sec-tag">Sagas · Estuche de cápsulas Hoi-Poi</div>
-            <h2><DBText text="Mis batallas, *encapsuladas.*" /></h2>
-            <p>Proyectos propios, prototipos y productos lanzados donde muestro research, arquitectura, UI, automatización y criterio de negocio. Haz clic en una cápsula para abrir su holograma.</p>
-          </div>
-        </Reveal>
+        <Splash scene="/assets/scenes/battle.jpg" fig="/assets/rod/clash.webp" figAlt="Goku y Vegeta chocando en Super Saiyan Blue" sfx="¡POOF!" tag="Sagas · Estuche de cápsulas Hoi-Poi" title="Mis batallas, *encapsuladas.*">
+          <p>Proyectos propios, prototipos y productos lanzados donde muestro research, arquitectura, UI, automatización y criterio de negocio. Haz clic en una cápsula para abrir su holograma.</p>
+        </Splash>
 
         <Reveal>
           <div className="cap-filters">
@@ -72,7 +72,7 @@ export default function Projects() {
             const gi = PROJECTS.indexOf(pr);
             return (
               <Reveal key={pr.name} delay={(i % 6) * 0.05}>
-                <button className="capsule" style={{ ["--cap" as any]: pr.cap }} data-cursor
+                <button className={"capsule" + (pr.star && !seen.includes(gi) ? " hot" : "")} style={{ ["--cap" as any]: pr.cap }} data-cursor
                   aria-label={`Cápsula ${String(gi + 1).padStart(2, "0")}: ${pr.name}. Abrir proyecto`}
                   onClick={(e) => open(gi, e)}>
                   <img src={`/assets/caps/cap${String(gi + 1).padStart(2, "0")}.webp`} alt="" draggable={false} />
@@ -86,13 +86,9 @@ export default function Projects() {
         <More open={allCaps} onToggle={() => setAllCaps((v) => !v)} more={filtered.length - 10} label="Ver todas las cápsulas" />
         <div className="cap-hint"><span className="cc-logo" style={{ width: 18, height: 18 }} /> *POOF* — cada cápsula guarda un proyecto real.</div>
 
-        <Reveal>
-          <div className="sec-head lab-head" data-sfx="¡BZZT!">
-            <div className="sec-tag">Laboratorio de Capsule Corp</div>
-            <h2><DBText text="Webs y experimentos *en vivo.*" /></h2>
-            <p>Además de los casos, mantengo un laboratorio de webs y herramientas reales para validar UX, IA aplicada, automatización, SEO y medición.</p>
-          </div>
-        </Reveal>
+        <Splash scene="/assets/scenes/office.webp" sfx="¡BZZT!" tag="Laboratorio de Capsule Corp" title="Webs y experimentos *en vivo.*" pos="68% center" compact className="lab-head">
+          <p>Además de los casos, mantengo un laboratorio de webs y herramientas reales para validar UX, IA aplicada, automatización, SEO y medición.</p>
+        </Splash>
         <ul className="lab-grid">
           {(allLab ? LAB : LAB.slice(0, 4)).map((l, i) => (
             <li key={l.name}>

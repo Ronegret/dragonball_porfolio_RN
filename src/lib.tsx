@@ -12,9 +12,10 @@ export function hexA(hex: string, a: number) {
 }
 
 /* ---------- audio (Howler + efectos en public/assets/sfx) ---------- */
-export type Sfx = "bip" | "pling" | "powerup" | "poof" | "roar" | "thunder" | "charge" | "teleport" | "kiblast" | "scouter" | "zing" | "intro";
-const VOL: Record<Sfx, number> = { bip: 0.35, pling: 0.5, powerup: 0.6, poof: 0.5, roar: 0.7, thunder: 0.55, charge: 0.4, teleport: 0.45, kiblast: 0.3, scouter: 0.35, zing: 0.22, intro: 0.6 };
-const EXT: Partial<Record<Sfx, string>> = { intro: "mp3" };
+export type Sfx = "poof" | "scouter" | "zing" | "intro" | "powerup" | "charge" | "teleport" | "kiblast" | "radar" | "shenlong";
+const VOL: Record<Sfx, number> = { poof: 0.5, scouter: 0.35, zing: 0.22, intro: 0.75, powerup: 0.6, charge: 0.55, teleport: 0.5, kiblast: 0.3, radar: 0.5, shenlong: 0.8 };
+const WAV = new Set<Sfx>(["poof", "scouter", "zing"]);              // el resto son mp3 (sonidos de la serie)
+const SOLO = new Set<Sfx>(["powerup", "charge", "shenlong", "intro"]); // efectos largos: una sola instancia a la vez
 const _howls: Partial<Record<Sfx, Howl>> = {};
 const _last: Partial<Record<Sfx, number>> = {};
 // sonido activado por defecto (se recuerda si el visitante lo silencia)
@@ -30,14 +31,31 @@ export const setMuted = (m: boolean) => {
   if (m) Object.values(_howls).forEach((h) => h?.stop());
   window.dispatchEvent(new CustomEvent("rn-mute", { detail: m }));
 };
+const howl = (name: Sfx) => _howls[name] || (_howls[name] = new Howl({ src: [`/assets/sfx/${name}.${WAV.has(name) ? "wav" : "mp3"}`], volume: VOL[name] }));
+/** descarga el sonido por adelantado (p. ej. la intro mientras se ve la cartela) */
+export const preloadSfx = (name: Sfx) => { howl(name); };
 /** gap: ms mínimos entre dos reproducciones del mismo efecto (para hovers) */
 export function sfx(name: Sfx, gap = 0) {
   if (_muted || !_armed) return;
   const now = performance.now();
   if (gap && now - (_last[name] ?? -1e9) < gap) return;
   _last[name] = now;
-  const h = _howls[name] || (_howls[name] = new Howl({ src: [`/assets/sfx/${name}.${EXT[name] || "wav"}`], volume: VOL[name] }));
+  const h = howl(name);
+  if (SOLO.has(name)) h.stop();
   h.play();
+}
+/** baja y detiene un efecto largo (p. ej. la carga de ki al sacar el ratón del personaje) */
+export function fadeOutSfx(name: Sfx, ms = 350) {
+  const h = _howls[name]; if (!h || !h.playing()) return;
+  h.fade(h.volume(), 0, ms); setTimeout(() => { h.stop(); h.volume(VOL[name]); }, ms + 30);
+}
+/** música de la intro: suena fuerte al abrir, baja para convivir con la web y se apaga sola */
+export function playIntroMusic() {
+  if (_muted || !_armed) return;
+  const h = howl("intro"); h.stop(); h.volume(VOL.intro); h.play();
+  setTimeout(() => h.playing() && h.fade(VOL.intro, 0.22, 1600), 4200);
+  setTimeout(() => h.playing() && h.fade(0.22, 0, 4200), 11000);
+  setTimeout(() => { h.stop(); h.volume(VOL.intro); }, 15400);
 }
 
 /* ---------- Esfera del Dragón (SVG) ---------- */
@@ -126,7 +144,7 @@ export function BallsProvider({ children }: { children: ReactNode }) {
 
   const collect = (star: number, el: HTMLElement) => {
     if (collected.includes(star)) return;
-    sfx("pling");
+    sfx("radar");
     flyToSlot(star, el);
   };
 
@@ -160,7 +178,7 @@ export function BallsProvider({ children }: { children: ReactNode }) {
     }
     prev.current = collected.length;
   }, [collected]);
-  useEffect(() => { if (unlocked) { sfx("thunder"); setTimeout(() => sfx("roar"), 350); } }, [unlocked]);
+  useEffect(() => { if (unlocked) sfx("shenlong"); }, [unlocked]);
 
   return (
     <Ctx.Provider value={{ collected, isDone, count: collected.length, unlocked, collect, recruiter, reset }}>

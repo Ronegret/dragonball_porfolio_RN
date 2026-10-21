@@ -579,7 +579,7 @@ main{overflow-x:clip}.evo-top{max-width:100%}
 .burger i{position:absolute;left:0;right:0;height:2.5px;border-radius:2px;background:currentColor;transition:transform .25s var(--ease-out),opacity .2s ease}
 .burger i:nth-child(1){top:0}.burger i:nth-child(2){top:5.75px}.burger i:nth-child(3){bottom:0}
 .burger.x i:nth-child(1){transform:translateY(5.75px) rotate(45deg)}.burger.x i:nth-child(2){opacity:0}.burger.x i:nth-child(3){transform:translateY(-5.75px) rotate(-45deg)}
-@media (max-width:1000px){
+@media (max-width:1320px){   /* con el botón Contactar, la navegación en línea solo cabe por encima de 1320 px */
   .menu-btn{display:grid}
   .hud-nav{display:flex!important;position:absolute;top:calc(100% + 10px);right:14px;left:auto;transform:none;flex-direction:column;gap:2px;min-width:220px;
     padding:10px;background:#0c131e;border:3px solid #000;border-radius:14px;box-shadow:7px 7px 0 #ffb800;
@@ -767,94 +767,8 @@ main{overflow-x:clip}.evo-top{max-width:100%}
 
 /* ===== cartela de título con intro musical ===== */
 .loader{background:radial-gradient(900px 600px at 50% 40%,rgba(150,60,255,.28),transparent 65%),radial-gradient(700px 500px at 50% 110%,rgba(255,120,0,.2),transparent 65%),#07050f!important}
-.title-card{display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 16px;text-align:center;width:min(760px,100%)}
-.title-card .dbf-logo{margin:0;width:min(640px,92vw)}
-.tc-saga{font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:#c4122f;border:2.5px solid #000;box-shadow:4px 4px 0 #000;padding:6px 14px;transform:rotate(-2deg)}
-.tc-sub{margin:0;font-family:var(--f-mono);font-size:13px;color:#d9cdf2}
-.tc-actions{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:14px}
-.tc-start{font-size:15px;padding:14px 26px}
-.title-card.go .dbf-logo{animation:tclaunch 1.6s var(--ease-out) forwards}
-@keyframes tclaunch{0%{transform:scale(1)}18%{transform:scale(1.08)}100%{transform:scale(1.6);opacity:0}}
-@media (prefers-reduced-motion:reduce){.title-card.go .dbf-logo{animation:none}}
+
 .sec-head[data-sfx]::after,.evo-screen-lvl{font-family:var(--f-db)!important;font-weight:400!important;letter-spacing:.03em}
-
-/* ===================== UNIVERSO ANIMADO DE FONDO ===================== */
-.space{overflow:hidden}
-.sp-par{position:absolute;left:0;top:0;width:100%;height:calc(100% + 420px);will-change:transform}
-.sp-stars{position:absolute;inset:0 -320px 0 0;will-change:transform;animation:spdrift 160s linear infinite}
-.s1 .sp-stars{opacity:.55;animation-duration:220s;background-size:320px 210px;
-  background-image:radial-gradient(1px 1px at 22px 34px,#fff,transparent),radial-gradient(1px 1px at 140px 160px,#cfe8ff,transparent),radial-gradient(1px 1px at 260px 90px,#fff,transparent)}
-.s2 .sp-stars{opacity:.75;animation-duration:150s;background-size:320px 210px;
-  background-image:radial-gradient(1.4px 1.4px at 96px 122px,#fff,transparent),radial-gradient(1.3px 1.3px at 210px 40px,#ffe8a8,transparent)}
-.s3 .sp-stars{animation:spdrift 95s linear infinite,sptwinkle 4.5s ease-in-out infinite;background-size:320px 210px;
-  background-image:radial-gradient(2px 2px at 300px 20px,#fff,transparent),radial-gradient(1.8px 1.8px at 60px 180px,#d9c8ff,transparent)}
-@keyframes spdrift{to{transform:translate3d(-320px,0,0)}}
-@keyframes sptwinkle{0%,100%{opacity:1}50%{opacity:.45}}
-
-/* estrellas fugaces */
-.shoot{position:absolute;width:160px;height:2px;border-radius:2px;opacity:0;transform-origin:left center;
-  background:linear-gradient(90deg,#fff,rgba(255,255,255,.4) 30%,transparent);box-shadow:0 0 6px #fff}
-.sh1{top:12%;left:72%;animation:shoot 11s linear 2s infinite}
-.sh2{top:38%;left:30%;animation:shoot 15s linear 7s infinite}
-.sh3{top:64%;left:86%;animation:shoot 19s linear 12s infinite}
-@keyframes shoot{0%{opacity:0;transform:rotate(155deg) translateX(0)}1.5%{opacity:1}6%{opacity:0;transform:rotate(155deg) translateX(-420px)}100%{opacity:0;transform:rotate(155deg) translateX(-420px)}}
-
-/* galaxias: los otros universos girando a lo lejos */
-.galaxy{position:absolute;transform:rotate(-24deg) scaleY(.42);opacity:.55}
-.galaxy i{display:block;width:100%;height:100%;border-radius:50%;animation:spin 90s linear infinite;
-  background:radial-gradient(circle,#fff 0 3%,rgba(255,220,180,.9) 6%,transparent 20%),
-  repeating-conic-gradient(from 0deg,rgba(170,120,255,.55) 0 8deg,transparent 8deg 45deg),
-  radial-gradient(circle,rgba(150,90,255,.5),transparent 68%);
-  -webkit-mask-image:radial-gradient(circle,#000 30%,transparent 70%);mask-image:radial-gradient(circle,#000 30%,transparent 70%)}
-.g1{top:8%;left:6%;width:220px;height:220px}
-.g2{top:46%;left:56%;width:150px;height:150px;opacity:.35}.g2 i{animation-duration:70s;filter:hue-rotate(140deg)}
-.g3{top:78%;left:14%;width:180px;height:180px;opacity:.4}.g3 i{animation-duration:120s;animation-direction:reverse;filter:hue-rotate(-60deg)}
-
-/* planeta Namek con sus tres soles: el mapa gira dentro del disco */
-.namek-sys{position:absolute;right:-70px;top:54%;width:300px;height:300px;animation:nbob 14s ease-in-out infinite}
-.namek{position:absolute;inset:40px;border-radius:50%;overflow:hidden;background:#3fae8f;
-  box-shadow:0 0 0 2px rgba(150,255,200,.22),0 0 46px 12px rgba(80,220,150,.25)}
-/* mapa: tesela repetida en X (el bucle a -50% es continuo) con continentes de varios verdes e islas */
-.namek-map,.namek-clouds{position:absolute;top:0;left:0;width:200%;height:100%;background-repeat:repeat-x;background-size:50% 100%}
-.namek-map{width:400%;animation:nspin 80s linear infinite;background-image:url(/assets/space/namek.webp)}
-.namek-clouds{animation:nspin 42s linear infinite;opacity:.7;
-  background-image:radial-gradient(14% 3% at 20% 40%,rgba(255,255,255,.75),transparent 70%),radial-gradient(10% 2.5% at 64% 62%,rgba(255,255,255,.65),transparent 70%),
-    radial-gradient(18% 3% at 84% 22%,rgba(255,255,255,.55),transparent 70%),radial-gradient(8% 2% at 40% 84%,rgba(255,255,255,.5),transparent 70%)}
-/* iluminación esférica: brillo arriba-izquierda, noche abajo-derecha */
-.namek::after{content:"";position:absolute;inset:0;border-radius:50%;
-  background:radial-gradient(circle at 30% 26%,rgba(255,255,240,.42),transparent 38%),radial-gradient(circle at 74% 76%,rgba(2,22,18,.9),rgba(2,22,18,.35) 45%,transparent 70%);
-  box-shadow:inset 0 0 18px rgba(170,255,220,.45)}
-@keyframes nspin{to{transform:translate3d(-50%,0,0)}}
-@keyframes nbob{0%,100%{transform:translate3d(0,0,0)}50%{transform:translate3d(-10px,-14px,0)}}
-.sun{position:absolute;border-radius:50%;background:radial-gradient(circle,#fff 0 25%,#fff2b0 40%,rgba(255,200,80,.45) 60%,transparent 72%);animation:spulse 5s ease-in-out infinite}
-.su1{width:46px;height:46px;left:-6px;top:6px}.su2{width:30px;height:30px;left:40px;top:-18px;animation-delay:1.4s}.su3{width:22px;height:22px;left:-30px;top:64px;animation-delay:2.6s}
-@keyframes spulse{0%,100%{opacity:.95}50%{opacity:.6}}
-
-/* nave espacial de Goku */
-.pod-fly{position:absolute;left:100%;top:-10%;width:64px;height:64px;animation:podfly 26s linear 4s infinite;opacity:0}
-.pod{position:relative;width:100%;height:100%;z-index:1;filter:drop-shadow(0 0 10px rgba(255,140,40,.6))}
-.pod-trail{position:absolute;left:44px;top:16px;width:210px;height:32px;border-radius:30px;transform:rotate(-35deg);transform-origin:left center;
-  background:linear-gradient(90deg,rgba(255,240,180,.95),rgba(255,140,30,.75) 25%,rgba(224,56,59,.35) 60%,transparent);animation:podflame .18s steps(2) infinite}
-@keyframes podfly{0%{opacity:1;transform:translate3d(0,0,0)}22%{opacity:1;transform:translate3d(-115vw,80vh,0)}22.1%,100%{opacity:0;transform:translate3d(-115vw,80vh,0)}}
-@keyframes podflame{50%{opacity:.75}}
-
-/* nave de Freezer */
-.ship-fly{position:absolute;left:-180px;top:20%;width:150px;animation:shipfly 48s linear 10s infinite;opacity:0}
-.ship{display:block;width:100%;height:auto;animation:shipbob 3.2s ease-in-out infinite;filter:drop-shadow(0 6px 18px rgba(150,110,255,.35))}
-.ship-lights{animation:shiplights 1.2s steps(2) infinite}
-@keyframes shipfly{0%{opacity:0;transform:translate3d(0,0,0)}3%{opacity:.85}55%{opacity:.85;transform:translate3d(calc(100vw + 360px),-6vh,0)}55.1%,100%{opacity:0;transform:translate3d(calc(100vw + 360px),-6vh,0)}}
-@keyframes shipbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-@keyframes shiplights{50%{opacity:.45}}
-
-@media (max-width:760px){
-  .namek-sys{width:190px;height:190px;right:-60px;opacity:.55}.namek{inset:26px}
-  .g2,.ship-fly{display:none}
-  .g1{width:150px;height:150px}
-}
-@media (prefers-reduced-motion:reduce){
-  .space *{animation:none!important}
-  .pod-fly,.ship-fly,.shoot{display:none}
-}
 
 /* ===== nuevas ilustraciones de Rodrigo ===== */
 .bl-short{display:none}
@@ -876,9 +790,6 @@ main{overflow-x:clip}.evo-top{max-width:100%}
   .shen-kneel{width:200px}
 }
 
-.ref-top{display:flex;align-items:flex-end;justify-content:space-between;gap:24px}
-.ref-rod{width:250px;flex:none;margin-bottom:-6px;-webkit-mask-image:linear-gradient(180deg,#000 70%,transparent);mask-image:linear-gradient(180deg,#000 70%,transparent)}
-@media (max-width:900px){.ref-rod{display:none}}
 
 .dbf-stage{position:relative}
 .dbf-rod{position:absolute;left:-2%;bottom:-40px;height:440px;width:auto;pointer-events:none;
@@ -890,10 +801,143 @@ main{overflow-x:clip}.evo-top{max-width:100%}
 /* ===== fondo realista: nebulosa procedural que respira despacio ===== */
 .nebula{position:absolute;inset:-5%;background:url(/assets/space/nebula.webp) center/cover no-repeat;opacity:.95;will-change:transform;animation:nebdrift 120s ease-in-out infinite alternate}
 @keyframes nebdrift{from{transform:scale(1) translate3d(0,0,0)}to{transform:scale(1.08) translate3d(-1.5%,-1%,0)}}
-.galaxy{opacity:.32}.g2{opacity:.22}.g3{opacity:.26}
-.s1 .sp-stars{opacity:.35}
 
 /* ===== feedback al pulsar tarjetas y portales ===== */
 .capsule:active,.lab-card:active,.dbf-portal:active,.dbf-unis a:active,.link-card:active{transform:scale(.97)!important;transition:transform .12s var(--ease-out)}
 @media (prefers-reduced-motion:reduce){.nebula{animation:none}.evo-card .pw .bar i{transition:none}}
 .hero-stats .st b>span{all:inherit;display:inline}   /* el contador hereda el estilo del número, no el de la etiqueta */
+
+/* ===================== UNIVERSO DE FONDO ===================== */
+.space{overflow:hidden}
+.starfield{position:absolute;inset:0;width:100%;height:100%}
+.sp-obj{position:absolute;top:0;visibility:hidden;pointer-events:none;will-change:transform}
+.side-left{left:-7%}.side-right{right:-7%}
+.o-earth{width:min(300px,24vw)}.o-namek{width:min(420px,32vw)}.o-island{width:min(330px,26vw)}
+.obj-float{display:block;width:100%;height:auto;opacity:.92;animation:objbob 14s ease-in-out infinite}
+.o-namek .obj-float{animation-duration:17s}.o-island .obj-float{animation-duration:11s}
+@keyframes objbob{0%,100%{transform:translate3d(0,0,0) rotate(-1.4deg)}50%{transform:translate3d(-6px,-16px,0) rotate(1.4deg)}}
+/* cápsula de Goku: cruza el cielo en diagonal de derecha a izquierda cada ~34 s */
+.pod-fly{position:absolute;left:100%;top:-6%;width:clamp(140px,15vw,220px);opacity:0;pointer-events:none;animation:podfly 34s linear 9s infinite}
+.pod-fly img{display:block;width:100%;height:auto;transform:rotate(-20deg);filter:drop-shadow(0 0 20px rgba(255,150,50,.35))}
+@keyframes podfly{0%{opacity:1;transform:translate3d(0,0,0)}17%{opacity:1;transform:translate3d(-140vw,calc(140vw * .364),0)}17.1%,100%{opacity:0;transform:translate3d(-140vw,calc(140vw * .364),0)}}
+@media (max-width:760px){
+  .o-earth{width:150px}.o-namek{width:210px}.o-island{width:170px}
+  .obj-float{opacity:.6}
+  .pod-fly{width:150px}
+}
+@media (prefers-reduced-motion:reduce){.obj-float{animation:none}.pod-fly{display:none}}
+
+/* ===== cartela de título cinematográfica (TitleCard.tsx) ===== */
+.tc-stage{position:absolute;inset:0;display:grid;place-items:center;overflow:hidden}
+.tc-bg{position:absolute;inset:0;background:radial-gradient(720px 520px at 50% 45%,rgba(255,150,40,.22),transparent 70%),radial-gradient(1000px 700px at 50% 50%,rgba(120,60,220,.3),transparent 70%)}
+.tc-rays{position:absolute;left:50%;top:46%;width:130vmax;height:130vmax;margin:-65vmax 0 0 -65vmax;opacity:0;pointer-events:none;will-change:transform;animation:tcspin 46s linear infinite;
+  background:repeating-conic-gradient(from 0deg,rgba(255,206,70,.26) 0 4deg,transparent 4deg 12deg);
+  -webkit-mask-image:radial-gradient(closest-side,#000 6%,transparent 52%);mask-image:radial-gradient(closest-side,#000 6%,transparent 52%)}
+@keyframes tcspin{to{transform:rotate(360deg)}}
+.tc-stage-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 14px;text-align:center;width:min(980px,100%)}
+.tc-name{position:relative;margin:2px 0 4px;display:flex;flex-direction:column;align-items:center;will-change:transform}
+.tcw{display:flex;justify-content:center;gap:.025em;line-height:1;font-family:var(--f-db)}
+.tcw-a{font-size:clamp(46px,min(12.6vw,18vh),158px);letter-spacing:.01em}
+.tcw-b{font-size:clamp(38px,min(10vw,14.4vh),124px);margin-top:clamp(38px,min(8.2vw,11.8vh),104px)}
+.tcl{display:inline-block}
+.tcl-in{display:inline-grid;opacity:0;will-change:transform,opacity}
+.tc-stage.static .tcl-in{opacity:1}
+.tcl-in>i{grid-area:1/1;font-style:normal;line-height:1.05;white-space:pre}
+.tcl-in .b{color:#000;-webkit-text-stroke:.2em #000;text-shadow:0 .09em 0 #b32400,0 .17em 0 #120400,0 .24em .3em rgba(0,0,0,.55)}
+.tcl-in .f{color:transparent;-webkit-background-clip:text;background-clip:text;
+  background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.95) 50%,transparent 58%) no-repeat 160% 0/260% 100%,linear-gradient(180deg,#fff8b4 0%,#ffd23a 44%,#ff8a1a 100%);
+  -webkit-background-clip:text;background-clip:text}
+.tc-ball{position:absolute;left:50%;top:50%;width:clamp(66px,min(12.5vw,18vh),160px);aspect-ratio:1;margin:calc(clamp(66px,min(12.5vw,18vh),160px) / -2) 0 0 calc(clamp(66px,min(12.5vw,18vh),160px) / -2);z-index:3;opacity:0;will-change:transform}
+.tc-ball img{display:block;width:100%;height:100%;position:relative;z-index:1}
+.tc-halo{position:absolute;inset:-70%;border-radius:50%;opacity:0;will-change:transform,opacity;background:radial-gradient(circle,rgba(255,250,200,.95) 0,rgba(255,176,50,.7) 22%,rgba(255,120,20,.28) 42%,transparent 66%)}
+.tc-saga{opacity:0;margin-bottom:clamp(28px,min(5.4vw,8vh),70px);font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:#c4122f;border:2.5px solid #000;box-shadow:4px 4px 0 #000;padding:6px 14px;transform-origin:center}
+.tc-stage.static .tc-saga{opacity:1;transform:rotate(-2deg)}
+.tc-sub{opacity:0;margin:0;font-family:var(--f-mono);font-size:13px;color:#e4d8ff;letter-spacing:.03em}
+.tc-actions{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:12px}
+.tc-actions>*{opacity:0}
+.tc-stage.static .tc-sub,.tc-stage.static .tc-actions>*,.tc-stage.static .tc-ball{opacity:1}
+.tc-stage.static .tc-ball{transform:none}
+.tc-start{font-size:15px;padding:14px 28px;animation:tcpulse 1.8s ease-in-out 5.2s infinite}
+@keyframes tcpulse{0%,100%{box-shadow:3px 3px 0 #000,0 0 0 0 rgba(255,200,40,.55)}50%{box-shadow:3px 3px 0 #000,0 0 0 14px rgba(255,200,40,0)}}
+.tc-ring{position:absolute;left:50%;top:46%;width:240px;height:240px;margin:-120px 0 0 -120px;border-radius:50%;border:4px solid rgba(255,236,150,.95);box-shadow:0 0 30px rgba(255,180,50,.8),inset 0 0 30px rgba(255,180,50,.5);opacity:0;pointer-events:none}
+.tc-ring.r2{border-color:rgba(160,220,255,.9);box-shadow:0 0 30px rgba(90,170,255,.7)}
+.tc-spark{position:absolute;left:50%;top:46%;width:7px;height:7px;margin:-3px 0 0 -3px;border-radius:50%;opacity:0;pointer-events:none;background:#fff8c0;box-shadow:0 0 10px 3px rgba(255,200,60,.9)}
+.tc-spark:nth-child(3n){background:#bfe7ff;box-shadow:0 0 10px 3px rgba(90,170,255,.85)}
+.tc-flash{position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(circle at 50% 46%,#fff 0,#fff6c4 28%,rgba(255,200,70,.65) 58%,rgba(255,200,70,.0) 85%)}
+@media (max-width:560px){.tc-saga{font-size:10.5px;letter-spacing:.13em}.tc-sub{font-size:11.5px}}
+@media (prefers-reduced-motion:reduce){.tc-rays{animation:none;opacity:.5}.tc-start{animation:none}}
+
+/* ===== puntos de calor: contacto siempre a mano ===== */
+.hud-cta{position:relative}
+.hud-cta::after{content:"";position:absolute;inset:-3px;border-radius:inherit;border:2px solid #ff8a1f;opacity:0;pointer-events:none;animation:beacon 2.2s var(--ease-out) 7s 3}
+@keyframes beacon{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(1.35,1.9)}}
+@media (max-width:1000px){.hud-cta{display:none}}
+
+.cdock{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom));z-index:58;display:none;gap:8px;transform:translateY(160%);opacity:0;transition:transform .32s var(--ease-out),opacity .22s ease;pointer-events:none}
+.cdock.on{transform:none;opacity:1;pointer-events:auto}
+.cdock .btn{min-height:50px;justify-content:center;font-size:13px}
+.cd-main{flex:1}
+.cd-wa{background:#49f08a!important;color:#04170c!important;border-color:#000!important;font-weight:700}
+.cd-cv{min-width:64px;background:#ffcf2e!important;color:#0a0a0a!important}
+@media (max-width:1000px){.cdock{display:flex}.dbfoot{padding-bottom:96px}}
+@media (prefers-reduced-motion:reduce){.cdock{transition:opacity .2s ease}.hud-cta::after{animation:none}}
+
+.dbf-copy{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px 14px;margin-top:22px;font-family:var(--f-mono);font-size:12.5px;color:#cbbdf0}
+.dbf-copy code{font-family:inherit;color:#fff;background:rgba(255,255,255,.07);border:1px dashed rgba(201,168,255,.4);border-radius:8px;padding:8px 12px;overflow-wrap:anywhere}
+.dbf-copy .btn{min-height:40px}
+
+/* ===== Splash: escena de fondo + personaje que sale del marco (parallax por capas) ===== */
+.sec-head.splash{position:relative;background:#0a0f1a}
+.splash-bg{position:absolute;inset:0;border-radius:14px;overflow:hidden;z-index:0}
+.splash-bg img{position:absolute;left:0;top:-5%;width:100%;height:110%;object-fit:cover;will-change:transform}
+.splash-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(5,7,12,.95) 0%,rgba(5,7,12,.8) 40%,rgba(5,7,12,.08) 78%)}
+.sec-head.splash .sec-tag,.sec-head.splash h2,.sec-head.splash p{position:relative;z-index:2}
+.sec-head.splash::after{z-index:4}
+.sec-head.splash.compact{min-height:210px;padding-block:30px}
+.sec-head.splash.compact h2{font-size:clamp(28px,4vw,48px)}
+.splash-fig{position:absolute;right:1.5%;bottom:-3px;height:120%;width:auto;max-width:46%;object-fit:contain;object-position:bottom right;z-index:1;pointer-events:none;filter:drop-shadow(0 12px 22px rgba(0,0,0,.55));will-change:transform}
+.sec-head.splash.has-fig h2,.sec-head.splash.has-fig p,.sec-head.splash.narrow h2,.sec-head.splash.narrow p{max-width:min(600px,54%)}
+.sec-head.splash.has-fig::after{right:auto;left:46%}
+@media (max-width:760px){
+  .sec-head.splash{padding-top:170px}
+  .sec-head.splash.compact{padding-top:150px}
+  .splash-bg::after{background:linear-gradient(180deg,rgba(5,7,12,.3),rgba(5,7,12,.94) 58%)}
+  .splash-fig{top:-38px;bottom:auto;left:0;right:0;margin:0 auto;height:200px;max-width:90%;object-position:center bottom}
+  .sec-head.splash.has-fig h2,.sec-head.splash.has-fig p,.sec-head.splash.narrow h2,.sec-head.splash.narrow p{max-width:none}
+  .sec-head.splash.has-fig::after{left:auto;right:24px}
+}
+
+/* punto de calor: la cápsula principal pulsa como un radar hasta que se abre */
+.capsule.hot::before{content:"";position:absolute;left:50%;top:44%;width:130px;height:130px;margin:-65px 0 0 -65px;border-radius:50%;border:2px solid var(--cap);opacity:0;pointer-events:none;animation:beacon2 2.4s var(--ease-out) infinite}
+@keyframes beacon2{0%{opacity:.85;transform:scale(.45)}100%{opacity:0;transform:scale(1.5)}}
+@media (prefers-reduced-motion:reduce){.capsule.hot::before{animation:none;opacity:.5;transform:none}}
+
+/* barra superior: con el botón Contactar no cabe todo en pantallas de portátil, así que el reclutador pasa a icono */
+@media (max-width:1560px){.rec-txt{display:none}.tracker .lbl{display:none}.hud-nav{gap:20px}}
+@media (max-width:1180px){.hud-nav{gap:14px}.hud-nav a{font-size:13px}}
+
+.skip-link{position:fixed;left:12px;top:-70px;z-index:700;padding:12px 18px;background:#ffcf2e;color:#0a0a0a;border:3px solid #000;border-radius:12px;box-shadow:4px 4px 0 #000;font-family:var(--f-mono);font-weight:700;font-size:13px;transition:top .2s var(--ease-out)}
+.skip-link:focus-visible{top:12px;outline:3px solid #fff;outline-offset:2px}
+
+/* scouter: el guerrero identificado aparece como holograma con una línea de escaneo */
+.scouter-body{display:grid;grid-template-columns:minmax(0,170px) minmax(0,1fr);gap:26px;align-items:center}
+.scouter-scan{position:relative;height:290px;overflow:hidden;border-radius:12px;border:1px solid rgba(73,240,138,.4);background:radial-gradient(60% 50% at 50% 55%,rgba(73,240,138,.18),transparent 70%)}
+.scouter-scan img{position:absolute;inset:6px 0 0;margin:0 auto;height:calc(100% - 6px);width:auto;max-width:100%;object-fit:contain;filter:grayscale(.35) sepia(.35) hue-rotate(62deg) saturate(1.9) brightness(1.08);opacity:.92}
+.scouter-scan::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(73,240,138,.09) 0 1px,transparent 1px 4px);pointer-events:none}
+.scan-line{position:absolute;left:0;right:0;top:0;height:46px;background:linear-gradient(180deg,transparent,rgba(120,255,170,.55) 85%,rgba(210,255,230,.95));box-shadow:0 6px 22px rgba(73,240,138,.6);opacity:.85;animation:scanv 3.4s ease-in-out infinite;will-change:transform}
+@keyframes scanv{0%{transform:translateY(-46px)}100%{transform:translateY(300px)}}
+.scouter-body .scouter-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media (max-width:640px){.scouter-body{grid-template-columns:1fr}.scouter-scan{height:240px;max-width:220px;margin:0 auto}.scouter-body .scouter-grid{grid-template-columns:1fr 1fr}}
+@media (prefers-reduced-motion:reduce){.scan-line{animation:none;display:none}}
+
+/* trayectoria: la línea de ki avanza con el scroll */
+.tl-prog{position:absolute;left:14px;top:6px;bottom:6px;width:4px;border-radius:2px;background:linear-gradient(180deg,#ffe14d,#ff8a1f);box-shadow:0 0 12px rgba(255,170,40,.85);transform:scaleY(0);transform-origin:top;z-index:1;will-change:transform}
+.tl-orb{position:absolute;left:16px;top:6px;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;z-index:2;pointer-events:none;will-change:transform;
+  background:radial-gradient(circle,#fff 0 22%,#ffe14d 44%,rgba(255,140,30,.65) 66%,transparent 72%);box-shadow:0 0 20px 7px rgba(255,170,40,.65)}
+@media (prefers-reduced-motion:reduce){.tl-prog{transform:none}.tl-orb{display:none}}
+@media (max-width:620px){.tl-prog{left:14px}}
+
+/* ficha técnica: foto de identificación del guerrero */
+.perfil-more>summary{display:flex!important;align-items:center;gap:14px}
+.fiche-ava{width:58px;height:58px;flex:none;border-radius:50%;object-fit:cover;object-position:50% 12%;border:3px solid #000;background:#1d2a3d;box-shadow:3px 3px 0 #ffcf2e}
+.fiche-txt{min-width:0}

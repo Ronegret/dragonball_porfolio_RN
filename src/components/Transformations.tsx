@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { TRANSFORMATIONS } from "../data";
 import { Reveal, sfx, DBText } from "../lib";
 import EvolutionBackground from "./EvolutionBackground";
+import Splash from "./Splash";
 
 export default function Transformations() {
   const [i, setI] = useState(0);
@@ -39,13 +40,9 @@ export default function Transformations() {
     <section id="poderes">
       <div className="sec" style={{ paddingBottom: 0 }}>
         <div className="wrap">
-          <Reveal>
-            <div className="sec-head" data-sfx="¡FWOOSH!">
-              <div className="sec-tag">Transformaciones · Niveles de poder</div>
-              <h2><DBText text="Mi evolución profesional, *fase a fase.*" /></h2>
-              <p>Cada transformación es una etapa real de mi carrera. Haz scroll: el aura cambia detrás de ti y mi currículum sube de nivel contigo — de la forma base hasta el máximo.</p>
-            </div>
-          </Reveal>
+          <Splash scene="/assets/scenes/gravity.webp" sfx="¡FWOOSH!" tag="Transformaciones · Niveles de poder" title="Mi evolución profesional, *fase a fase.*" pos="75% 8%" className="narrow">
+            <p>Cada transformación es una etapa real de mi carrera. Haz scroll: el aura cambia detrás de ti y mi currículum sube de nivel contigo, de la forma base hasta el máximo.</p>
+          </Splash>
           <div className="ultra-banner" ref={banner}>
             <img src="/assets/ultra-pose.jpg" alt="Rodrigo concentrando su ki antes de transformarse" />
             <Reveal className="ultra-copy">

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { sfx } from "../lib";
+import { sfx, fadeOutSfx } from "../lib";
 
 // Orden de evolución (nº de imagen): base, saiyan, fase 3, blue, ultra instinto, fase 4
 const ORDER = [1, 2, 5, 3, 4, 6];
@@ -233,7 +233,7 @@ export default function Character3D() {
     busyRef.current = true;
     setTouched(true);
     [flashRef.current, ringRef.current, figRef.current].forEach((el) => { if (el) { el.classList.remove("go"); void el.offsetWidth; el.classList.add("go"); } });
-    sfx("powerup");
+    fadeOutSfx("charge", 120); sfx("powerup");
     burstRef.current = 1;                                   // estallido de ki
     setTimeout(() => setForm((x) => (x + 1) % FORMS.length), 180); // cambia en el pico del destello
     setTimeout(() => { busyRef.current = false; }, 650);
@@ -243,7 +243,7 @@ export default function Character3D() {
     <div className="char3d">
       <canvas className="ki-canvas" ref={canvasRef} aria-hidden />
       <button className="ki-figure" ref={figRef} onClick={evolve} data-cursor data-snd
-        onPointerEnter={(e) => { if (e.pointerType === "mouse") sfx("charge", 1800); }} style={{ ["--aura" as any]: AURA[form] }}
+        onPointerEnter={(e) => { if (e.pointerType === "mouse") sfx("charge", 4000); }} onPointerLeave={() => fadeOutSfx("charge")} style={{ ["--aura" as any]: AURA[form] }}
         aria-label={`${NAMES[form]} — ${STUDY[form]}. Clic para evolucionar.`}>
         <img className="ki-img" ref={imgRef} src={FORMS[form]} alt={NAMES[form]} draggable={false} />
         <span className="ki-ring" ref={ringRef} aria-hidden />

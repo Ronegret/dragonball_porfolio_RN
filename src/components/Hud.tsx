@@ -7,11 +7,11 @@ const NAV: [string, string][] = [
   ["trayectoria", "Trayectoria"], ["shenron", "Invocar"],
 ];
 
-export const scrollToId = (id: string) => {
+export const scrollToId = (id: string, offset = -10) => {
   const t = document.getElementById(id);
   sfx("teleport");   // teletransportación al saltar de sección
   const l = (window as any).lenis;
-  if (l) l.scrollTo(t, { offset: -10 }); else t?.scrollIntoView({ behavior: "smooth" });
+  if (l) l.scrollTo(t, { offset }); else t?.scrollIntoView({ behavior: "smooth" });
 };
 
 export default function Hud() {
@@ -69,9 +69,10 @@ export default function Hud() {
             ))}
           </div>
         </div>
-        <button className="btn gold" onClick={recruiter} aria-label="Modo Reclutador">⚡ <span className="rec-txt">Modo Reclutador</span></button>
+        <button className="btn solid hud-cta" data-snd onClick={() => { sfx("teleport"); scrollToId("contacto", -110); }}>✉ Contactar</button>
+        <button className="btn gold" onClick={recruiter} aria-label="Modo Reclutador" title="Modo Reclutador: reúne las 7 esferas ahora">⚡ <span className="rec-txt">Modo Reclutador</span></button>
         <button className="btn icon-btn" data-snd aria-label={m ? "Activar sonido" : "Silenciar sonido"} aria-pressed={!m}
-          onClick={() => { const nm = !m; setMuted(nm); setM(nm); if (!nm) sfx("bip"); }}>
+          onClick={() => { const nm = !m; setMuted(nm); setM(nm); if (!nm) sfx("radar"); }}>
           {m ? "🔇" : "🔊"}
         </button>
         <button className="btn icon-btn menu-btn" aria-label="Menú" aria-expanded={menu} aria-controls="hud-menu" onClick={() => setMenu((v) => !v)}>

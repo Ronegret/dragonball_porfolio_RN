@@ -100,6 +100,11 @@ export default function Shenron() {
 
               <div className="scouter">
                 <div className="scouter-head"><span className="dot" /> LECTURA DE SCOUTER · GUERRERO IDENTIFICADO</div>
+                <div className="scouter-body">
+                <div className="scouter-scan" aria-hidden>
+                  <img src="/assets/rod/suit-full.webp" alt="" loading="lazy" />
+                  <i className="scan-line" />
+                </div>
                 <div className="scouter-grid">
                   <div><span>NOMBRE</span><b>{PROFILE.name}</b></div>
                   <div><span>CLASE</span><b>{PROFILE.roles}</b></div>
@@ -107,6 +112,7 @@ export default function Shenron() {
                   <div><span>BASE</span><b>{PROFILE.location} · Remoto EU</b></div>
                   <div><span>IDIOMAS</span><b>{LANGS.map((l) => `${l.l} ${l.lv}`).join(" · ")}</b></div>
                   <div><span>NIVEL DE PODER</span><PowerLevel /></div>
+                </div>
                 </div>
               </div>
 

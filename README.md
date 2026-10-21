@@ -7,12 +7,16 @@ Portfolio interactivo y gamificado (Dragon Ball Z + Capsule Corp) construido com
 ## ✨ Concepto
 > Tu evolución profesional **es** un power-up Saiyan. El vídeo de transformaciones vive **detrás del contenido** (canvas fijo) y sube de nivel con el scroll; tu CV real flota encima y cambia sincronizado con cada forma.
 
-- **Personaje interactivo** en el hero (`src/components/Character3D.tsx`): imagen estática de alta calidad con un **aura de ki (canvas 2D) que se agita al pasar el ratón**, y al **hacer clic** un **destello** revela la **evolución** por las 6 formas (base → Super Saiyan → Fase 3 → Blue → Ultra Instinto → Fase 4). Cada forma muestra una **etapa real de estudios/carrera** (Fundamentos B2B+Web → UX/UI Neoland → Producto & Frontend → Máster IA Generativa UDIA → Agentes IA EBIS → AI Product Designer). El orden está en `ORDER`; las imágenes en `public/assets/forms/f1..f6.png`.
+- **Personaje interactivo** en el hero (`src/components/Character3D.tsx`): imagen estática de alta calidad con un **aura de ki (canvas 2D) que se agita al pasar el ratón**, y al **hacer clic** un **destello** revela la **evolución** por las 6 formas (base → Super Saiyan → Fase 3 → Blue → Ultra Instinto → Fase 4). Cada forma muestra una **etapa real de estudios/carrera** (Fundamentos B2B+Web → UX/UI Neoland → Producto & Frontend → Máster IA Generativa UDIA → Agentes IA EBIS → AI Product Designer). El orden está en `ORDER`; las imágenes en `public/assets/forms/f1..f6.webp`.
 - **Logo = Radar del Dragón** y **cursor = Radar del Dragón** que sigue el puntero (se oculta en táctil).
 - **Evolución de fondo** (Normal → Super Saiyan → Blue → Ultra Instinto → SSJ4) sincronizada con las 5 etapas reales de tu carrera. La forma del vídeo y la tarjeta del CV coinciden fase a fase.
 - **Secciones completas:** Hero · Perfil · Poderes (transformaciones) · Arsenal (stack con barras de ki) · Sagas (proyectos = cápsulas Hoi-Poi con explosión y holograma) · Trayectoria (timeline + formación) · Referencias · Invocación de Shen Long (contacto).
 - **Gamificación:** 7 esferas del dragón escondidas, contador en el HUD, **Modo Reclutador** y desbloqueo de Shen Long a 7/7.
-- Responsive (desktop + móvil) y `prefers-reduced-motion`.
+- **Intro cinematográfica** (`TitleCard.tsx`, línea de tiempo GSAP): la bola del dragón se enciende, estalla con ondas de choque y las letras del nombre caen una a una; "Comenzar" toca la música de apertura.
+- **Universo de fondo** (`SpaceBackground.tsx`): campo de partículas en canvas que reacciona al ratón (se apartan, hilos de constelación, onda de choque al hacer clic, estiramiento al hacer scroll rápido), nebulosa, planetas con parallax anclados a su sección y la cápsula de Goku cruzando el cielo.
+- **Cabeceras tipo viñeta** (`Splash.tsx`): escena de fondo + personaje que sale del marco, con parallax por capas.
+- **Puntos de calor de contacto:** botón *Contactar* en la barra (escritorio), dock inferior en móvil (Contactar · WhatsApp · CV), copiar email en el footer y radar pulsante en la cápsula principal.
+- Responsive (desktop + móvil), accesibilidad (enlace "Saltar al contenido", foco visible, nombres accesibles) y `prefers-reduced-motion`.
 
 ## ▶️ Desarrollo
 ```bash
@@ -42,17 +46,33 @@ index.html              # entrada Vite
 src/
   main.tsx  App.tsx      # setup Lenis+GSAP, provider de esferas, composición
   data.ts                # TODO el contenido real del CV (edítalo aquí)
-  lib.tsx                # contexto esferas, audio, SVG esfera, Reveal (Framer Motion)
-  index.css              # sistema de diseño (negro profundo, HUD, auras DBZ)
+  lib.tsx                # contexto esferas, audio (Howler), SVG esfera, Reveal, DBText (letras animadas)
+  index.css              # sistema de diseño (cómic DBZ: contornos, sombras duras, Luckiest Guy)
   components/
-    EvolutionBackground.tsx  # canvas de frames (fondo) + sync con scroll
-    CursorAvatar.tsx         # cursor-personaje
-    Hero / Profile / Transformations / Stack / Projects / Experience / References / Shenron / Hud / DragonBalls
+    Loader / TitleCard      # radar de carga + cartela cinematográfica con música
+    SpaceBackground         # partículas, nebulosa, planetas, cápsula de Goku
+    Splash                  # cabecera de sección (escena + personaje, parallax)
+    EvolutionBackground     # canvas de frames (fondo) + sync con scroll
+    Hero / Profile / Transformations / Stack / Projects / Experience / References / Shenron
+    Footer / ContactDock / Hud / CursorAvatar / DragonBalls / Character3D
 public/assets/
   frames/ (192 jpg)      # secuencia del vídeo de evolución
-  hero-avatar.png, about-avatar.png, headshot.png, kame-*.jpg
-_source/                 # material original (vídeo mp4, jpgs, index v1) — no se despliega
+  forms/ caps/ db/ proj/ # personaje, cápsulas, esferas y capturas (WebP)
+  rod/ scenes/ space/    # ilustraciones recortadas, escenas y objetos del fondo
+  sfx/                   # sonidos (mp3 aportados + wav sintetizados)
+tools/                   # pipelines reproducibles (ver abajo)
+_source/                 # originales (no se versiona ni se despliega)
 ```
+
+## 🛠️ Pipelines de assets (`tools/`)
+| Script | Qué hace |
+|---|---|
+| `build-sfx-user.py` | Normaliza/recorta los mp3 de `_source/sfx` -> `public/assets/sfx` (requiere ffmpeg) |
+| `build-sfx.py` | Sintetiza los efectos menores (scouter, zing) |
+| `build-nuevas2.py` | Recorta y optimiza las ilustraciones de `_source/nuevas2` (cutouts WebP, escenas) |
+| `cutout.py` | Recorte genérico de fondo blanco con sombra translúcida |
+| `build-capsules.py` | Genera las 16 cápsulas Hoi-Poi |
+| `build-space.py` | Genera la nebulosa procedural |
 
 ## 🎞️ Regenerar los frames (si cambias el vídeo)
 ```bash

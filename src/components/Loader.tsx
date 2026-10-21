@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
-import { sfx, setMuted } from "../lib";
-import { DBLogo } from "./Footer";
+import { setMuted, playIntroMusic } from "../lib";
+import TitleCard from "./TitleCard";
 
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 // assets que deben estar listos antes de entrar
@@ -48,12 +48,12 @@ export default function Loader() {
 
   useEffect(() => {
     if (!ready || launch) return;
-    const auto = setTimeout(() => finishRef.current(), 9000);
+    const auto = setTimeout(() => finishRef.current(), 14000);   // la cinematica dura ~5 s: si nadie pulsa, entra sola y en silencio
     return () => clearTimeout(auto);
   }, [ready, launch]);
 
   const start = () => {   // el clic es el gesto que desbloquea el audio: suena la intro y entramos
-    setMuted(false); sfx("intro"); setLaunch(true);
+    setMuted(false); playIntroMusic(); setLaunch(true);
     setTimeout(() => finishRef.current(), reduce ? 200 : 1700);
   };
   const silent = () => { setMuted(true); finishRef.current(); };
@@ -91,17 +91,7 @@ export default function Loader() {
               <button className="loader-skip" onClick={() => finishRef.current()}>Saltar intro</button>
             </>
           ) : (
-            <motion.div className={"title-card" + (launch ? " go" : "")}
-              initial={{ opacity: 0, transform: "scale(0.9)" }} animate={{ opacity: 1, transform: "scale(1)" }}
-              transition={{ duration: 0.5, ease: EASE_OUT }}>
-              <span className="tc-saga">Saga del diseño de producto · Episodio 1</span>
-              <DBLogo />
-              <p className="tc-sub">AI Product Designer · UX/UI · Automatización con IA</p>
-              <div className="tc-actions">
-                <button className="btn gold tc-start" onClick={start} autoFocus>▶ Comenzar la aventura</button>
-                <button className="loader-skip" onClick={silent}>Entrar sin sonido</button>
-              </div>
-            </motion.div>
+            <TitleCard launch={launch} onStart={start} onSilent={silent} />
           )}
         </motion.div>
       )}

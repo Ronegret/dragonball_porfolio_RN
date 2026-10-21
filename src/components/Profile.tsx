@@ -1,23 +1,20 @@
 import { Reveal, isWide, DBText } from "../lib";
 import { PROFILE, LANGS, CONTACT } from "../data";
+import Splash from "./Splash";
 
 export default function Profile() {
   return (
     <section id="perfil" className="sec">
       <div className="wrap">
-        <Reveal>
-          <div className="sec-head splash" data-sfx="¡SCAN!" style={{ ["--scene" as any]: "url(/assets/scenes/kame-house.jpg)" }}>
-            <div className="sec-tag">Scouter · Lectura de combate</div>
-            <h2><DBText text="Diseño de producto con *IA aplicada.*" /></h2>
-            <p>Base de operaciones: Kame House, Barcelona. Desde aquí entreno cada día producto, UX y automatización con IA.</p>
-          </div>
-        </Reveal>
+        <Splash scene="/assets/scenes/barcelona.webp" sfx="¡SCAN!" tag="Scouter · Lectura de combate" title="Diseño de producto con *IA aplicada.*" pos="62% 40%" className="narrow">
+          <p>Base de operaciones: Barcelona, a la sombra de la Sagrada Familia. Desde aquí entreno cada día producto, UX y automatización con IA.</p>
+        </Splash>
 
         <div style={{ display: "grid", gridTemplateColumns: "0.85fr 1.15fr", gap: 44, alignItems: "center" }} className="perfil-grid">
           <Reveal>
             <div style={{ position: "relative", display: "grid", placeItems: "center" }}>
               <div className="hero-ring r1" style={{ width: "min(80%,340px)" }} />
-              <img src="/assets/about-avatar.webp" alt="Rodrigo Negrete"
+              <img src="/assets/rod/portrait.webp" alt="Rodrigo Negrete con su camiseta de Capsule Corp"
                 style={{ width: "min(88%,360px)", filter: "drop-shadow(0 26px 46px rgba(0,0,0,.6))", position: "relative", zIndex: 2 }} />
             </div>
           </Reveal>
@@ -32,7 +29,7 @@ export default function Profile() {
             </Reveal>
 
             <details className="fold perfil-more" open={isWide()}>
-              <summary data-cursor><span className="tl-when">FICHA TÉCNICA DEL GUERRERO</span><h4>Ubicación, modalidad, disponibilidad e idiomas</h4></summary>
+              <summary data-cursor><img className="fiche-ava" src="/assets/rod/vest.webp" alt="" loading="lazy" /><span className="fiche-txt"><span className="tl-when">FICHA TÉCNICA DEL GUERRERO</span><h4>Ubicación, modalidad, disponibilidad e idiomas</h4></span></summary>
               <div className="fold-body">
             <Reveal delay={0.1}>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 14, margin: "26px 0" }} className="perfil-data">

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Reveal, DBIcon, More, isWide, DBText } from "../lib";
 import { STACK } from "../data";
+import Splash from "./Splash";
 
 export default function Stack() {
   const [all, setAll] = useState(false);
@@ -9,13 +10,9 @@ export default function Stack() {
   return (
     <section id="stack" className="sec">
       <div className="wrap">
-        <Reveal>
-          <div className="sec-head splash" data-sfx="¡KAME!" style={{ ["--scene" as any]: "url(/assets/scenes/kaio-planet.jpg)" }}>
-            <div className="sec-tag">Arsenal · Técnicas dominadas</div>
-            <h2><DBText text="Herramientas usadas en *proyectos reales.*" /></h2>
-            <p>Técnicas entrenadas en el planeta de Kaio-sama. Stack práctico para investigar, prototipar, lanzar, automatizar y medir. Presentado con foco en uso real, no como una lista inflada de expertise.</p>
-          </div>
-        </Reveal>
+        <Splash scene="/assets/scenes/kaio-planet.jpg" fig="/assets/rod/team.webp" figAlt="Rodrigo con su equipo: Goku, Vegeta, Beerus y las IA que usa a diario" sfx="¡KAME!" tag="Arsenal · Técnicas dominadas" title="Herramientas usadas en *proyectos reales.*">
+          <p>Técnicas entrenadas en el planeta de Kaio-sama, con un equipo de IA a mi lado. Stack práctico para investigar, prototipar, lanzar, automatizar y medir, con foco en uso real, no en una lista inflada de expertise.</p>
+        </Splash>
 
         <div className="stack-grid">
           {STACK.map((col, ci) => (

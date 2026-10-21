@@ -5,8 +5,9 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 import { BallsProvider } from "./lib";
 import CursorAvatar from "./components/CursorAvatar";
-import Hud from "./components/Hud";
+import Hud, { scrollToId } from "./components/Hud";
 import Footer from "./components/Footer";
+import ContactDock from "./components/ContactDock";
 import Hero from "./components/Hero";
 import Profile from "./components/Profile";
 import Transformations from "./components/Transformations";
@@ -36,6 +37,7 @@ export default function App() {
   return (
     <BallsProvider>
       <Loader />
+      <a className="skip-link" href="#perfil" onClick={(e) => { e.preventDefault(); scrollToId("perfil"); }}>Saltar al contenido</a>
       <div className="bg-layer bg-tint" />
       <SpaceBackground />
       <CursorAvatar />
@@ -51,6 +53,7 @@ export default function App() {
         <Shenron />
       </main>
       <Footer />
+      <ContactDock />
       <DragonBalls />
     </BallsProvider>
   );
