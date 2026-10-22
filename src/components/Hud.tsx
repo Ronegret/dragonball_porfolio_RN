@@ -9,9 +9,13 @@ const NAV: [string, string][] = [
 
 export const scrollToId = (id: string, offset = -10) => {
   const t = document.getElementById(id);
+  if (!t) return;
   sfx("teleport");   // teletransportación al saltar de sección
   const l = (window as any).lenis;
-  if (l) l.scrollTo(t, { offset }); else t?.scrollIntoView({ behavior: "smooth" });
+  if (l) l.scrollTo(t, { offset }); else t.scrollIntoView({ behavior: "smooth" });
+  // el foco acompaña al salto, como en un enlace nativo: sin esto "Saltar al contenido" dejaba el foco en el propio enlace
+  if (!t.hasAttribute("tabindex")) t.tabIndex = -1;
+  t.focus({ preventScroll: true });
 };
 
 export default function Hud() {
@@ -51,7 +55,7 @@ export default function Hud() {
   return (
     <header className="hud">
       <a className="brand" href="#hero" onClick={go("hero")} aria-label="Rodrigo Negrete — volver al inicio">
-        <img className="radar-logo-img" src="/assets/radar-device.png" alt="" />
+        <img className="radar-logo-img" src="/assets/radar-device.webp" alt="" />
         <div><b>RODRIGO NEGRETE</b><span>DRAGON RADAR · DEV LAB</span></div>
       </a>
       <nav className={"hud-nav" + (menu ? " open" : "")} id="hud-menu" aria-label="Secciones">
@@ -71,7 +75,7 @@ export default function Hud() {
         </div>
         <button className="btn solid hud-cta" data-snd onClick={() => scrollToId("contacto", -110)}>✉ Contactar</button>
         <button className="btn gold" onClick={recruiter} aria-label="Modo Reclutador" title="Modo Reclutador: reúne las 7 esferas ahora">⚡ <span className="rec-txt">Modo Reclutador</span></button>
-        <button className="btn icon-btn" data-snd aria-label={m ? "Activar sonido" : "Silenciar sonido"} aria-pressed={!m}
+        <button className="btn icon-btn" data-snd aria-label="Sonido" aria-pressed={!m}
           onClick={() => { const nm = !m; setMuted(nm); setM(nm); if (!nm) sfx("radar"); }}>
           {m ? "🔇" : "🔊"}
         </button>

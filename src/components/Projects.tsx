@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { gsap } from "gsap";
 import { AnimatePresence, motion, useDragControls } from "framer-motion";
 import { PROJECTS, PROJECT_CATS, LAB } from "../data";
-import { Reveal, hexA, sfx, fadeOutSfx, More, DBText } from "../lib";
+import { Reveal, hexA, sfx, fadeOutSfx, More, DBText, readNums } from "../lib";
 import Splash from "./Splash";
 
 function capsuleBurst(x: number, y: number, color: string) {
@@ -30,20 +30,24 @@ export default function Projects() {
   const [allCaps, setAllCaps] = useState(false);
   const [allLab, setAllLab] = useState(false);
   // la cápsula principal late como un radar hasta que el visitante la abre por primera vez
-  const [seen, setSeen] = useState<number[]>(() => { try { return JSON.parse(localStorage.getItem("rn_caps") || "[]"); } catch { return []; } });
+  const [seen, setSeen] = useState<number[]>(() => readNums("rn_caps", 0, PROJECTS.length - 1));
   const filtered = PROJECTS.filter((p) => cat === "Todos" || p.cat === cat);
   const list = allCaps ? filtered : filtered.slice(0, 10);
 
+  const opener = useRef<HTMLElement | null>(null);   // cápsula que abrió el proyecto: el foco vuelve a ella al cerrar
   useEffect(() => {
-    if (sel === null) fadeOutSfx("capsule");        // al cerrar el proyecto el tema se apaga con un fundido
+    if (sel === null) { fadeOutSfx("capsule"); opener.current?.focus({ preventScroll: true }); opener.current = null; }   // al cerrar el proyecto el tema se apaga con un fundido
     document.body.classList.toggle("lock", sel !== null);
+    const root = document.getElementById("root");
+    if (sel !== null && root) root.inert = true;     // con el diálogo abierto, el resto de la web ni se tabula ni la lee el lector de pantalla
     const esc = (e: KeyboardEvent) => { if (e.key === "Escape") setSel(null); };
     window.addEventListener("keydown", esc);
-    return () => { document.body.classList.remove("lock"); window.removeEventListener("keydown", esc); };
+    return () => { document.body.classList.remove("lock"); if (root) root.inert = false; window.removeEventListener("keydown", esc); };
   }, [sel]);
 
   const open = (gi: number, e: React.MouseEvent) => {
     const el = e.currentTarget as HTMLElement;
+    opener.current = el;
     const r = el.getBoundingClientRect();
     capsuleBurst(r.left + r.width / 2, r.top + r.height / 2, PROJECTS[gi].cap);
     sfx("capsule");        // tema de Vegeta al abrir una cápsula
@@ -66,7 +70,7 @@ export default function Projects() {
         <Reveal>
           <div className="cap-filters">
             {PROJECT_CATS.map((c) => (
-              <button key={c} className={c === cat ? "on" : ""} data-cursor onClick={() => setCat(c)}>{c}</button>
+              <button key={c} className={c === cat ? "on" : ""} aria-pressed={c === cat} data-cursor onClick={() => setCat(c)}>{c}</button>
             ))}
           </div>
         </Reveal>
@@ -79,7 +83,7 @@ export default function Projects() {
                 <button className={"capsule" + (pr.star && !seen.includes(gi) ? " hot" : "")} style={{ ["--cap" as any]: pr.cap }} data-cursor
                   aria-label={`Cápsula ${String(gi + 1).padStart(2, "0")}: ${pr.name}. Abrir proyecto`}
                   onClick={(e) => open(gi, e)}>
-                  <img src={`/assets/caps/cap${String(gi + 1).padStart(2, "0")}.webp`} alt="" draggable={false} />
+                  <img src={`/assets/caps/cap${String(gi + 1).padStart(2, "0")}.webp`} alt="" draggable={false} loading="lazy" decoding="async" />
                   {pr.star && <span className="star" title="Proyecto destacado">★</span>}
                   <span className="nm"><b>{String(gi + 1).padStart(2, "0")}</b> {pr.name}</span>
                 </button>
@@ -126,14 +130,14 @@ export default function Projects() {
                   : { initial: { opacity: 0, transform: "translateY(16px) scale(0.94)" }, animate: { opacity: 1, transform: "translateY(0px) scale(1)" },
                       exit: { opacity: 0, transform: "translateY(8px) scale(0.97)" }, transition: { type: "spring", duration: 0.45, bounce: 0.15 } })}>
                 <button className="pm-grab" aria-hidden tabIndex={-1} onPointerDown={(e) => drag.start(e)}><i /></button>
-                <button className="close" data-cursor onClick={() => setSel(null)} aria-label="Cerrar">✕</button>
+                <button className="close" data-cursor autoFocus onClick={() => setSel(null)} aria-label="Cerrar proyecto">✕</button>
                 <div className="pm-media" onPointerDown={(e) => { if (sheet) drag.start(e); }}>
                   <img src={`/assets/proj/${p.img}.webp`} alt={`${p.name} — imagen del proyecto`} />
                   <img className="pm-cap" src={`/assets/caps/cap${String(sel! + 1).padStart(2, "0")}.webp`} alt="" />
                   <span className="pm-no">Nº{String(sel! + 1).padStart(2, "0")}</span>
                 </div>
                 <div className="pm-body">
-                  <div className="pm-scroll">
+                  <div className="pm-scroll" tabIndex={0} role="region" aria-label="Detalle del proyecto">
                     <div className="pm-tag">{p.tag} · {p.year}</div>
                     <h3 id="pm-title">{p.name}</h3>
                     <p className="pm-sub">{p.title}</p>

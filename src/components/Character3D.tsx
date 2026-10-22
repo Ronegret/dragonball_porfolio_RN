@@ -259,7 +259,7 @@ export default function Character3D() {
           </motion.p>
         )}
       </AnimatePresence>
-      <div className="char3d-ui">
+      <div className="char3d-ui" aria-live="polite">
         <div className="char3d-name">
           <span className="dot" style={{ background: AURA[form], color: AURA[form] }} />
           <b>{NAMES[form]}</b>

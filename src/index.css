@@ -17,6 +17,9 @@ body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);ov
 body.lock{overflow:hidden}
 a{color:inherit;text-decoration:none}
 button{font-family:inherit}
+/* anillo de foco por defecto para teclado (especificidad 0: cualquier regla propia de un componente manda sobre él) */
+:where(a,button,summary,[role="button"]):focus-visible{outline:3px solid #ffcf2e;outline-offset:3px}
+[tabindex="-1"]:focus{outline:none}   /* destinos de salto (secciones): reciben el foco por script, sin anillo */
 img{display:block;max-width:100%}
 h1,h2,h3,h4{font-family:var(--f-head);line-height:1.02;margin:0;letter-spacing:-.025em;font-weight:800}
 .mono{font-family:var(--f-mono)}
@@ -219,7 +222,7 @@ section{position:relative;z-index:1}
 .tl-item.now::before{background:var(--radar);border-color:var(--radar);box-shadow:0 0 14px var(--radar)}
 .tl-when{font-family:var(--f-mono);font-size:11px;color:var(--accent);letter-spacing:.06em}
 .tl-item.now .tl-when::after{content:"ACTUAL";margin-left:8px;color:var(--radar);border:1px solid rgba(73,240,138,.4);padding:1px 7px;border-radius:999px;font-size:9px}
-.tl-item h4{font-family:var(--f-head);font-size:19px;margin:7px 0 3px}
+.tl-item h3{font-family:var(--f-head);font-size:19px;margin:7px 0 3px}
 .tl-item .org{color:var(--mut);font-size:13px;margin-bottom:9px}
 .tl-item p{color:var(--mut);font-size:14px;line-height:1.55;max-width:60ch}
 .tl-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
@@ -229,7 +232,7 @@ section{position:relative;z-index:1}
 .edu .st{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;padding:3px 9px;border-radius:999px;display:inline-block;margin-bottom:12px}
 .edu .st.fin{color:var(--radar);border:1px solid rgba(73,240,138,.35)}
 .edu .st.cur{color:var(--gold);border:1px solid rgba(255,184,0,.4)}
-.edu h4{font-size:16px;font-family:var(--f-head)}
+.edu h3{font-size:16px;font-family:var(--f-head)}
 .edu .org{color:var(--accent);font-size:12.5px;font-family:var(--f-mono);margin:5px 0 9px}
 .edu p{color:var(--mut);font-size:13px;line-height:1.5;margin:0}
 
@@ -436,7 +439,8 @@ html.lenis,html.lenis body{height:auto}
 .pm-no{position:absolute;top:14px;left:14px;font-family:var(--f-head);font-weight:800;font-size:15px;color:#000;background:var(--cap);border:2.5px solid #000;padding:4px 10px;border-radius:8px;transform:rotate(-3deg)}
 .pm-body{position:relative;padding:30px 30px 28px}
 .pm-body .close{position:absolute;top:16px;right:16px;cursor:pointer;border:2px solid var(--line2);background:#0b111b;color:var(--ink);width:38px;height:38px;border-radius:10px;font-size:16px}
-.pm-tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cap);padding-right:44px}
+.pm-tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cap);color:color-mix(in srgb,var(--cap) 70%,#fff);padding-right:44px}   /* aclarado: Rodd, Just Enjoy y Aquae no llegaban a 4.5:1 sobre el fondo oscuro */
+.pm-scroll:focus-visible{outline:2px solid var(--cap);outline-offset:-2px}
 .pm-body h3{font-size:clamp(28px,3.4vw,40px);margin:8px 0 4px}
 .pm-sub{font-family:var(--f-head);font-size:17px;color:var(--ink);margin:0 0 14px;line-height:1.3}
 .pm-desc{color:#c4d0e0;font-size:15px;line-height:1.6;margin:0}
@@ -542,7 +546,7 @@ main{overflow-x:clip}.evo-top{max-width:100%}
   background:#ffe14d url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='3' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") center/14px no-repeat;
   border:2px solid #000;transition:transform .25s var(--ease-out)}
 .fold[open]>summary::after{transform:rotate(180deg)}
-.fold>summary h4{margin:6px 0 2px}
+.fold>summary h3{margin:6px 0 2px}
 .fold>summary .org{display:block;color:var(--mut);font-size:13px}
 .fold>summary .tl-when{display:inline-block}
 .fold-body{padding-top:12px}
@@ -1237,10 +1241,10 @@ main{overflow-x:clip}.evo-top{max-width:100%}
 .ficha-live i{width:7px;height:7px;border-radius:50%;background:#49f08a;box-shadow:0 0 8px #49f08a;animation:pulse 1.4s infinite}
 .ficha-who b{display:block;font-family:var(--f-db);font-weight:400;font-size:19px;letter-spacing:.03em;color:#ffd23a;-webkit-text-stroke:.08em #000;paint-order:stroke fill;text-shadow:0 2px 0 #b32400}
 .ficha-who small{font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;color:#9db0c8;text-transform:uppercase}
-.ficha-stats{margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;gap:12px;align-self:stretch}
-.ficha-stats>div{display:flex;align-items:center;gap:12px;padding:11px 14px;border:3px solid #000;border-radius:13px;background:linear-gradient(180deg,#131d30,#0c1423);box-shadow:4px 4px 0 #1d2a3d;min-width:0}
-.ficha-stats dt{font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#ffd23a;margin:0 0 3px}
-.ficha-stats dd{margin:0;font-weight:700;font-size:14px;line-height:1.25;color:#fff}
+.ficha-stats{margin:0;padding:0;list-style:none;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:1fr;gap:12px;align-self:stretch}
+.ficha-stats>li{display:flex;align-items:center;gap:12px;padding:11px 14px;border:3px solid #000;border-radius:13px;background:linear-gradient(180deg,#131d30,#0c1423);box-shadow:4px 4px 0 #1d2a3d;min-width:0}
+.ficha-stats .fs-k{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#ffd23a;margin:0 0 3px}
+.ficha-stats .fs-v{display:block;font-weight:700;font-size:14px;line-height:1.25;color:#fff}
 .ficha-langs{grid-column:1 / -1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px 18px;padding-top:14px;border-top:2px dashed rgba(255,207,46,.3)}
 .fl-h{grid-column:1 / -1;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:#9db0c8}
 .fl{display:grid;grid-template-columns:1fr auto;gap:5px 8px;align-items:baseline}
@@ -1255,8 +1259,8 @@ main{overflow-x:clip}.evo-top{max-width:100%}
   .ficha-photo{width:92px}
   .ficha-who b{font-size:20px}
   .ficha-stats{gap:10px}
-  .ficha-stats>div{flex-direction:column;align-items:flex-start;gap:8px;padding:10px}
-  .ficha-stats dd{font-size:13px}
+  .ficha-stats>li{flex-direction:column;align-items:flex-start;gap:8px;padding:10px}
+  .ficha-stats .fs-v{font-size:13px}
   .ficha-langs{grid-template-columns:1fr;gap:10px}
   .ficha>summary{padding:9px 12px;gap:8px}.ficha-tag em{display:none}.ficha-lvl{font-size:9.5px;padding:4px 7px}
 }

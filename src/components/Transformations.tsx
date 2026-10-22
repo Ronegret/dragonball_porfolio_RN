@@ -49,7 +49,7 @@ export default function Transformations() {
             <p>Cada transformación es una etapa real de mi carrera. Haz scroll: el aura cambia detrás de ti y mi currículum sube de nivel contigo, de la forma base hasta el máximo.</p>
           </Splash>
           <div className="ultra-banner" ref={banner}>
-            <img src="/assets/ultra-pose.jpg" alt="Rodrigo concentrando su ki antes de transformarse" />
+            <img src="/assets/ultra-pose.jpg" alt="Rodrigo concentrando su ki antes de transformarse" loading="lazy" decoding="async" />
             <Reveal className="ultra-copy">
               <span>Concentrando el ki…</span>
               <p>Ningún nivel se regala: cada transformación la desbloqueé entrenando — estudio, proyectos reales y +17 años de batalla en B2B.</p>

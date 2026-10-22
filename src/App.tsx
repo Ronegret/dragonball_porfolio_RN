@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
+import { MotionConfig } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -19,6 +20,7 @@ import Shenron from "./components/Shenron";
 import DragonBalls from "./components/DragonBalls";
 import Loader from "./components/Loader";
 import SpaceBackground from "./components/SpaceBackground";
+import Safe from "./components/Safe";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,12 +37,13 @@ export default function App() {
   }, []);
 
   return (
+    <MotionConfig reducedMotion="user">
     <BallsProvider>
       <Loader />
       <a className="skip-link" href="#perfil" onClick={(e) => { e.preventDefault(); scrollToId("perfil"); }}>Saltar al contenido</a>
       <div className="bg-layer bg-tint" />
-      <SpaceBackground />
-      <CursorAvatar />
+      <Safe><SpaceBackground /></Safe>
+      <Safe><CursorAvatar /></Safe>
       <Hud />
       <main>
         <Hero />
@@ -54,7 +57,8 @@ export default function App() {
       </main>
       <Footer />
       <ContactDock />
-      <DragonBalls />
+      <Safe><DragonBalls /></Safe>
     </BallsProvider>
+    </MotionConfig>
   );
 }

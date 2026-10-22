@@ -11,6 +11,14 @@ export function hexA(hex: string, a: number) {
   return `rgba(${(n >> 16) & 255},${(n >> 8) & 255},${n & 255},${a})`;
 }
 
+/** Lista de enteros únicos guardada en localStorage. Si el valor está corrupto o manipulado, devuelve [] en vez de romper la web. */
+export function readNums(key: string, min: number, max: number): number[] {
+  try {
+    const v = JSON.parse(localStorage.getItem(key) || "[]");
+    return Array.isArray(v) ? [...new Set<number>(v.filter((n) => Number.isInteger(n) && n >= min && n <= max))] : [];
+  } catch { return []; }
+}
+
 /* ---------- audio (Howler + efectos en public/assets/sfx) ---------- */
 export type Sfx = "capsule" | "intro" | "powerup" | "teleport" | "radar" | "shenlong";
 // volúmenes: los efectos de interfaz van ~10 dB por debajo de la música (los archivos ya vienen ajustados en tools/build-sfx-user.py)
@@ -115,9 +123,7 @@ const Ctx = createContext<BallsCtx>(null as any);
 export const useBalls = () => useContext(Ctx);
 
 export function BallsProvider({ children }: { children: ReactNode }) {
-  const [collected, setCollected] = useState<number[]>(() => {
-    try { return JSON.parse(localStorage.getItem("dbz_balls") || "[]"); } catch { return []; }
-  });
+  const [collected, setCollected] = useState<number[]>(() => readNums("dbz_balls", 1, 7));
   useEffect(() => { try { localStorage.setItem("dbz_balls", JSON.stringify(collected)); } catch {} }, [collected]);
 
   const isDone = (s: number) => collected.includes(s);

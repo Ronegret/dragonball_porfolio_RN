@@ -16,7 +16,7 @@ export default function Profile() {
           <Reveal>
             <div style={{ position: "relative", display: "grid", placeItems: "center" }}>
               <div className="hero-ring r1" style={{ width: "min(80%,340px)" }} />
-              <img className="perfil-ava" src="/assets/rod/portrait.webp" alt="Rodrigo Negrete con su camiseta de Capsule Corp"
+              <img className="perfil-ava" src="/assets/rod/portrait.webp" alt="Rodrigo Negrete con su camiseta de Capsule Corp" loading="lazy" decoding="async"
                 style={{ width: "min(88%,360px)", filter: "drop-shadow(0 26px 46px rgba(0,0,0,.6))", position: "relative", zIndex: 2 }} />
             </div>
           </Reveal>
@@ -45,11 +45,11 @@ export default function Profile() {
                   </div>
                   <div className="ficha-who"><b>{PROFILE.name}</b><small>AI Product Designer</small></div>
                 </div>
-                <dl className="ficha-stats">
+                <ul className="ficha-stats">
                   {([["globe", "Ubicación", PROFILE.location], ["bolt", "Modalidad", "Remoto · Híbrido BCN"], ["calendar", "Disponibilidad", "Inmediata"], ["star", "Objetivo", "Empleo estable + proyectos UX/IA"]] as const).map(([ic, k, v]) => (
-                    <div key={k}><DBIcon name={ic} size={38} /><span><dt>{k}</dt><dd>{v}</dd></span></div>
+                    <li key={k}><DBIcon name={ic} size={38} /><span><span className="fs-k">{k}</span><span className="fs-v">{v}</span></span></li>
                   ))}
-                </dl>
+                </ul>
                 <div className="ficha-langs">
                   <span className="fl-h">Idiomas · técnicas de comunicación</span>
                   {LANGS.map((l) => (

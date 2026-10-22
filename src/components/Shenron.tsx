@@ -67,7 +67,7 @@ export default function Shenron() {
             <motion.div key="lock" className="shen-lock" exit={{ opacity: 0, transform: "scale(0.98)" }} transition={{ duration: 0.25, ease: EASE_OUT }}>
               <img className="shen-rod" src="/assets/rod/radar.webp" alt="Rodrigo rastreando las esferas con el Radar del Dragón" loading="lazy" />
               <div className="shen-lock-body">
-              <div className="shen-balls" aria-label={`Llevas ${count} de 7 esferas`}>
+              <div className="shen-balls" role="img" aria-label={`Llevas ${count} de 7 esferas`}>
                 {[1, 2, 3, 4, 5, 6, 7].map((s) => (
                   <img key={s} src={`/assets/db/ball${s}.webp`} alt="" className={isDone(s) ? "got" : ""} />
                 ))}
@@ -140,8 +140,8 @@ export default function Shenron() {
                     <h3 className="wp-title">Pide tu deseo</h3>
                     <p>Rellénalo y se abrirá tu email con el mensaje listo para enviar.</p>
                   </div>
-                  <div className="field f-name"><label htmlFor="w-name">Tu nombre</label><input id="w-name" name="name" required placeholder="Bulma Brief" autoComplete="name" /></div>
-                  <div className="field f-contact"><label htmlFor="w-contact">Email o teléfono de contacto</label><input id="w-contact" name="contact" required placeholder="tucorreo@empresa.com" autoComplete="email" /></div>
+                  <div className="field f-name"><label htmlFor="w-name">Tu nombre</label><input id="w-name" name="name" required maxLength={80} placeholder="Bulma Brief" autoComplete="name" /></div>
+                  <div className="field f-contact"><label htmlFor="w-contact">Email o teléfono de contacto</label><input id="w-contact" name="contact" required maxLength={120} placeholder="tucorreo@empresa.com" autoComplete="email" /></div>
                   <div className="field f-wish"><label htmlFor="w-wish">Tu deseo</label>
                     <select id="w-wish" name="wish">
                       <option>Deseo contratar a Rodrigo en mi equipo</option>
@@ -150,7 +150,7 @@ export default function Shenron() {
                       <option>Otro (lo cuento abajo)</option>
                     </select>
                   </div>
-                  <div className="field f-msg"><label htmlFor="w-msg">Mensaje</label><textarea id="w-msg" name="msg" placeholder="Cuéntame el puesto o proyecto…" /></div>
+                  <div className="field f-msg"><label htmlFor="w-msg">Mensaje</label><textarea id="w-msg" name="msg" maxLength={1200} placeholder="Cuéntame el puesto o proyecto…" /></div>
                   <button className="wish-go" type="submit" data-cursor><span>Invocar contacto →</span></button>
                 </form>
               </WishFrame>

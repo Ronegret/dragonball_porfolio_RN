@@ -6,7 +6,7 @@ import TitleCard from "./TitleCard";
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 // assets que deben estar listos antes de entrar
 const PRELOAD = [
-  "/assets/radar-device.png",
+  "/assets/radar-device.webp",
   ...[1, 2, 5, 3, 4, 6].map((i) => `/assets/forms/f${i}.webp`),
   ...[1, 2, 3, 4, 5, 6, 7].map((i) => `/assets/db/ball${i}.webp`),
 ];
@@ -24,6 +24,9 @@ export default function Loader() {
   useEffect(() => {
     if (!show) return;
     document.body.classList.add("lock");
+    // mientras dura la intro, la web de detrás no se puede tabular ni leer
+    const behind = [...document.querySelectorAll<HTMLElement>("#root > :not(.loader)")];
+    behind.forEach((el) => { el.inert = true; });
     const stop = setTimeout(() => (window as any).lenis?.stop(), 0);
     let done = 0, alive = true;
     const t0 = performance.now(), MIN = reduce ? 400 : 2200;
@@ -43,7 +46,7 @@ export default function Loader() {
     };
     requestAnimationFrame(tick);
     const safety = setTimeout(() => setReady(true), 8000); // red lenta: no bloquear nunca la entrada
-    return () => { alive = false; clearTimeout(stop); clearTimeout(safety); };
+    return () => { alive = false; clearTimeout(stop); clearTimeout(safety); behind.forEach((el) => { el.inert = false; }); };
   }, [show, reduce]);
 
   useEffect(() => {
@@ -71,12 +74,12 @@ export default function Loader() {
   return (
     <AnimatePresence>
       {show && (
-        <motion.div className="loader" role="status" aria-live="polite"
+        <motion.div className="loader" role="dialog" aria-modal="true" aria-label="Introducción"
           exit={{ opacity: 0, transform: "scale(1.04)" }} transition={{ duration: 0.6, ease: EASE_OUT }}>
           {!ready ? (
             <>
               <div className="loader-radar">
-                <img src="/assets/radar-device.png" alt="" />
+                <img src="/assets/radar-device.webp" alt="" />
                 <div className="loader-scope" aria-hidden>
                   <span className="loader-sweep" />
                   {BLIPS.slice(0, found).map(([x, y], i) => (

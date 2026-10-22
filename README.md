@@ -23,6 +23,15 @@ Portfolio interactivo y gamificado (Dragon Ball Z + Capsule Corp) construido com
 - **Puntos de calor de contacto:** botón *Contactar* en la barra (escritorio), dock inferior en móvil (Contactar · WhatsApp · CV), copiar email en el footer y radar pulsante en la cápsula principal.
 - Responsive (desktop + móvil), accesibilidad (enlace "Saltar al contenido", foco visible, nombres accesibles) y `prefers-reduced-motion`.
 
+## 🔒 Seguridad, accesibilidad y robustez
+- **Cabeceras** (`vercel.json`): CSP estricta (`script-src 'self'`, sin recursos de terceros), `nosniff`, `Referrer-Policy`, `Permissions-Policy`, COOP y `frame-ancestors` limitado a `rodrigonegrete.es`. Los `.js`/`.css` con hash y las fuentes se cachean un año (`immutable`).
+- **Sin terceros:** las tipografías están alojadas en `public/assets/fonts` (`tools/fetch-fonts.py` las regenera), así que no se envía la IP del visitante a Google (RGPD). No hay analítica ni cookies; solo `localStorage` para esferas, cápsulas vistas y sonido, que se valida al leerlo (`readNums` en `lib.tsx`).
+- **Contacto:** el formulario solo compone un `mailto:` (sin backend ni datos que robar) y limita la longitud de los campos.
+- **Teclado y lectores de pantalla:** "Saltar al contenido" y los saltos de sección mueven el foco; el diálogo de cápsulas lleva el foco dentro, hace inerte el resto (`inert`) y lo devuelve al cerrar; la intro también bloquea lo de detrás. Las esferas escondidas se pueden coger con Enter/Espacio, la evolución del personaje se anuncia (`aria-live`) y el botón de sonido usa `aria-pressed`. `MotionConfig reducedMotion="user"` respeta "reducir movimiento" en todas las animaciones de Framer Motion.
+- **Robustez:** `Safe.tsx` es un *error boundary*: si falla un efecto decorativo (fondo, cursor, esferas) la web sigue; si falla la app entera se muestra una página mínima con el contacto.
+- **SEO:** canonical, Open Graph/Twitter, datos estructurados `Person` + `WebSite` (JSON-LD), `robots.txt`, `sitemap.xml` y `<noscript>` con los enlaces principales.
+- **Comprobaciones hechas** (axe-core 4.10, WCAG 2.2 AA + buenas prácticas, escritorio y móvil, contacto bloqueado/desbloqueado, diálogo y menú abiertos): solo quedan avisos de contraste en el nombre de los portales del pie, que son falsos positivos (axe lee el trazo negro del texto, el relleno es amarillo `#ffcf2e`).
+
 ## ▶️ Desarrollo
 ```bash
 npm install
@@ -81,6 +90,7 @@ _source/                 # originales (no se versiona ni se despliega)
 | `build-mesa.py` | Elige los fotogramas de `_source/mesa/mesa.mp4` según la mirada, los exporta a WebP y genera `src/mesaGaze.ts` (requiere ffmpeg) |
 | `build-capsules.py` | Genera las 16 cápsulas Hoi-Poi |
 | `build-space.py` | Genera la nebulosa procedural |
+| `fetch-fonts.py` | Descarga las tipografías (Google Fonts, subconjunto latino) a `public/assets/fonts` y escribe `src/fonts.css` |
 | `clean-balls.py` | Limpia las 7 esferas del dragón (`public/assets/db/ball1..7.webp`): ajusta una elipse al arco superior y deja transparente la peana blanca de debajo. Parte de los originales en `_source/db-backup`, así que se puede repetir |
 
 ## 🎬 Remotion (imagen para compartir y teaser)

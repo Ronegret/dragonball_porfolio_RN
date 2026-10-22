@@ -47,7 +47,7 @@ export default function Experience() {
               <details className={"tl-item fold" + (x.now ? " now" : "")}>
                 <summary data-cursor>
                   <span className="tl-when">{x.when}</span>
-                  <h4>{x.role}</h4>
+                  <h3>{x.role}</h3>
                   <span className="org">{x.org}</span>
                   <span className="tl-lead">{x.desc}</span>
                 </summary>
@@ -72,7 +72,7 @@ export default function Experience() {
               <details className="edu fold">
                 <summary data-cursor>
                   <span className={"st " + (e.state === "En curso" ? "cur" : "fin")}>{e.state.toUpperCase()}</span>
-                  <h4>{e.title}</h4>
+                  <h3>{e.title}</h3>
                   <span className="org">{e.org} · {e.when}</span>
                 </summary>
                 <div className="fold-body">

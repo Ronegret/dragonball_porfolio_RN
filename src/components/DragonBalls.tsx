@@ -31,7 +31,10 @@ export default function DragonBalls() {
       b.style.animationDelay = idx * 0.4 + "s";
       b.title = `Esfera de ${star} estrella${star > 1 ? "s" : ""}`;
       b.innerHTML = `<img src="/assets/db/ball${star}.webp" alt="" draggable="false" style="width:100%;height:100%;display:block">`;
+      b.setAttribute("role", "button"); b.tabIndex = 0;      // también se puede coger con el teclado
+      b.setAttribute("aria-label", `Esfera del dragón de ${star} estrella${star > 1 ? "s" : ""}: recoger`);
       b.addEventListener("click", () => collectRef.current(star, b));
+      b.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); collectRef.current(star, b); } });
       sec.appendChild(b);
       made.push(b);
     });
