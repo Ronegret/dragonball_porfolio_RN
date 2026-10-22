@@ -40,9 +40,11 @@ export default function Projects() {
     document.body.classList.toggle("lock", sel !== null);
     const root = document.getElementById("root");
     if (sel !== null && root) root.inert = true;     // con el diálogo abierto, el resto de la web ni se tabula ni la lee el lector de pantalla
+    const lenis = (window as any).lenis;
+    if (sel !== null) lenis?.stop();                  // sin esto la rueda del ratón desplazaba la página de detrás del diálogo
     const esc = (e: KeyboardEvent) => { if (e.key === "Escape") setSel(null); };
     window.addEventListener("keydown", esc);
-    return () => { document.body.classList.remove("lock"); if (root) root.inert = false; window.removeEventListener("keydown", esc); };
+    return () => { document.body.classList.remove("lock"); if (root) root.inert = false; if (sel !== null) lenis?.start(); window.removeEventListener("keydown", esc); };
   }, [sel]);
 
   const open = (gi: number, e: React.MouseEvent) => {

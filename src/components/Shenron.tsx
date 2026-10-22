@@ -140,8 +140,8 @@ export default function Shenron() {
                     <h3 className="wp-title">Pide tu deseo</h3>
                     <p>Rellénalo y se abrirá tu email con el mensaje listo para enviar.</p>
                   </div>
-                  <div className="field f-name"><label htmlFor="w-name">Tu nombre</label><input id="w-name" name="name" required maxLength={80} placeholder="Bulma Brief" autoComplete="name" /></div>
-                  <div className="field f-contact"><label htmlFor="w-contact">Email o teléfono de contacto</label><input id="w-contact" name="contact" required maxLength={120} placeholder="tucorreo@empresa.com" autoComplete="email" /></div>
+                  <div className="field f-name"><label htmlFor="w-name">Tu nombre</label><input id="w-name" name="name" required maxLength={80} placeholder="Bulma Brief" autoComplete="name" enterKeyHint="next" /></div>
+                  <div className="field f-contact"><label htmlFor="w-contact">Email o teléfono de contacto</label><input id="w-contact" name="contact" required maxLength={120} placeholder="tucorreo@empresa.com" autoComplete="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} enterKeyHint="next" /></div>
                   <div className="field f-wish"><label htmlFor="w-wish">Tu deseo</label>
                     <select id="w-wish" name="wish">
                       <option>Deseo contratar a Rodrigo en mi equipo</option>

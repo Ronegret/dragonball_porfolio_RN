@@ -84,7 +84,7 @@ export default function Transformations() {
           <div className="evo-cards">
             {TRANSFORMATIONS.map((tr, k) => (
               <div key={k} className={"evo-card" + (k === i ? " on" : "")}>
-                <div className="ft">▲ {tr.form} <span>· {tr.sub}</span></div>
+                <div className="ft">▲ {tr.form} <span>{tr.sub}</span></div>
                 <h3>Fase {k + 1} · {tr.title}</h3>
                 <p>{tr.text}</p>
                 <div className="sk">{tr.skills.map((s) => <i key={s}>{s}</i>)}</div>

@@ -42,7 +42,7 @@ h1,h2,h3,h4{font-family:var(--f-head);line-height:1.02;margin:0;letter-spacing:-
 /* ===== HUD navbar ===== */
 .hud{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;gap:16px;
   padding:14px 26px;
-  background:linear-gradient(180deg,rgba(5,7,12,.97),rgba(5,7,12,.86));border-bottom:1px solid var(--line)}
+  background:linear-gradient(180deg,rgba(5,7,12,.995),rgba(5,7,12,.975));border-bottom:1px solid var(--line)}
 .brand{display:flex;align-items:center;gap:12px;min-width:0}
 .cc-logo{width:36px;height:36px;flex:none;border-radius:50%;position:relative;
   background:radial-gradient(circle at 50% 50%,#fff 0 30%,var(--cc-red) 31% 54%,#fff 55% 60%,var(--cc-navy) 61%);
@@ -54,7 +54,7 @@ h1,h2,h3,h4{font-family:var(--f-head);line-height:1.02;margin:0;letter-spacing:-
 .brand span{font-family:var(--f-mono);font-size:9.5px;color:var(--mut);letter-spacing:.2em;display:block}
 .hud-nav{display:flex;gap:26px;position:absolute;left:50%;transform:translateX(-50%)}
 .hud-nav a{font-size:13.5px;color:var(--mut);transition:color .2s;cursor:pointer}
-.hud-nav a:hover{color:var(--ink)}
+@media (hover:hover) and (pointer:fine){.hud-nav a:hover{color:var(--ink)}}
 .hud-right{display:flex;align-items:center;gap:12px}
 .tracker{display:flex;align-items:center;gap:9px;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(8,13,22,.6)}
 .tracker .lbl{font-family:var(--f-mono);font-size:10px;color:var(--mut);letter-spacing:.14em}
@@ -65,14 +65,14 @@ h1,h2,h3,h4{font-family:var(--f-head);line-height:1.02;margin:0;letter-spacing:-
 .slot.full img{width:20px;height:20px;max-width:none;flex:none;display:block;filter:drop-shadow(0 0 6px rgba(255,150,30,.85))}
 .btn{font-family:var(--f-mono);font-size:12px;letter-spacing:.02em;cursor:pointer;border:1px solid var(--line2);
   background:rgba(18,28,46,.6);color:var(--ink);padding:10px 15px;border-radius:11px;transition:transform .2s var(--ease-out),border-color .2s ease,box-shadow .2s ease;white-space:nowrap}
-.btn:hover{border-color:var(--accent);box-shadow:0 0 18px rgba(47,228,198,.22);transform:translateY(-1px)}
+@media (hover:hover) and (pointer:fine){.btn:hover{border-color:var(--accent);box-shadow:0 0 18px rgba(47,228,198,.22);transform:translateY(-1px)}}
 .btn.solid{background:linear-gradient(180deg,var(--accent),#19b89e);color:#04120f;border:none;font-weight:700}
-.btn.gold{border-color:rgba(255,184,0,.55)}.btn.gold:hover{box-shadow:0 0 18px rgba(255,184,0,.3)}
+.btn.gold{border-color:rgba(255,184,0,.55)}@media (hover:hover) and (pointer:fine){.btn.gold:hover{box-shadow:0 0 18px rgba(255,184,0,.3)}}
 .icon-btn{width:40px;height:40px;display:grid;place-items:center;padding:0}
 
 /* ===== secciones ===== */
 section{position:relative;z-index:1}
-.sec{padding:130px 0}
+.sec{padding:100px 0}
 .sec-head{max-width:1000px;margin-bottom:56px}
 .sec-tag{font-family:var(--f-mono);font-size:12px;letter-spacing:.26em;color:var(--accent);text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:12px}
 .sec-tag::before{content:"";width:26px;height:1px;background:var(--accent);box-shadow:0 0 10px var(--accent)}
@@ -89,12 +89,12 @@ section{position:relative;z-index:1}
 .hero h1{font-size:clamp(30px,3.3vw,48px);font-weight:800}
 .hero h1 .ln{display:block;overflow:hidden}
 .hero h1 .em{color:transparent;background:linear-gradient(92deg,#fff,var(--accent) 55%,var(--accent2));-webkit-background-clip:text;background-clip:text}
-.hero-lead{color:var(--mut);font-size:clamp(15px,1.4vw,18px);max-width:52ch;margin:26px 0 30px;line-height:1.62}
+.hero-lead{color:#b4c1d4;font-size:clamp(15px,1.4vw,18px);max-width:52ch;margin:26px 0 30px;line-height:1.62}
 .hero-lead b{color:var(--ink);font-weight:600}
 .hero-cta{display:flex;gap:13px;flex-wrap:wrap;margin-bottom:34px}
 .hero-stats{display:flex;gap:30px;flex-wrap:wrap}
 .hero-stats .st b{font-family:var(--f-mono);font-size:clamp(26px,3vw,38px);color:var(--ink);display:block;line-height:1}
-.hero-stats .st span{font-size:11px;color:var(--mut);letter-spacing:.04em}
+.hero-stats .st span{font-size:12px;color:#aab8cc;letter-spacing:.04em}
 /* hero art: avatar que sigue el ratón */
 .hero-art{position:relative;display:grid;place-items:center;min-height:62vh}
 .hero-ring{position:absolute;border-radius:50%;border:1px solid var(--line);aspect-ratio:1}
@@ -140,8 +140,9 @@ section{position:relative;z-index:1}
   background:linear-gradient(180deg,rgba(10,16,28,.82),rgba(7,11,20,.72));
   box-shadow:0 24px 70px rgba(0,0,0,.55),inset 0 0 46px var(--aura-soft)}
 .evo-card.on{opacity:1;transform:none}
-.evo-card .ft{font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;color:var(--aura);transition:color .5s;display:flex;gap:10px;align-items:center}
-.evo-card .ft span{color:var(--mut);letter-spacing:.04em}
+.evo-card .ft{font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;color:var(--aura);transition:color .5s;display:flex;flex-wrap:wrap;gap:2px 10px;align-items:center;white-space:nowrap}
+.evo-card .ft span{color:var(--mut);letter-spacing:.04em;white-space:normal}
+@media (min-width:901px){.evo-card .ft span::before{content:"· "}}   /* el separador solo donde cabe en la misma línea: si baja, no queda un punto suelto */
 .evo-card h3{font-size:clamp(21px,2.8vw,30px);margin:9px 0 10px}
 .evo-card p{color:var(--mut);font-size:14.5px;line-height:1.62;margin:0}
 .evo-card .sk{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
@@ -160,7 +161,7 @@ section{position:relative;z-index:1}
 .stack-col .h{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}
 .stack-col .h b{font-family:var(--f-head);font-size:18px}
 .stack-col .h .ic{font-size:22px}
-.stack-col .h .ct{font-family:var(--f-mono);font-size:10.5px;color:var(--accent);border:1px solid var(--line);padding:4px 9px;border-radius:999px}
+.stack-col .h .ct{font-family:var(--f-mono);font-size:10.5px;color:var(--accent);border:1px solid var(--line);padding:4px 9px;border-radius:999px;white-space:nowrap;flex:none}
 .tool{margin-bottom:16px}
 .tool .t{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:7px}
 .tool .t b{font-size:13.5px;font-weight:500}
@@ -171,7 +172,8 @@ section{position:relative;z-index:1}
 /* ===== PROYECTOS / CÁPSULAS ===== */
 .cap-filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:34px}
 .cap-filters button{font-family:var(--f-mono);font-size:12px;color:var(--mut);background:none;border:1px solid var(--line);padding:9px 15px;border-radius:999px;cursor:pointer;transition:color .2s ease,border-color .2s ease,background-color .2s ease}
-.cap-filters button.on,.cap-filters button:hover{color:var(--ink);border-color:var(--accent);background:rgba(47,228,198,.08)}
+.cap-filters button.on{color:var(--ink);border-color:var(--accent);background:rgba(47,228,198,.08)}
+@media (hover:hover) and (pointer:fine){.cap-filters button:hover{color:var(--ink);border-color:var(--accent);background:rgba(47,228,198,.08)}}
 /* estuche Hoi-Poi: bandeja de espuma con cápsulas reales */
 .cap-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:22px 14px;justify-items:center;padding:34px 26px 26px;border-radius:24px;
   background:radial-gradient(circle at 1px 1px,rgba(255,255,255,.05) 1px,transparent 1.5px) 0 0/9px 9px,linear-gradient(180deg,#121a26,#0b111b);
@@ -222,7 +224,7 @@ section{position:relative;z-index:1}
 .tl-item.now::before{background:var(--radar);border-color:var(--radar);box-shadow:0 0 14px var(--radar)}
 .tl-when{font-family:var(--f-mono);font-size:11px;color:var(--accent);letter-spacing:.06em}
 .tl-item.now .tl-when::after{content:"ACTUAL";margin-left:8px;color:var(--radar);border:1px solid rgba(73,240,138,.4);padding:1px 7px;border-radius:999px;font-size:9px}
-.tl-item h3{font-family:var(--f-head);font-size:19px;margin:7px 0 3px}
+.tl-item h3{font-family:var(--f-head);font-size:19px;margin:7px 0 3px;line-height:1.18}
 .tl-item .org{color:var(--mut);font-size:13px;margin-bottom:9px}
 .tl-item p{color:var(--mut);font-size:14px;line-height:1.55;max-width:60ch}
 .tl-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:11px}
@@ -232,7 +234,7 @@ section{position:relative;z-index:1}
 .edu .st{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;padding:3px 9px;border-radius:999px;display:inline-block;margin-bottom:12px}
 .edu .st.fin{color:var(--radar);border:1px solid rgba(73,240,138,.35)}
 .edu .st.cur{color:var(--gold);border:1px solid rgba(255,184,0,.4)}
-.edu h3{font-size:16px;font-family:var(--f-head)}
+.edu h3{font-size:16px;font-family:var(--f-head);line-height:1.2}
 .edu .org{color:var(--accent);font-size:12.5px;font-family:var(--f-mono);margin:5px 0 9px}
 .edu p{color:var(--mut);font-size:13px;line-height:1.5;margin:0}
 
@@ -258,7 +260,7 @@ section{position:relative;z-index:1}
 .links{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;margin:0 0 42px;padding:0;list-style:none;text-align:left}
 .links li{display:flex}.links .link-card{width:100%;font:inherit;color:inherit;text-align:left;cursor:pointer}
 .link-card{display:flex;align-items:center;gap:14px;border:1px solid var(--line2);border-radius:16px;padding:18px;background:rgba(10,18,14,.5);transition:transform .25s var(--ease-out),border-color .2s ease,box-shadow .2s ease}
-.link-card:hover{transform:translateY(-3px);border-color:var(--radar);box-shadow:0 0 26px rgba(73,240,138,.24)}
+@media (hover:hover) and (pointer:fine){.link-card:hover{transform:translateY(-3px);border-color:var(--radar);box-shadow:0 0 26px rgba(73,240,138,.24)}}
 .link-card .ic{width:44px;height:44px;flex:none;border-radius:12px;display:grid;place-items:center;background:rgba(73,240,138,.12);font-size:20px}
 .link-card b{font-size:15px;display:block}.link-card span{font-family:var(--f-mono);font-size:11px;color:var(--mut)}
 .wish{border:1px solid var(--line2);border-radius:20px;padding:32px;background:rgba(8,16,12,.6);max-width:660px;margin:0 auto;text-align:left}
@@ -275,7 +277,7 @@ footer{border-top:1px solid var(--line);padding:44px 0;position:relative;z-index
 
 /* ===== esferas del dragón ===== */
 .dball{position:absolute;width:52px;height:52px;cursor:pointer;z-index:20;filter:drop-shadow(0 0 14px rgba(255,150,30,.85));animation:float 4s ease-in-out infinite;transition:transform .2s}
-.dball:hover{transform:scale(1.18)}
+@media (hover:hover) and (pointer:fine){.dball:hover{transform:scale(1.18)}}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
 
 @keyframes sweep{to{transform:rotate(360deg)}}
@@ -317,7 +319,7 @@ footer{border-top:1px solid var(--line);padding:44px 0;position:relative;z-index
   .tracker{padding:6px 10px;gap:7px}.tracker .lbl{display:none}
   .slot{width:13px;height:13px}
   .btn{padding:8px 11px;font-size:11px}
-  .wrap{padding:0 16px}.sec{padding:90px 0}
+  .wrap{padding:0 16px}.sec{padding:76px 0}
   #hero{padding-top:130px}
   .hero h1{font-size:clamp(20px,6vw,30px);line-height:1.08;letter-spacing:-.03em}
   .hero-art{min-height:38vh}
@@ -361,7 +363,8 @@ html.lenis,html.lenis body{height:auto}
 .loader-bar{width:min(280px,64vw);height:4px;border-radius:2px;background:rgba(73,240,138,.15);overflow:hidden}
 .loader-bar i{display:block;height:100%;background:var(--radar);transform-origin:left;box-shadow:0 0 10px var(--radar)}
 .loader-skip{margin-top:10px;font-family:var(--f-mono);font-size:12px;color:var(--mut);background:none;border:1px solid var(--line);border-radius:999px;padding:8px 16px;cursor:pointer;transition:color .2s ease,border-color .2s ease}
-.loader-skip:hover,.loader-skip:focus-visible{color:var(--ink);border-color:var(--radar)}
+.loader-skip:focus-visible{color:var(--ink);border-color:var(--radar)}
+@media (hover:hover) and (pointer:fine){.loader-skip:hover{color:var(--ink);border-color:var(--radar)}}
 @media (prefers-reduced-motion:reduce){.loader-sweep{animation:none}}
 
 /* ===== personaje: flota + onda de ki al evolucionar ===== */
@@ -574,7 +577,8 @@ main{overflow-x:clip}.evo-top{max-width:100%}
 .brand:focus-visible,.hud-nav a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 .hud-nav a{position:relative;text-decoration:none;padding:6px 0}
 .hud-nav a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:3px;border-radius:2px;background:#ffb800;box-shadow:0 0 10px #ffb800;transform:scaleX(0);transition:transform .25s var(--ease-out)}
-.hud-nav a:hover::after,.hud-nav a.on::after{transform:scaleX(1)}
+.hud-nav a.on::after{transform:scaleX(1)}
+@media (hover:hover) and (pointer:fine){.hud-nav a:hover::after{transform:scaleX(1)}}
 .hud-nav a.on{color:#fff}
 .ki-bar{position:absolute;left:0;right:0;bottom:-1px;height:3px;transform-origin:0 50%;pointer-events:none;
   background:linear-gradient(90deg,#ff7a1a,#ffb800 60%,#fff6c2);box-shadow:0 0 12px rgba(255,184,0,.8)}
@@ -591,7 +595,7 @@ main{overflow-x:clip}.evo-top{max-width:100%}
   .hud-nav.open{opacity:1;visibility:visible;transform:none;transition:opacity .18s ease,transform .22s var(--ease-out)}
   .hud-nav a{font-family:var(--f-head);font-weight:700;font-size:18px;color:var(--ink);padding:12px 14px;border-radius:10px}
   .hud-nav a::after{left:14px;right:auto;width:28px;bottom:6px}
-  .hud-nav a:hover{background:rgba(255,255,255,.05)}
+  @media (hover:hover) and (pointer:fine){.hud-nav a:hover{background:rgba(255,255,255,.05)}}
   .tracker .lbl{display:none}
 }
 @media (max-width:900px){.rec-txt{display:none}.brand span{display:none}}
@@ -662,7 +666,7 @@ main{overflow-x:clip}.evo-top{max-width:100%}
   .lab-desc{grid-area:desc;font-size:12.5px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
   .perfil-grid img{max-height:40vh!important}
 }
-.foot-reset{font:inherit;color:var(--mut);background:none;border:0;padding:8px 0;cursor:pointer}.foot-reset:hover{color:var(--radar)}.foot-reset:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+.foot-reset{font:inherit;color:var(--mut);background:none;border:0;padding:8px 0;cursor:pointer}@media (hover:hover) and (pointer:fine){.foot-reset:hover{color:var(--radar)}}.foot-reset:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 
 /* ===== footer: saga del multiverso (estilo Daima / GT) ===== */
 :root{--f-db:"Luckiest Guy",var(--f-head)}
@@ -1418,3 +1422,15 @@ main{overflow-x:clip}.evo-top{max-width:100%}
 }
 
 @media (max-width:560px){.tc-sub span{display:block}.tc-sub .sep{display:none}}
+
+/* ===================== BASE TÁCTIL Y FEEDBACK AL PULSAR ===================== */
+html{-webkit-tap-highlight-color:transparent}                      /* sin el parpadeo gris del navegador: cada control lleva su propio :active */
+a,button,summary,[role="button"],label,select{touch-action:manipulation}   /* sin retardo de doble toque */
+button,[role="button"],summary{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}   /* una pulsación larga no selecciona la etiqueta de un control */
+.cap-filters button:active,.hud-nav a:active,.pm-body .close:active,.foot-reset:active{transform:scale(.96);transition:transform .12s var(--ease-out)}
+
+/* ===================== ACABADO: nativos oscuros y tipografía ===================== */
+:root{color-scheme:dark;scrollbar-color:#3a4766 #080b13}                    /* barra de scroll, desplegables y autorrelleno acordes al tema */
+h1,h2,h3,.sec-head p{text-wrap:balance}                                    /* líneas equilibradas en titulares */
+p,li{text-wrap:pretty}                                                      /* sin palabras sueltas al final de un párrafo */
+@media (max-width:620px){.tl-item h3{font-size:17px}.edu h3{font-size:15.5px}}   /* títulos largos de cargo y estudios: tres líneas en vez de cuatro */
