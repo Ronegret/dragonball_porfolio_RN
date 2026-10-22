@@ -1,11 +1,17 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Reveal, DBIcon, More, isWide, DBText } from "../lib";
-import { STACK, COMPETENCIAS } from "../data";
+import { Reveal, DBIcon, More } from "../lib";
+import { STACK } from "../data";
+import SkillsBoard from "./SkillsBoard";
 import Splash from "./Splash";
 
 export default function Stack() {
   const [all, setAll] = useState(false);
+  // "Ver todas" también abre las tres columnas; plegarlas de nuevo es cosa del visitante
+  const toggleAll = () => {
+    if (!all) document.querySelectorAll<HTMLDetailsElement>(".stack-col").forEach((d) => { d.open = true; });
+    setAll((v) => !v);
+  };
   const hidden = STACK.reduce((n, c) => n + Math.max(0, c.tools.length - 5), 0);
   return (
     <section id="stack" className="sec">
@@ -17,7 +23,7 @@ export default function Stack() {
         <div className="stack-grid">
           {STACK.map((col, ci) => (
             <Reveal key={col.group} delay={ci * 0.08}>
-              <details className="stack-col fold" open={ci === 0 || isWide()}>
+              <details className="stack-col fold">
                 <summary className="h" data-cursor>
                   <b className="stack-title"><DBIcon name={col.icon} size={40} /> {col.group}</b>
                   <span className="ct">{col.count}</span>
@@ -36,31 +42,16 @@ export default function Stack() {
             </Reveal>
           ))}
         </div>
-        <More open={all} onToggle={() => setAll((v) => !v)} more={hidden} label="Ver todas las técnicas" />
+        <More open={all} onToggle={toggleAll} more={hidden} label="Ver todas las técnicas" />
 
         <Reveal>
           <div className="comp-head">
             <span className="sec-tag">Competencias clave</span>
             <h3 className="comp-title">Lo que sé hacer</h3>
-            <p>Las áreas que domino, tal como figuran en mi CV. Abre cada una para ver el detalle.</p>
+            <p>Las áreas que domino. Pulsa un punto del portátil o abre cada área para ver el detalle.</p>
           </div>
         </Reveal>
-        <div className="comp-grid">
-          {COMPETENCIAS.map((c, i) => (
-            <Reveal key={c.group} delay={(i % 3) * 0.07}>
-              <details className="comp-item fold" open={i === 0 || isWide()}>
-                <summary data-cursor>
-                  <DBIcon name={c.icon} size={40} />
-                  <b>{c.group}</b>
-                  <span className="ct">{c.items.length}</span>
-                </summary>
-                <div className="fold-body">
-                  <ul className="comp-chips">{c.items.map((t) => <li key={t}>{t}</li>)}</ul>
-                </div>
-              </details>
-            </Reveal>
-          ))}
-        </div>
+        <SkillsBoard />
       </div>
     </section>
   );

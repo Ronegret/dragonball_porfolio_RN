@@ -155,11 +155,11 @@ export const STACK = [
 
 // ===== Competencias clave (CV de rodrigonegrete.es/cv): lo que sé hacer, por áreas =====
 export const COMPETENCIAS = [
-  { group: "Diseño de producto", icon: "pen", items: ["Product Discovery", "User Research", "Usability Testing", "Information Architecture", "Wireframing", "Prototipado interactivo", "Design Thinking", "Lean UX", "Design Systems", "Design Tokens", "Figma", "Accesibilidad WCAG 2.1 AA"] },
-  { group: "IA aplicada", icon: "bolt", items: ["Generative AI", "Large Language Models (OpenAI, Claude, Gemini)", "Prompt Engineering", "RAG", "Embeddings", "AI Agents", "Conversational AI", "Voice AI", "LangChain", "Vector DB"] },
-  { group: "Automatización & Low-code", icon: "code", items: ["Make (Integromat)", "n8n", "Botpress", "Vapi", "Zapier", "Supabase", "Firebase", "REST APIs", "Webhooks", "Hyperautomation", "RPA"] },
-  { group: "Frontend aplicado", icon: "globe", items: ["HTML", "CSS", "JavaScript (ES6+)", "React", "Next.js", "Tailwind CSS", "Vite", "WordPress", "Elementor", "Shopify", "Git", "Vercel"] },
-  { group: "Analítica & Negocio", icon: "chart", items: ["Google Analytics 4", "Hotjar", "Power BI", "Excel avanzado", "A/B testing", "CRO", "Gestión B2B enterprise", "KPIs", "Stakeholder management", "Agile / Scrum"] },
+  { group: "Diseño de producto", blurb: "Entender a las personas antes de dibujar una sola pantalla.", pin: [37, 90] as [number, number], icon: "pen", items: ["Product Discovery", "User Research", "Usability Testing", "Information Architecture", "Wireframing", "Prototipado interactivo", "Design Thinking", "Lean UX", "Design Systems", "Design Tokens", "Figma", "Accesibilidad WCAG 2.1 AA"] },
+  { group: "IA aplicada", blurb: "Poner modelos, agentes y datos a trabajar dentro del producto.", pin: [20, 64] as [number, number], icon: "bolt", items: ["Generative AI", "Large Language Models (OpenAI, Claude, Gemini)", "Prompt Engineering", "RAG", "Embeddings", "AI Agents", "Conversational AI", "Voice AI", "LangChain", "Vector DB"] },
+  { group: "Automatización & Low-code", blurb: "Conectar herramientas para que los procesos funcionen solos.", pin: [33, 64] as [number, number], icon: "code", items: ["Make (Integromat)", "n8n", "Botpress", "Vapi", "Zapier", "Supabase", "Firebase", "REST APIs", "Webhooks", "Hyperautomation", "RPA"] },
+  { group: "Frontend aplicado", blurb: "Llevar el diseño a una web real, lista para publicar.", pin: [21, 79] as [number, number], icon: "globe", items: ["HTML", "CSS", "JavaScript (ES6+)", "React", "Next.js", "Tailwind CSS", "Vite", "WordPress", "Elementor", "Shopify", "Git", "Vercel"] },
+  { group: "Analítica & Negocio", blurb: "Medir qué funciona y hablar el idioma del negocio.", pin: [95, 50] as [number, number], icon: "chart", items: ["Google Analytics 4", "Hotjar", "Power BI", "Excel avanzado", "A/B testing", "CRO", "Gestión B2B enterprise", "KPIs", "Stakeholder management", "Agile / Scrum"] },
 ];
 
 // ===== Proyectos = Cápsulas Hoi-Poi (los 16 casos de rodrigonegrete.es, mismo orden) =====
@@ -268,36 +268,34 @@ export const LAB = [
 export const EXPERIENCE = [
   { role: "AI Product Designer & Automation Consultant", org: "Proyectos propios / Freelance · Barcelona · Remoto",
     when: "Sep 2024 — hoy", now: true,
-    desc: "Diseño producto digital e implanto flujos de IA aplicada para clientes propios y proyectos personales, del research a la puesta en producción.",
+    desc: "Convierto ideas en productos digitales que funcionan: investigo, diseño, construyo y lanzo, usando IA donde de verdad aporta.",
     points: [
-      "Diseñé y construí AEM Planner, app web PWA offline-first para la wedding planner Algo Entre Manos (3 personas, 12 bodas al año): panel operativo, portal privado de la pareja, plano de mesas interactivo, generador de contratos y presupuesto por plazos. Reduje el peso de datos un 96 % (3,76 MB → 0,13 MB) y validé zonas táctiles ≥44×44 px con auditoría automatizada en 3 breakpoints.",
-      "Publiqué Rodd.es, biblioteca open source multilingüe (7 idiomas nativos) de 287 recursos web: efectos, shaders WebGL, componentes React y escenas 3D con live preview. Research de competencia (Shadcn, Motion.dev, React Bits), arquitectura de 6 categorías y lanzamiento en Vercel.",
-      "Lancé ZODI, producto IA en producción (PWA): 17 tipos de lectura, 4 tonos de respuesta, modelo freemium y comunidad. Stack: Botpress + Make + OpenAI + WordPress; UX writing propio y arquitectura conversacional.",
-      "Dirigí Dedícalo Play, juego musical multijugador en tiempo real (React + Supabase + GenAI): UX, branding, mecánicas de juego y lanzamiento end-to-end.",
-      "Fundé Invitoo como founder único de wedding-tech con IA: invitaciones digitales, RSVP automatizado, canciones generadas con IA (Suno) y publicación web.",
-      "Desplegué 8+ sitios de la red rodd.es para experimentar con IA generativa, CRO, WPO y arquitectura multisite.",
+      "AEM Planner (cliente real): la app con la que una wedding planner coordina hasta 12 bodas al año, incluso sin cobertura. Panel de trabajo, portal para la pareja, plano de mesas y contratos. Reduje el peso de los datos un 96 % (de 3,76 MB a 0,13 MB).",
+      "Rodd.es (producto propio): una biblioteca open source de 287 recursos web en 7 idiomas nativos. Analicé la competencia (Shadcn, Motion.dev, React Bits), la ordené en 6 categorías y la lancé en Vercel.",
+      "ZODI y Dedícalo Play: dos productos con IA ya en producción. ZODI es una PWA con 17 tipos de lectura, 4 tonos y modelo freemium; Dedícalo Play, un juego musical multijugador en tiempo real.",
+      "Invitoo y la red rodd.es: fundé Invitoo yo solo (invitaciones digitales con RSVP automático y canciones creadas con IA) y desplegué más de 8 webs para probar IA generativa, CRO y rendimiento.",
     ],
     tags: ["Product Design", "Design Systems", "AI Agents", "Make · n8n", "React"] },
   { role: "Gestor de Cobros Empresas +Orange", org: "Abai · Cliente Orange Empresas · Barcelona · rol simultáneo",
     when: "2024 — hoy", now: true,
-    desc: "Gestión de cartera B2B para empresas +Orange: seguimiento de deuda, incidencias, acuerdos de pago y coordinación operativa con criterio de negocio, datos y automatizaciones ligeras.",
+    desc: "Cuido una cartera de empresas clientes de Orange, desde las incidencias hasta los acuerdos de pago.",
     points: [
-      "Gestiono cartera corporativa B2B con trazabilidad de incidencias y acuerdos de pago con clientes enterprise.",
-      "Automatizo reporting y seguimiento con Excel avanzado, Google Workspace y Notion para reducir tiempos operativos.",
+      "Llevo el seguimiento de cada cliente corporativo: incidencias, deuda y acuerdos de pago, hasta dejarlo resuelto.",
+      "Automatizo el reporting con Excel avanzado, Google Workspace y Notion para dedicar menos tiempo a lo repetitivo.",
     ],
     tags: ["Cobros B2B", "Orange Empresas", "Excel", "Operaciones"] },
   { role: "Coordinador Operativo Nacional", org: "Garden España · Barcelona", when: "2022 — 2024",
-    desc: "Coordinación operativa en Garden España: seguimiento de incidencias, comunicación entre equipos, organización de procesos y mejora de trazabilidad con herramientas digitales.",
+    desc: "Coordinaba el día a día de una red nacional de tiendas para que nada se quedara atascado.",
     points: [
-      "Coordiné operaciones de una red nacional de tiendas: incidencias, logística, documentación y comunicación entre áreas.",
-      "Digitalicé protocolos internos con herramientas colaborativas, mejorando la trazabilidad y la estandarización.",
+      "Coordinaba incidencias, logística y documentación, y hacía de puente entre las distintas áreas.",
+      "Digitalicé protocolos internos con herramientas colaborativas: más trazabilidad y procesos más homogéneos.",
     ],
     tags: ["Team Leadership", "Digital Transformation", "Agile"] },
   { role: "Senior Enterprise Account Manager", org: "Movistar Empresas (Telefónica) · Santiago, Chile", when: "2008 — 2019",
-    desc: "Gestión de cartera de 80+ cuentas corporativas de alto valor. Retención de clientes VIP, negociación de contratos enterprise y diseño de estrategias de fidelización a largo plazo.",
+    desc: "Once años cuidando las cuentas más importantes de Movistar Empresas en Chile.",
     points: [
-      "Gestioné una cartera de más de 80 cuentas corporativas enterprise: retención de clientes VIP, negociación de contratos y fidelización a largo plazo.",
-      "Es la base actual de mi business acumen y de mi trato con stakeholders enterprise, que hoy aplico diseñando productos B2B con IA.",
+      "Gestioné más de 80 cuentas corporativas: retención de clientes VIP, negociación de contratos y relaciones a largo plazo.",
+      "Aquí aprendí a entender cómo decide una empresa grande, y hoy lo aplico al diseñar productos B2B con IA.",
     ],
     tags: ["Enterprise Sales", "KAM", "B2B Strategy", "Customer Retention"] },
 ];

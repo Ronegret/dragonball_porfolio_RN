@@ -1,4 +1,4 @@
-import { Reveal, isWide, DBText } from "../lib";
+import { Reveal, DBText } from "../lib";
 import { REFERENCES } from "../data";
 import Splash from "./Splash";
 
@@ -13,7 +13,7 @@ export default function References() {
         <div className="ref-grid">
           {REFERENCES.map((r, i) => (
             <Reveal key={i} delay={i * 0.08}>
-              <details className="ref fold" open={i === 0 || isWide()}>
+              <details className="ref fold">
                 <summary data-cursor>
                   <div className="stars">★★★★★</div>
                   <div className="who">

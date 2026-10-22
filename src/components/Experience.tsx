@@ -44,14 +44,14 @@ export default function Experience() {
           <i className="tl-prog" aria-hidden /><i className="tl-orb" aria-hidden />
           {EXPERIENCE.map((x, i) => (
             <Reveal key={x.role + i} delay={i * 0.05}>
-              <details className={"tl-item fold" + (x.now ? " now" : "")} open={i === 0}>
+              <details className={"tl-item fold" + (x.now ? " now" : "")}>
                 <summary data-cursor>
                   <span className="tl-when">{x.when}</span>
                   <h4>{x.role}</h4>
                   <span className="org">{x.org}</span>
+                  <span className="tl-lead">{x.desc}</span>
                 </summary>
                 <div className="fold-body">
-                  <p>{x.desc}</p>
                   <ul className="tl-points">{x.points.map((pt) => <li key={pt}>{pt}</li>)}</ul>
                   <div className="tl-tags">{x.tags.map((t) => <i key={t}>{t}</i>)}</div>
                 </div>
