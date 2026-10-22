@@ -13,6 +13,7 @@ Portfolio interactivo y gamificado (Dragon Ball Z + Capsule Corp) construido com
 - **Secciones completas:** Hero · Perfil · Poderes (transformaciones) · Arsenal (stack con barras de ki) · Sagas (proyectos = cápsulas Hoi-Poi con explosión y holograma) · Trayectoria (timeline + formación) · Referencias · Invocación de Shen Long (contacto).
 - **Gamificación:** 7 esferas del dragón escondidas, contador en el HUD, **Modo Reclutador** y desbloqueo de Shen Long a 7/7.
 - **Escena protagonista con la mirada que sigue al cursor** (`MesaStage.tsx`, vídeos `mesa` / `mesa2`): **desactivada por ahora** (no se monta en `App.tsx`). El código, los fotogramas (`public/assets/mesa*/`) y los scripts (`tools/build-mesa*.py`) siguen en el repositorio: para recuperarla, importa `MesaStage` en `App.tsx` y ponla antes de `<Hero />`, y añade el `<link rel="preload">` del primer fotograma en `index.html`.
+- **"Pide tu deseo"** (`WishFrame.tsx`): el formulario de contacto dentro de un panel de piedra rodeado por **Shen Long** (tu marco recortado con `tools/build-wish-frame.py`), con las 7 esferas latiendo, ojos rojos, rayos de energía entre esferas (canvas, solo visible en pantalla; se multiplican al acercarse al botón) y destellos de tormenta. El panel tiene una muesca donde asoma la cabeza, así el dragón se ve entero y sin cortes. En móvil el dragón se parte en cabeza y cola para no deformarse.
 - **Intro cinematográfica** (`TitleCard.tsx`, línea de tiempo GSAP): la bola del dragón se enciende, estalla con ondas de choque y las letras del nombre caen una a una; "Comenzar" toca la música de apertura.
 - **Universo de fondo** (`SpaceBackground.tsx`): campo de partículas en canvas que reacciona al ratón (se apartan, hilos de constelación, onda de choque al hacer clic, estiramiento al hacer scroll rápido), nebulosa, planetas con parallax anclados a su sección y la cápsula de Goku cruzando el cielo.
 - **Cabeceras tipo viñeta** (`Splash.tsx`): escena de fondo + personaje que sale del marco, con parallax por capas.
@@ -71,6 +72,7 @@ _source/                 # originales (no se versiona ni se despliega)
 | `build-sfx-user.py` | Recorta, añade fundidos y ajusta el nivel (por pico) de los mp3 de `_source/sfx` -> `public/assets/sfx` (requiere ffmpeg) |
 | `fix-pockets.py` | Convierte en transparencia los huecos blancos encerrados (p. ej. entre brazo y torso) |
 | `build-nuevas2.py` | Recorta y optimiza las ilustraciones de `_source/nuevas2` (cutouts WebP, escenas) |
+| `build-wish-frame.py` | Recorta el marco de Shen Long (`_source/wish/frame.png`) y mide esferas y ojos -> `public/assets/wish/frame.webp` + `src/wishFrame.ts` |
 | `cutout.py` | Recorte genérico de fondo blanco con sombra translúcida |
 | `build-mesa2.py` | Recorta la oficina del vídeo `mesa2` (GrabCut + máscara de rayos), elige fotogramas por mirada y exporta WebP con transparencia + `src/mesa2Gaze.ts` (requiere ffmpeg y opencv) |
 | `build-mesa.py` | Elige los fotogramas de `_source/mesa/mesa.mp4` según la mirada, los exporta a WebP y genera `src/mesaGaze.ts` (requiere ffmpeg) |

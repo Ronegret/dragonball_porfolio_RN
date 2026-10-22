@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView, useReducedMotion, animate } from "framer-motion";
 import { useBalls, DBIcon, DBText } from "../lib";
 import { CONTACT, PROFILE, LANGS } from "../data";
+import WishFrame from "./WishFrame";
 
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 const mailto = (subject: string, body: string) =>
@@ -132,22 +133,27 @@ export default function Shenron() {
                 ))}
               </motion.ul>
 
-              <form className="wish" onSubmit={submit}>
-                <h3>Pide tu deseo 🐉</h3>
-                <p>Rellénalo y se abrirá tu email con el mensaje listo para enviar.</p>
-                <div className="field"><label htmlFor="w-name">Tu nombre</label><input id="w-name" name="name" required placeholder="Bulma Brief" autoComplete="name" /></div>
-                <div className="field"><label htmlFor="w-contact">Email o teléfono de contacto</label><input id="w-contact" name="contact" required placeholder="tucorreo@empresa.com" autoComplete="email" /></div>
-                <div className="field"><label htmlFor="w-wish">Tu deseo</label>
-                  <select id="w-wish" name="wish">
-                    <option>Deseo contratar a Rodrigo en mi equipo</option>
-                    <option>Deseo automatizar mi empresa con Agentes IA</option>
-                    <option>Deseo una web / UX-UI de alto impacto</option>
-                    <option>Otro (lo cuento abajo)</option>
-                  </select>
-                </div>
-                <div className="field"><label htmlFor="w-msg">Mensaje</label><textarea id="w-msg" name="msg" placeholder="Cuéntame el puesto o proyecto…" /></div>
-                <button className="btn" type="submit" data-cursor>Invocar contacto →</button>
-              </form>
+              <WishFrame>
+                <form className="wish-panel" onSubmit={submit}>
+                  <span className="wp-shell" aria-hidden><i className="wp-bg" /></span>
+                  <div className="wp-head">
+                    <h3 className="wp-title">Pide tu deseo</h3>
+                    <p>Rellénalo y se abrirá tu email con el mensaje listo para enviar.</p>
+                  </div>
+                  <div className="field f-name"><label htmlFor="w-name">Tu nombre</label><input id="w-name" name="name" required placeholder="Bulma Brief" autoComplete="name" /></div>
+                  <div className="field f-contact"><label htmlFor="w-contact">Email o teléfono de contacto</label><input id="w-contact" name="contact" required placeholder="tucorreo@empresa.com" autoComplete="email" /></div>
+                  <div className="field f-wish"><label htmlFor="w-wish">Tu deseo</label>
+                    <select id="w-wish" name="wish">
+                      <option>Deseo contratar a Rodrigo en mi equipo</option>
+                      <option>Deseo automatizar mi empresa con Agentes IA</option>
+                      <option>Deseo una web / UX-UI de alto impacto</option>
+                      <option>Otro (lo cuento abajo)</option>
+                    </select>
+                  </div>
+                  <div className="field f-msg"><label htmlFor="w-msg">Mensaje</label><textarea id="w-msg" name="msg" placeholder="Cuéntame el puesto o proyecto…" /></div>
+                  <button className="wish-go" type="submit" data-cursor><span>Invocar contacto →</span></button>
+                </form>
+              </WishFrame>
             </motion.div>
           )}
         </AnimatePresence>
