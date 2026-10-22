@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useReducedMotion } from "framer-motion";
-import { Reveal, More, DBText } from "../lib";
-import { EXPERIENCE, EDUCATION } from "../data";
+import { Reveal, More, DBText, CountUp } from "../lib";
+import { EXPERIENCE, EDUCATION, IMPACT } from "../data";
 import Splash from "./Splash";
 
 export default function Experience() {
@@ -32,6 +32,14 @@ export default function Experience() {
           <p>De la gestión B2B enterprise al diseño de producto con IA: un largo Camino de la Serpiente. Pulsa cada combate para ver el detalle.</p>
         </Splash>
 
+        <Reveal>
+          <ul className="impact" aria-label="Impacto clave">
+            {IMPACT.map((m) => (
+              <li key={m.l}><b><CountUp value={m.v} /></b><span>{m.l}</span><small>{m.s}</small></li>
+            ))}
+          </ul>
+        </Reveal>
+
         <div className="tl" ref={tl}>
           <i className="tl-prog" aria-hidden /><i className="tl-orb" aria-hidden />
           {EXPERIENCE.map((x, i) => (
@@ -44,6 +52,7 @@ export default function Experience() {
                 </summary>
                 <div className="fold-body">
                   <p>{x.desc}</p>
+                  <ul className="tl-points">{x.points.map((pt) => <li key={pt}>{pt}</li>)}</ul>
                   <div className="tl-tags">{x.tags.map((t) => <i key={t}>{t}</i>)}</div>
                 </div>
               </details>

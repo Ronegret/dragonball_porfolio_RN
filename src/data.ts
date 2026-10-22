@@ -95,16 +95,22 @@ export const STACK = [
     icon: "bolt",
     count: "18+ tools",
     tools: [
-      { n: "Claude (Opus · Sonnet · Haiku)", lv: "Uso diario", k: 100 },
+      { n: "Claude (Opus 4.5 · Sonnet · Haiku)", lv: "Uso diario", k: 100 },
       { n: "Claude Code · Agent SDK", lv: "Uso diario", k: 100 },
       { n: "OpenAI (GPT-4o · GPT-5 · o3)", lv: "Uso diario", k: 95 },
       { n: "Google AI Studio · Gemini 2.5", lv: "Uso frecuente", k: 85 },
+      { n: "GitHub Copilot", lv: "Uso frecuente", k: 82 },
+      { n: "Antigravity (Google IDE agent)", lv: "Uso frecuente", k: 80 },
       { n: "Make (Integromat)", lv: "Uso frecuente", k: 90 },
       { n: "n8n", lv: "Uso frecuente", k: 90 },
       { n: "Botpress", lv: "Proyecto real", k: 80 },
       { n: "Vapi (Voice AI)", lv: "Proyecto real", k: 78 },
-      { n: "GitHub Copilot · Cursor", lv: "Uso frecuente", k: 82 },
+      { n: "Vertex AI · Google Cloud", lv: "Uso práctico", k: 68 },
+      { n: "Cursor", lv: "Uso práctico", k: 70 },
+      { n: "Nano Banana · Whisk", lv: "Uso práctico", k: 66 },
       { n: "ElevenLabs · Suno", lv: "Uso práctico", k: 70 },
+      { n: "Midjourney · Firefly", lv: "Uso práctico", k: 66 },
+      { n: "UiPath", lv: "Base técnica", k: 55 },
     ],
   },
   {
@@ -112,16 +118,21 @@ export const STACK = [
     icon: "pen",
     count: "16+ tools",
     tools: [
-      { n: "Figma · Design Systems", lv: "Uso diario", k: 100 },
+      { n: "Figma · Prototipado + Design Systems", lv: "Uso diario", k: 100 },
       { n: "VS Code · entorno principal", lv: "Uso diario", k: 95 },
       { n: "HTML5 · CSS3 · JavaScript", lv: "Uso frecuente", k: 90 },
       { n: "React · Vite · Next.js", lv: "Conocimientos sólidos", k: 82 },
       { n: "Framer · Framer Motion", lv: "Proyecto real", k: 85 },
-      { n: "Tailwind · shadcn/ui", lv: "Uso frecuente", k: 88 },
-      { n: "Three.js · Spline · WebGL", lv: "Proyecto real", k: 72 },
+      { n: "Tailwind CSS · shadcn/ui", lv: "Uso frecuente", k: 88 },
       { n: "WordPress · Elementor", lv: "Proyecto real", k: 85 },
+      { n: "Three.js · Spline · WebGL", lv: "Proyecto real", k: 72 },
+      { n: "Node.js · Firebase · Supabase", lv: "Uso práctico", k: 70 },
       { n: "Vercel · GitHub · CI/CD", lv: "Uso frecuente", k: 84 },
-      { n: "Illustrator · Photoshop", lv: "Uso práctico", k: 75 },
+      { n: "Stitch (Google UI generator)", lv: "Uso práctico", k: 68 },
+      { n: "Pomelli · Mixboard", lv: "Uso práctico", k: 64 },
+      { n: "Shopify · Liquid", lv: "Proyecto real", k: 76 },
+      { n: "Adobe Illustrator · Photoshop", lv: "Uso práctico", k: 75 },
+      { n: "Angular · Vue", lv: "Base técnica", k: 55 },
     ],
   },
   {
@@ -129,16 +140,26 @@ export const STACK = [
     icon: "chart",
     count: "9 tools",
     tools: [
-      { n: "Google Workspace", lv: "Uso diario", k: 95 },
+      { n: "Google Workspace (Docs, Sheets, Slides)", lv: "Uso diario", k: 95 },
       { n: "Google Analytics 4", lv: "Uso frecuente", k: 82 },
       { n: "Excel Avanzado · Power BI", lv: "Uso frecuente", k: 85 },
       { n: "Notion · Linear · Jira", lv: "Uso frecuente", k: 86 },
       { n: "Hotjar · FullStory", lv: "Uso práctico", k: 72 },
       { n: "PostHog · Vercel Analytics", lv: "Uso práctico", k: 70 },
-      { n: "Search Console · GTM", lv: "Uso práctico", k: 74 },
-      { n: "Salesforce · HubSpot", lv: "Base técnica", k: 65 },
+      { n: "Google Search Console · Tag Manager", lv: "Uso práctico", k: 74 },
+      { n: "Salesforce · HubSpot", lv: "Base técnica", k: 60 },
+      { n: "Trello", lv: "Uso práctico", k: 70 },
     ],
   },
+];
+
+// ===== Competencias clave (CV de rodrigonegrete.es/cv): lo que sé hacer, por áreas =====
+export const COMPETENCIAS = [
+  { group: "Diseño de producto", icon: "pen", items: ["Product Discovery", "User Research", "Usability Testing", "Information Architecture", "Wireframing", "Prototipado interactivo", "Design Thinking", "Lean UX", "Design Systems", "Design Tokens", "Figma", "Accesibilidad WCAG 2.1 AA"] },
+  { group: "IA aplicada", icon: "bolt", items: ["Generative AI", "Large Language Models (OpenAI, Claude, Gemini)", "Prompt Engineering", "RAG", "Embeddings", "AI Agents", "Conversational AI", "Voice AI", "LangChain", "Vector DB"] },
+  { group: "Automatización & Low-code", icon: "code", items: ["Make (Integromat)", "n8n", "Botpress", "Vapi", "Zapier", "Supabase", "Firebase", "REST APIs", "Webhooks", "Hyperautomation", "RPA"] },
+  { group: "Frontend aplicado", icon: "globe", items: ["HTML", "CSS", "JavaScript (ES6+)", "React", "Next.js", "Tailwind CSS", "Vite", "WordPress", "Elementor", "Shopify", "Git", "Vercel"] },
+  { group: "Analítica & Negocio", icon: "chart", items: ["Google Analytics 4", "Hotjar", "Power BI", "Excel avanzado", "A/B testing", "CRO", "Gestión B2B enterprise", "KPIs", "Stakeholder management", "Agile / Scrum"] },
 ];
 
 // ===== Proyectos = Cápsulas Hoi-Poi (los 16 casos de rodrigonegrete.es, mismo orden) =====
@@ -245,20 +266,48 @@ export const LAB = [
 
 // ===== Trayectoria de combate (experiencia real) =====
 export const EXPERIENCE = [
-  { role: "AI Product Designer & Automation Consultant", org: "Proyectos propios / Freelance",
-    when: "2024 — hoy", now: true,
-    desc: "Diseño producto digital e implanto flujos de IA aplicada para clientes y proyectos propios, del research a producción. Casos: Rodd.es, ZODI, Just Enjoy (TFM EBIS) e Iberdata.",
-    tags: ["Product Design", "AI Agents", "Make · n8n", "React"] },
-  { role: "Gestor de Cobros Empresas +Orange", org: "Abai · Cliente Orange Empresas · Barcelona",
+  { role: "AI Product Designer & Automation Consultant", org: "Proyectos propios / Freelance · Barcelona · Remoto",
+    when: "Sep 2024 — hoy", now: true,
+    desc: "Diseño producto digital e implanto flujos de IA aplicada para clientes propios y proyectos personales, del research a la puesta en producción.",
+    points: [
+      "Diseñé y construí AEM Planner, app web PWA offline-first para la wedding planner Algo Entre Manos (3 personas, 12 bodas al año): panel operativo, portal privado de la pareja, plano de mesas interactivo, generador de contratos y presupuesto por plazos. Reduje el peso de datos un 96 % (3,76 MB → 0,13 MB) y validé zonas táctiles ≥44×44 px con auditoría automatizada en 3 breakpoints.",
+      "Publiqué Rodd.es, biblioteca open source multilingüe (7 idiomas nativos) de 287 recursos web: efectos, shaders WebGL, componentes React y escenas 3D con live preview. Research de competencia (Shadcn, Motion.dev, React Bits), arquitectura de 6 categorías y lanzamiento en Vercel.",
+      "Lancé ZODI, producto IA en producción (PWA): 17 tipos de lectura, 4 tonos de respuesta, modelo freemium y comunidad. Stack: Botpress + Make + OpenAI + WordPress; UX writing propio y arquitectura conversacional.",
+      "Dirigí Dedícalo Play, juego musical multijugador en tiempo real (React + Supabase + GenAI): UX, branding, mecánicas de juego y lanzamiento end-to-end.",
+      "Fundé Invitoo como founder único de wedding-tech con IA: invitaciones digitales, RSVP automatizado, canciones generadas con IA (Suno) y publicación web.",
+      "Desplegué 8+ sitios de la red rodd.es para experimentar con IA generativa, CRO, WPO y arquitectura multisite.",
+    ],
+    tags: ["Product Design", "Design Systems", "AI Agents", "Make · n8n", "React"] },
+  { role: "Gestor de Cobros Empresas +Orange", org: "Abai · Cliente Orange Empresas · Barcelona · rol simultáneo",
     when: "2024 — hoy", now: true,
     desc: "Gestión de cartera B2B para empresas +Orange: seguimiento de deuda, incidencias, acuerdos de pago y coordinación operativa con criterio de negocio, datos y automatizaciones ligeras.",
-    tags: ["Cobros B2B", "Orange Empresas", "Operaciones"] },
-  { role: "Coordinador", org: "Garden España · Barcelona", when: "2022 — 2024",
-    desc: "Coordinación operativa: seguimiento de incidencias, comunicación entre equipos, organización de procesos y mejora de trazabilidad con herramientas digitales.",
+    points: [
+      "Gestiono cartera corporativa B2B con trazabilidad de incidencias y acuerdos de pago con clientes enterprise.",
+      "Automatizo reporting y seguimiento con Excel avanzado, Google Workspace y Notion para reducir tiempos operativos.",
+    ],
+    tags: ["Cobros B2B", "Orange Empresas", "Excel", "Operaciones"] },
+  { role: "Coordinador Operativo Nacional", org: "Garden España · Barcelona", when: "2022 — 2024",
+    desc: "Coordinación operativa en Garden España: seguimiento de incidencias, comunicación entre equipos, organización de procesos y mejora de trazabilidad con herramientas digitales.",
+    points: [
+      "Coordiné operaciones de una red nacional de tiendas: incidencias, logística, documentación y comunicación entre áreas.",
+      "Digitalicé protocolos internos con herramientas colaborativas, mejorando la trazabilidad y la estandarización.",
+    ],
     tags: ["Team Leadership", "Digital Transformation", "Agile"] },
-  { role: "Senior Enterprise Account Manager", org: "Movistar Empresas · Chile", when: "2008 — 2019",
-    desc: "Gestión de cartera de 80+ cuentas corporativas de alto valor. Retención de clientes VIP, negociación de contratos enterprise y estrategias de fidelización a largo plazo.",
-    tags: ["Enterprise Sales", "KAM", "B2B Strategy", "Retención"] },
+  { role: "Senior Enterprise Account Manager", org: "Movistar Empresas (Telefónica) · Santiago, Chile", when: "2008 — 2019",
+    desc: "Gestión de cartera de 80+ cuentas corporativas de alto valor. Retención de clientes VIP, negociación de contratos enterprise y diseño de estrategias de fidelización a largo plazo.",
+    points: [
+      "Gestioné una cartera de más de 80 cuentas corporativas enterprise: retención de clientes VIP, negociación de contratos y fidelización a largo plazo.",
+      "Es la base actual de mi business acumen y de mi trato con stakeholders enterprise, que hoy aplico diseñando productos B2B con IA.",
+    ],
+    tags: ["Enterprise Sales", "KAM", "B2B Strategy", "Customer Retention"] },
+];
+
+// ===== Impacto clave (CV) =====
+export const IMPACT = [
+  { v: "287", l: "recursos open source publicados en Rodd.es", s: "7 idiomas nativos" },
+  { v: "−96%", l: "peso de datos en AEM Planner", s: "3,76 MB → 0,13 MB" },
+  { v: "27", l: "nodos n8n en Just Enjoy", s: "TFM calificado 10/10" },
+  { v: "+80", l: "cuentas enterprise B2B gestionadas", s: "Movistar / Telefónica" },
 ];
 
 // ===== Formación (cámara de gravedad) =====
@@ -275,7 +324,7 @@ export const EDUCATION: { title: string; org: string; when: string; state: strin
   { title: "Diseño Web Multimedia y Marketing Digital", org: "CIPSA · Barcelona", when: "2020 — 2022", state: "Finalizado",
     desc: "Front-end development, HTML/CSS/JS, WordPress, Digital Marketing, SEO/SEM y fundamentos de UX aplicados a negocios digitales." },
   { title: "Técnico en Administración Financiera", org: "Duoc UC · Santiago, Chile", when: "2014 — 2016", state: "Finalizado",
-    desc: "Título Técnico de Nivel Superior. Base de business acumen que aplico hoy diseñando producto B2B con IA.",
+    desc: "Título Técnico de Nivel Superior. Contabilidad, gestión financiera, análisis de estados financieros y administración de operaciones. Base de business acumen que aplico hoy diseñando producto B2B con IA.",
     links: [["Certificado (PDF)", `${SITE}/assets/legacy/Duoc.pdf`]] },
 ];
 

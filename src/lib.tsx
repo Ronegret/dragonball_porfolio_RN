@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useRef, useState, ReactNode } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, animate, useInView, useReducedMotion } from "framer-motion";
 import { gsap } from "gsap";
 import { Howl } from "howler";
 
@@ -251,6 +251,22 @@ export function DBText({ text }: { text: string }) {
       </span>
     </span>
   );
+}
+
+/** Cifra que sube desde 0 al entrar en pantalla y conserva prefijo y sufijo: "50+", "−96%", "+80". */
+export function CountUp({ value, delay = 0 }: { value: string; delay?: number }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "0px 0px -8% 0px" });
+  const reduce = useReducedMotion();
+  const m = value.match(/^([^\d]*)(\d+)(.*)$/);
+  useEffect(() => {
+    if (!m || reduce || !inView) return;
+    const [, pre, num, suf] = m;
+    const c = animate(0, Number(num), { duration: 1.2, delay, ease: [0.23, 1, 0.32, 1],
+      onUpdate: (v) => { if (ref.current) ref.current.textContent = pre + Math.round(v) + suf; } });
+    return () => c.stop();
+  }, [inView, value, reduce]);
+  return <span ref={ref}>{!m || reduce ? value : m[1] + "0" + m[3]}</span>;
 }
 
 /** En escritorio los desplegables arrancan abiertos; en tablet/móvil, plegados */
