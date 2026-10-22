@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { TRANSFORMATIONS } from "../data";
+import { introPending, whenIntroDone } from "../lib";
 
 /** Universo de fondo: nebulosa + campo de partículas interactivo (canvas) + planetas con parallax anclados
  *  a su sección + la cápsula de Goku cruzando el cielo.
@@ -172,16 +173,18 @@ export default function SpaceBackground() {
       if (now - last < 15) return;                                      // tope de 60 fps en pantallas rápidas
       frame(now);
     };
-    const onVis = () => { cancelAnimationFrame(raf); raf = 0; if (!document.hidden && !reduce) { last = performance.now(); raf = requestAnimationFrame(loop); } };
+    let paused = introPending();                                        // la intro tapa la pantalla: el bucle espera a que termine
+    const onVis = () => { cancelAnimationFrame(raf); raf = 0; if (!document.hidden && !reduce && !paused) { last = performance.now(); raf = requestAnimationFrame(loop); } };
+    const stopWait = paused ? whenIntroDone(() => { paused = false; onVis(); }) : () => {};   // solo si hay intro: si no, el arranque normal ya inicia el bucle
 
     size(); measure();
     window.addEventListener("resize", size);
     document.addEventListener("visibilitychange", onVis);
-    if (!reduce) raf = requestAnimationFrame(loop); else placeObjects(window.scrollY);
+    if (reduce) placeObjects(window.scrollY); else if (!paused) raf = requestAnimationFrame(loop);
     const m1 = setTimeout(measure, 800), m2 = setTimeout(measure, 2800);   // tras cargar fuentes e imágenes cambian las alturas
 
     return () => {
-      cancelAnimationFrame(raf); clearTimeout(m1); clearTimeout(m2); ro.disconnect();
+      cancelAnimationFrame(raf); clearTimeout(m1); clearTimeout(m2); ro.disconnect(); stopWait();
       window.removeEventListener("resize", size); window.removeEventListener("evo-phase", onPhase);
       window.removeEventListener("pointermove", onMove); window.removeEventListener("pointerdown", onDown);
       document.removeEventListener("pointerleave", onLeave); document.removeEventListener("visibilitychange", onVis);

@@ -4,7 +4,7 @@ import { MotionConfig } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import { BallsProvider } from "./lib";
+import { BallsProvider, primeAudio } from "./lib";
 import CursorAvatar from "./components/CursorAvatar";
 import Hud, { scrollToId } from "./components/Hud";
 import Footer from "./components/Footer";
@@ -25,6 +25,9 @@ import Safe from "./components/Safe";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function App() {
+  // el contexto de audio bloquea ~0,3 s al crearse: se hace con la web ociosa (radar de carga), no en mitad de la cartela
+  useEffect(() => { ((window as any).requestIdleCallback ?? ((f: () => void) => setTimeout(f, 1200)))(primeAudio, { timeout: 2000 }); }, []);
+
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion:reduce)").matches) return;
     const lenis = new Lenis({ lerp: 0.1, smoothWheel: true });

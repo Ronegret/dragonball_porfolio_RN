@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { sfx } from "../lib";
+import { sfx, introPending, whenIntroDone } from "../lib";
 
 // Orden de evolución (nº de imagen): base, saiyan, fase 3, blue, ultra instinto, fase 4
 const ORDER = [1, 2, 5, 3, 4, 6];
@@ -129,15 +129,16 @@ export default function Character3D() {
     };
 
     // solo anima mientras el hero está en pantalla y la pestaña visible
-    let onScreen = true;
-    const resume = () => { if (!raf && onScreen && !document.hidden) loop(); };
+    let onScreen = true, paused = introPending();   // mientras la intro tapa la pantalla no se anima
+    const resume = () => { if (!raf && onScreen && !document.hidden && !paused) loop(); };
     const io = new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; resume(); });
     io.observe(cv);
     document.addEventListener("visibilitychange", resume);
+    const stopWait = paused ? whenIntroDone(() => { paused = false; resume(); }) : () => {};   // solo si hay intro: el callback no corre antes de definir `loop`
 
     let last = 0;
     const loop = (now = 0) => {
-      if (!onScreen || document.hidden) { raf = 0; return; }
+      if (!onScreen || document.hidden || paused) { raf = 0; return; }
       raf = requestAnimationFrame(loop);
       if (now - last < 15) return;   // tope de 60 fps: en pantallas de 120/144 Hz el aura iba al doble de velocidad y coste
       last = now; t += reduce ? 0 : 0.016;
@@ -222,7 +223,7 @@ export default function Character3D() {
       ctx.globalAlpha = 1; ctx.globalCompositeOperation = "source-over";
     };
     loop();
-    return () => { cancelAnimationFrame(raf); io.disconnect(); document.removeEventListener("visibilitychange", resume); window.removeEventListener("resize", size); window.removeEventListener("mousemove", onMove); };
+    return () => { cancelAnimationFrame(raf); stopWait(); io.disconnect(); document.removeEventListener("visibilitychange", resume); window.removeEventListener("resize", size); window.removeEventListener("mousemove", onMove); };
   }, []);
 
   // ---- precarga imágenes para que el cambio sea instantáneo ----

@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useRef, useState, ReactNode } from "react";
 import { motion, AnimatePresence, animate, useInView, useReducedMotion } from "framer-motion";
 import { gsap } from "gsap";
-import { Howl } from "howler";
+import { Howl, Howler } from "howler";
 
 /* ---------- utils ---------- */
 export function hexA(hex: string, a: number) {
@@ -17,6 +17,18 @@ export function readNums(key: string, min: number, max: number): number[] {
     const v = JSON.parse(localStorage.getItem(key) || "[]");
     return Array.isArray(v) ? [...new Set<number>(v.filter((n) => Number.isInteger(n) && n >= min && n <= max))] : [];
   } catch { return []; }
+}
+
+/** La intro (Loader) tapa toda la pantalla: los fondos animados no tienen por qué trabajar hasta que acabe. */
+export const introPending = () => { try { return !(window as any).__introDone && !sessionStorage.getItem("rn_intro"); } catch { return false; } };
+/** Ejecuta cb cuando termina la intro (o a los 20 s, por si el Loader no llegara a avisar). Devuelve la función que lo cancela. */
+export function whenIntroDone(cb: () => void) {
+  if (!introPending()) { cb(); return () => {}; }
+  let live = true;
+  const go = () => { if (live) { live = false; cb(); } };
+  window.addEventListener("rn-intro-done", go, { once: true });
+  const t = setTimeout(go, 20000);
+  return () => { live = false; window.removeEventListener("rn-intro-done", go); clearTimeout(t); };
 }
 
 /* ---------- audio (Howler + efectos en public/assets/sfx) ---------- */
@@ -40,6 +52,8 @@ export const setMuted = (m: boolean) => {
   window.dispatchEvent(new CustomEvent("rn-mute", { detail: m }));
 };
 const howl = (name: Sfx) => _howls[name] || (_howls[name] = new Howl({ src: [`/assets/sfx/${name}.mp3`], volume: VOL[name] }));
+/** Crea ya el contexto de audio (lo hace Howler en su primera consulta). Tarda ~0,3 s de hilo principal: mejor con la web ociosa que en mitad de la cartela o en el primer clic. */
+export const primeAudio = () => { try { Howler.volume(); } catch { /* sin audio */ } };
 /** descarga el sonido por adelantado (p. ej. la intro mientras se ve la cartela) */
 export const preloadSfx = (name: Sfx) => { howl(name); };
 /** gap: ms mínimos entre dos reproducciones del mismo efecto (para hovers) */
