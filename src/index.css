@@ -827,24 +827,24 @@ main{overflow-x:clip}.evo-top{max-width:100%}
   -webkit-mask-image:radial-gradient(closest-side,#000 6%,transparent 52%);mask-image:radial-gradient(closest-side,#000 6%,transparent 52%)}
 @keyframes tcspin{to{transform:rotate(360deg)}}
 .tc-stage-in{position:relative;display:flex;flex-direction:column;align-items:center;gap:10px;padding:0 14px;text-align:center;width:min(980px,100%)}
-.tc-name{position:relative;margin:2px 0 4px;display:flex;flex-direction:column;align-items:center;will-change:transform}
-.tcw{display:flex;justify-content:center;gap:.025em;line-height:1;font-family:var(--f-db)}
-.tcw-a{font-size:clamp(46px,min(12.6vw,18vh),158px);letter-spacing:.01em}
-.tcw-b{font-size:clamp(38px,min(10vw,14.4vh),124px);margin-top:clamp(38px,min(8.2vw,11.8vh),104px)}
+.tc-name{--F:clamp(46px,min(17vw,16.5vh),158px);position:relative;margin:2px 0 4px;display:flex;flex-direction:column;align-items:center;will-change:transform}
+.tcw{display:flex;justify-content:center;gap:.1em;line-height:1;font-family:var(--f-db)}   /* hueco suficiente: el contorno negro de una letra no pisa a la vecina */
+.tcw-a{font-size:var(--F)}
+.tcw-b{font-size:calc(var(--F) * .9);margin-top:calc(var(--F) * .62)}
 .tcl{display:inline-block}
 .tcl-in{display:inline-grid;opacity:0;will-change:transform,opacity}
 .tc-stage.static .tcl-in{opacity:1}
 .tcl-in>i{grid-area:1/1;font-style:normal;line-height:1.05;white-space:pre}
-.tcl-in .b{color:#000;-webkit-text-stroke:.2em #000;text-shadow:0 .09em 0 #b32400,0 .17em 0 #120400,0 .24em .3em rgba(0,0,0,.55)}
+.tcl-in .b{color:#000;-webkit-text-stroke:.15em #000;text-shadow:0 .07em 0 #b32400,0 .13em 0 #120400,0 .2em .24em rgba(0,0,0,.5)}
 .tcl-in .f{color:transparent;-webkit-background-clip:text;background-clip:text;
   background:linear-gradient(105deg,transparent 42%,rgba(255,255,255,.95) 50%,transparent 58%) no-repeat 160% 0/260% 100%,linear-gradient(180deg,#fff8b4 0%,#ffd23a 44%,#ff8a1a 100%);
   -webkit-background-clip:text;background-clip:text}
-.tc-ball{position:absolute;left:50%;top:50%;width:clamp(66px,min(12.5vw,18vh),160px);aspect-ratio:1;margin:calc(clamp(66px,min(12.5vw,18vh),160px) / -2) 0 0 calc(clamp(66px,min(12.5vw,18vh),160px) / -2);z-index:3;opacity:0;will-change:transform}
+.tc-ball{position:absolute;left:50%;top:calc(var(--F) * 1.36);width:calc(var(--F) * .94);aspect-ratio:1;margin:calc(var(--F) * -.47) 0 0 calc(var(--F) * -.47);z-index:3;opacity:0;will-change:transform}   /* en el hueco entre las dos palabras, sin tapar letras */
 .tc-ball img{display:block;width:100%;height:100%;position:relative;z-index:1}
-.tc-halo{position:absolute;inset:-70%;border-radius:50%;opacity:0;will-change:transform,opacity;background:radial-gradient(circle,rgba(255,250,200,.95) 0,rgba(255,176,50,.7) 22%,rgba(255,120,20,.28) 42%,transparent 66%)}
+.tc-halo{position:absolute;inset:-70%;border-radius:50%;opacity:0;will-change:transform,opacity;background:radial-gradient(circle,rgba(255,200,90,.8) 0,rgba(255,160,40,.6) 24%,rgba(255,120,20,.26) 44%,transparent 66%)}
 .tc-saga{opacity:0;margin-bottom:clamp(28px,min(5.4vw,8vh),70px);font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#fff;background:#c4122f;border:2.5px solid #000;box-shadow:4px 4px 0 #000;padding:6px 14px;transform-origin:center}
 .tc-stage.static .tc-saga{opacity:1;transform:rotate(-2deg)}
-.tc-sub{opacity:0;margin:0;font-family:var(--f-mono);font-size:13px;color:#e4d8ff;letter-spacing:.03em}
+.tc-sub{opacity:0;margin:0;font-family:var(--f-mono);font-size:13px;color:#efe6ff;letter-spacing:.03em;text-wrap:balance;max-width:34em}
 .tc-actions{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:12px}
 .tc-actions>*{opacity:0}
 .tc-stage.static .tc-sub,.tc-stage.static .tc-actions>*,.tc-stage.static .tc-ball{opacity:1}
@@ -856,7 +856,7 @@ main{overflow-x:clip}.evo-top{max-width:100%}
 .tc-spark{position:absolute;left:50%;top:46%;width:7px;height:7px;margin:-3px 0 0 -3px;border-radius:50%;opacity:0;pointer-events:none;background:#fff8c0;box-shadow:0 0 10px 3px rgba(255,200,60,.9)}
 .tc-spark:nth-child(3n){background:#bfe7ff;box-shadow:0 0 10px 3px rgba(90,170,255,.85)}
 .tc-flash{position:absolute;inset:0;opacity:0;pointer-events:none;background:radial-gradient(circle at 50% 46%,#fff 0,#fff6c4 28%,rgba(255,200,70,.65) 58%,rgba(255,200,70,.0) 85%)}
-@media (max-width:560px){.tc-saga{font-size:10.5px;letter-spacing:.13em}.tc-sub{font-size:11.5px}}
+@media (max-width:560px){.tc-saga{font-size:11px;letter-spacing:.12em;line-height:1.35}.tc-sub{font-size:12.5px;line-height:1.5;max-width:20em}.tc-stage-in{gap:12px}}
 @media (prefers-reduced-motion:reduce){.tc-rays{animation:none;opacity:.5}.tc-start{animation:none}}
 
 /* ===== puntos de calor: contacto siempre a mano ===== */
@@ -1393,3 +1393,24 @@ main{overflow-x:clip}.evo-top{max-width:100%}
   .comp-item .ci-txt b{font-size:17px}
 }
 @media (prefers-reduced-motion:reduce){.sk-img{animation:none}.sk-pin i::after{animation:none;opacity:.5;transform:scale(1)}}
+
+/* ===================== LEGIBILIDAD MÓVIL: titulares, textos y cartelas ===================== */
+@media (max-width:620px){
+  /* interlínea más abierta y contorno/sombra más finos: antes la sombra negra de una línea se montaba sobre la siguiente */
+  .hero h1,.sec-head h2,.evo-top h2,.shen-lock h2,.shen-open h2,.comp-title,.dbf-head h2{line-height:1.2;letter-spacing:.02em}
+  .hero h1{font-size:clamp(30px,9.4vw,40px)}
+  .hero h1,.sec-head h2,.evo-top h2,.shen-lock h2,.shen-open h2,.comp-title{-webkit-text-stroke:1.6px #000;text-shadow:0 3px 0 #c4122f}
+  .hero h1 .ln>span:not(.em){-webkit-text-stroke:1.6px #000}
+  .hero h1 .ln{padding:.04em 0}
+  .hero-lead{font-size:16px;line-height:1.6;color:#d4dff0;margin:20px auto 26px;max-width:34ch}
+  .hero-lead b{color:#fff}
+  .hero-stats .st span{font-size:12px;color:#b9c7da}
+  .hero-stats .st b{font-size:clamp(26px,8vw,32px)}
+  /* cartela amarilla bajo el personaje: texto más grande y rojo más oscuro para que contraste sobre el amarillo */
+  .char3d-study{font-size:12.5px;line-height:1.4;padding:6px 11px}
+  .char3d-study i{color:#9b0a22}
+  .char3d-name{font-size:13px}
+  .balloon{font-size:14px}
+}
+
+@media (max-width:560px){.tc-sub span{display:block}.tc-sub .sep{display:none}}

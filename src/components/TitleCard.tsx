@@ -53,10 +53,10 @@ export default function TitleCard({ launch, onStart, onSilent }: { launch: boole
           .fromTo(q(".tc-halo"), { scale: 0.3, opacity: 0 }, { scale: 1, opacity: 0.8, duration: 0.7, ease: "power2.out" }, 0.25)
           .to(q(".tc-ball"), { scale: 1.15, duration: 0.16, yoyo: true, repeat: 1, ease: "power2.out" }, 1)
           .to(q(".tc-halo"), { scale: 1.55, opacity: 1, duration: 0.16, yoyo: true, repeat: 1 }, 1)
-          .to(q(".tc-ball img"), { filter: "brightness(2.2) saturate(1.3)", duration: 0.16, yoyo: true, repeat: 1 }, 1)
+          .to(q(".tc-ball img"), { filter: "brightness(1.3) saturate(1.2)", duration: 0.16, yoyo: true, repeat: 1 }, 1)
           .to(q(".tc-ball"), { scale: 1.28, duration: 0.2, yoyo: true, repeat: 1, ease: "power2.out" }, 1.32)
           .to(q(".tc-halo"), { scale: 2.1, opacity: 1, duration: 0.2, yoyo: true, repeat: 1 }, 1.32)
-          .to(q(".tc-ball img"), { filter: "brightness(3.2) saturate(1.4)", duration: 0.2, yoyo: true, repeat: 1 }, 1.32)
+          .to(q(".tc-ball img"), { filter: "brightness(1.5) saturate(1.3)", duration: 0.2, yoyo: true, repeat: 1 }, 1.32)
           // 2) estallido: destello, ondas de choque, rayos, chispas y sacudida de pantalla
           .addLabel("boom", 1.85)
           .to(q(".tc-flash"), { opacity: 1, duration: 0.07 }, "boom")
@@ -114,7 +114,7 @@ export default function TitleCard({ launch, onStart, onSilent }: { launch: boole
           </span>
           <Word text="NEGRETE" arch={false} />
         </h1>
-        <p className="tc-sub">AI Product Designer · UX/UI · Automatización con IA</p>
+        <p className="tc-sub"><span>AI Product Designer</span><span className="sep"> · </span><span>UX/UI · Automatización con IA</span></p>
         <div className="tc-actions">
           <button className="btn gold tc-start" onClick={onStart} autoFocus>▶ Comenzar la aventura</button>
           <button className="loader-skip" onClick={onSilent}>Entrar sin sonido</button>

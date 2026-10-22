@@ -81,6 +81,7 @@ _source/                 # originales (no se versiona ni se despliega)
 | `build-mesa.py` | Elige los fotogramas de `_source/mesa/mesa.mp4` según la mirada, los exporta a WebP y genera `src/mesaGaze.ts` (requiere ffmpeg) |
 | `build-capsules.py` | Genera las 16 cápsulas Hoi-Poi |
 | `build-space.py` | Genera la nebulosa procedural |
+| `clean-balls.py` | Limpia las 7 esferas del dragón (`public/assets/db/ball1..7.webp`): ajusta una elipse al arco superior y deja transparente la peana blanca de debajo. Parte de los originales en `_source/db-backup`, así que se puede repetir |
 
 ## 🎬 Remotion (imagen para compartir y teaser)
 La carpeta `remotion/` es un proyecto aparte (no entra en el build de la web) que usa los mismos assets y la misma tipografía:

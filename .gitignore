@@ -13,3 +13,4 @@ __pycache__
 *.pyc
 remotion/out
 remotion/public
+.playwright-mcp
