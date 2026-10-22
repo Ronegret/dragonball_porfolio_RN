@@ -1,6 +1,8 @@
-import { Reveal, isWide, DBText } from "../lib";
+import { Reveal, DBIcon } from "../lib";
 import { PROFILE, LANGS, CONTACT } from "../data";
 import Splash from "./Splash";
+
+const LEVEL: Record<string, number> = { Nativo: 100, C1: 85, B2: 72, B1: 58, A2: 38, A1: 22 };
 
 export default function Profile() {
   return (
@@ -28,36 +30,32 @@ export default function Profile() {
               </p>
             </Reveal>
 
-            <details className="fold perfil-more" open={isWide()}>
-              <summary data-cursor><img className="fiche-ava" src="/assets/rod/vest.webp" alt="" loading="lazy" /><span className="fiche-txt"><span className="tl-when">FICHA TÉCNICA DEL GUERRERO</span><h4>Ubicación, modalidad, disponibilidad e idiomas</h4></span></summary>
-              <div className="fold-body">
-            <Reveal delay={0.1}>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(2,1fr)", gap: 14, margin: "26px 0" }} className="perfil-data">
-                {[
-                  ["Ubicación", PROFILE.location],
-                  ["Modalidad", "Remoto · Híbrido BCN"],
-                  ["Disponibilidad", "Inmediata"],
-                  ["Objetivo", "Empleo estable + proyectos UX/IA"],
-                ].map(([k, v]) => (
-                  <div key={k} style={{ border: "1px solid var(--line)", borderRadius: 14, padding: 16, background: "var(--panel)" }}>
-                    <span style={{ fontFamily: "var(--f-mono)", fontSize: 10, letterSpacing: ".12em", color: "var(--mut)", display: "block", marginBottom: 6 }}>{k.toUpperCase()}</span>
-                    <b style={{ fontSize: 14 }}>{v}</b>
+            <details className="ficha" open>
+              <summary data-cursor>
+                <span className="ficha-tag"><i className="cc-logo" aria-hidden /> Ficha de guerrero <em>Nº 0001</em></span>
+                <span className="ficha-lvl">NIVEL <b>9001</b></span>
+                <span className="ficha-chev" aria-hidden />
+              </summary>
+              <div className="ficha-body">
+                <div className="ficha-id">
+                  <div className="ficha-photo">
+                    <img src="/assets/rod/vest.webp" alt="Rodrigo Negrete con el chaleco de Capsule Corp" loading="lazy" />
+                    <i className="ficha-scan" aria-hidden />
+                    <span className="ficha-live"><i aria-hidden /> Activo</span>
                   </div>
-                ))}
-              </div>
-            </Reveal>
-
-            <Reveal delay={0.15}>
-              <div style={{ display: "flex", gap: 26, flexWrap: "wrap", alignItems: "center" }}>
-                <span style={{ fontFamily: "var(--f-mono)", fontSize: 11, letterSpacing: ".16em", color: "var(--mut)" }}>IDIOMAS</span>
-                {LANGS.map((l) => (
-                  <div key={l.l}>
-                    <b style={{ fontSize: 15 }}>{l.l}</b>
-                    <span style={{ color: "var(--accent)", fontFamily: "var(--f-mono)", fontSize: 12, marginLeft: 8 }}>{l.lv}</span>
-                  </div>
-                ))}
-              </div>
-            </Reveal>
+                  <div className="ficha-who"><b>{PROFILE.name}</b><small>AI Product Designer</small></div>
+                </div>
+                <dl className="ficha-stats">
+                  {([["globe", "Ubicación", PROFILE.location], ["bolt", "Modalidad", "Remoto · Híbrido BCN"], ["calendar", "Disponibilidad", "Inmediata"], ["star", "Objetivo", "Empleo estable + proyectos UX/IA"]] as const).map(([ic, k, v]) => (
+                    <div key={k}><DBIcon name={ic} size={38} /><span><dt>{k}</dt><dd>{v}</dd></span></div>
+                  ))}
+                </dl>
+                <div className="ficha-langs">
+                  <span className="fl-h">Idiomas · técnicas de comunicación</span>
+                  {LANGS.map((l) => (
+                    <div key={l.l} className="fl"><b>{l.l}</b><em>{l.lv}</em><span className="fl-bar"><i style={{ ["--w" as any]: LEVEL[l.lv] ?? 50 }} /></span></div>
+                  ))}
+                </div>
               </div>
             </details>
           </div>

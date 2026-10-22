@@ -6,6 +6,9 @@ import { Reveal, DBText } from "../lib";
 import EvolutionBackground from "./EvolutionBackground";
 import Splash from "./Splash";
 
+const STEP_FULL = ["Forma base", "Super Saiyan", "Super Saiyan Blue", "Ultra Instinto", "Super Saiyan 4"];
+const STEP_SHORT = ["Base", "SSJ", "Blue", "Ultra", "SSJ4"];
+
 export default function Transformations() {
   const [i, setI] = useState(0);
   const [pulse, setPulse] = useState(0);
@@ -61,9 +64,14 @@ export default function Transformations() {
             <div className="pno">FASE 0{i + 1} / 05 · {t.form}</div>
             <h2><DBText key={t.title} text={t.title} /></h2>
           </div>
-          <div className="evo-dots">
-            {TRANSFORMATIONS.map((_, k) => (
-              <b key={k} className={k === i ? "on" : ""} data-cursor onClick={() => goToPhase(k)} />
+          <div className="evo-steps" role="group" aria-label="Fases de mi evolución">
+            <span className="es-line" aria-hidden><i className="es-fill" style={{ transform: `scaleX(${i / (TRANSFORMATIONS.length - 1)})` }} /></span>
+            {TRANSFORMATIONS.map((tr, k) => (
+              <button key={k} type="button" data-cursor className={"es" + (k < i ? " done" : "") + (k === i ? " on" : "")} style={{ ["--c" as any]: tr.aura }}
+                aria-current={k === i ? "step" : undefined} aria-label={`Fase ${k + 1}: ${STEP_FULL[k]}`} onClick={() => goToPhase(k)}>
+                <b>{k + 1}</b>
+                <span className="es-full">{STEP_FULL[k]}</span><span className="es-short">{STEP_SHORT[k]}</span>
+              </button>
             ))}
           </div>
           <div className="evo-stage">
