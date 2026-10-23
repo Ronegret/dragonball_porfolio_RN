@@ -174,10 +174,10 @@ export const PROJECTS: Project[] = [
     desc: "Directorio abierto en 7 idiomas nativos (ES · EN · CA · FR · IT · DE · PT) con efectos, animaciones, componentes React, microinteracciones, fondos animados y escenas 3D listos para probar en vivo, editar y copiar el código.",
     role: "Concepto, diseño, desarrollo y lanzamiento", tech: ["React", "WebGL", "Three.js", "Framer Motion", "7 idiomas", "Vercel"],
     caseUrl: `${SITE}/rodd-es/`, live: "https://rodd.es", liveLabel: "rodd.es" },
-  { name: "AEM Planner", tag: "Cliente real · En producción", cat: "Producto", year: "2026", star: true, cap: "#2f8bff", img: "aem",
+  { name: "Events Planner", tag: "Producto propio · En producción", cat: "Producto", year: "2026", star: true, cap: "#2f8bff", img: "events",
     title: "Un sistema operativo para bodas",
-    desc: "App web para Algo Entre Manos: tres personas coordinan hasta 12 bodas al año en fincas sin cobertura. Panel operativo, portal privado para la pareja, plano de mesas interactivo, generador de contratos, presupuesto por plazos y dossieres imprimibles.",
-    role: "Research UX, sistema de diseño y desarrollo end-to-end", tech: ["Product design", "PWA offline-first", "Design system", "IA como herramienta"],
+    desc: "Web para wedding planners que trabajan sin cobertura: tres personas coordinan hasta 12 bodas al año en fincas sin internet. Panel de inicio, espacio de trabajo por boda, plano de mesas, proveedores, presupuesto, contrato imprimible, portal privado para cada pareja y dossieres. Se instala como app y abre sin conexión.",
+    role: "Product design y desarrollo end-to-end", tech: ["Product design", "PWA offline", "Sistema visual", "Supabase"],
     caseUrl: `${SITE}/aem/`, live: "https://aem.rodd.es/", liveLabel: "aem.rodd.es" },
   { name: "ZODI", tag: "Caso destacado · AI product", cat: "IA & Auto.", year: "2026", star: true, cap: "#ffcc1f", img: "zodi",
     title: "Oráculo astral con IA y humor ácido",
@@ -270,7 +270,7 @@ export const EXPERIENCE = [
     when: "Sep 2024 — hoy", now: true,
     desc: "Convierto ideas en productos digitales que funcionan: investigo, diseño, construyo y lanzo, usando IA donde de verdad aporta.",
     points: [
-      "AEM Planner (cliente real): la app con la que una wedding planner coordina hasta 12 bodas al año, incluso sin cobertura. Panel de trabajo, portal para la pareja, plano de mesas y contratos. Reduje el peso de los datos un 96 % (de 3,76 MB a 0,13 MB).",
+      "Events Planner (producto propio): la app con la que un equipo de wedding planners coordina hasta 12 bodas al año, incluso sin cobertura. Panel de trabajo, portal para la pareja, plano de mesas y contratos. Reduje el peso de los datos un 96 % (de 3,76 MB a 0,13 MB).",
       "Rodd.es (producto propio): una biblioteca open source de 287 recursos web en 7 idiomas nativos. Analicé la competencia (Shadcn, Motion.dev, React Bits), la ordené en 6 categorías y la lancé en Vercel.",
       "ZODI y Dedícalo Play: dos productos con IA ya en producción. ZODI es una PWA con 17 tipos de lectura, 4 tonos y modelo freemium; Dedícalo Play, un juego musical multijugador en tiempo real.",
       "Invitoo y la red rodd.es: fundé Invitoo yo solo (invitaciones digitales con RSVP automático y canciones creadas con IA) y desplegué más de 8 webs para probar IA generativa, CRO y rendimiento.",
@@ -303,7 +303,7 @@ export const EXPERIENCE = [
 // ===== Impacto clave (CV) =====
 export const IMPACT = [
   { v: "287", l: "recursos open source publicados en Rodd.es", s: "7 idiomas nativos" },
-  { v: "−96%", l: "peso de datos en AEM Planner", s: "3,76 MB → 0,13 MB" },
+  { v: "−96%", l: "peso de datos en Events Planner", s: "3,76 MB → 0,13 MB" },
   { v: "27", l: "nodos n8n en Just Enjoy", s: "TFM calificado 10/10" },
   { v: "+80", l: "cuentas enterprise B2B gestionadas", s: "Movistar / Telefónica" },
 ];
