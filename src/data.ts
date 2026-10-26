@@ -284,10 +284,10 @@ export const EXPERIENCE = [
       "Automatizo el reporting con Excel avanzado, Google Workspace y Notion para dedicar menos tiempo a lo repetitivo.",
     ],
     tags: ["Cobros B2B", "Orange Empresas", "Excel", "Operaciones"] },
-  { role: "Coordinador Operativo Nacional", org: "Garden España · Barcelona", when: "2022 — 2024",
-    desc: "Coordinaba el día a día de una red nacional de tiendas para que nada se quedara atascado.",
+  { role: "Coordinador de Operaciones y Experiencia de Cliente", org: "Garden España · Barcelona", when: "2022 — 2024",
+    desc: "Coordinaba el día a día operativo y la experiencia de servicio para que nada se quedara atascado.",
     points: [
-      "Coordinaba incidencias, logística y documentación, y hacía de puente entre las distintas áreas.",
+      "Coordinaba equipo, incidencias y procesos, y hacía de puente entre las distintas áreas.",
       "Digitalicé protocolos internos con herramientas colaborativas: más trazabilidad y procesos más homogéneos.",
     ],
     tags: ["Team Leadership", "Digital Transformation", "Agile"] },
