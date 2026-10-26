@@ -7,7 +7,7 @@ export const PROFILE = {
   kicker: "Guerrero Z del diseño de producto con IA",
   headline: ["Diseño flujos,", "interfaces y", "automatizaciones."],
   tagline:
-    "Diseño producto digital con IA, agentes conversacionales y automatizaciones. UX/UI (Neoland), Máster en Agentes IA (EBIS) y +17 años en B2B enterprise (Telefónica): sé qué hace falta para que un producto funcione en el mundo real.",
+    "Diseño producto digital con IA, agentes conversacionales y automatizaciones. UX/UI (Neoland), Máster en Agentes IA (EBIS) y +17 años en negocio B2B y operaciones: sé qué hace falta para que un producto funcione en el mundo real.",
   location: "Barcelona, España",
   status: ["Disponible ahora", "Barcelona · Remoto EU", "Full-time · Freelance"],
   roles: "AI Product Designer · AI Automation Specialist · Design Technologist",
@@ -38,7 +38,7 @@ export const TRANSFORMATIONS = [
     title: "Negocio B2B & Fundamentos Web",
     aura: "#9fb6d4",
     soft: "rgba(159,182,212,.35)",
-    text: "El punto de partida: +17 años en B2B enterprise (Movistar/Telefónica) gestionando grandes cuentas, más la base técnica de desarrollo web. Business acumen + código.",
+    text: "El punto de partida: +17 años en negocio B2B y operaciones (telecomunicaciones en Chile), con más de 100 cuentas corporativas, más la base técnica de desarrollo web. Business acumen + código.",
     skills: ["B2B Enterprise", "HTML/CSS/JS", "WordPress", "Negociación", "Operaciones"],
     power: 45,
   },
@@ -49,7 +49,7 @@ export const TRANSFORMATIONS = [
     title: "Diseño UX / UI",
     aura: "#ffb800",
     soft: "rgba(255,184,0,.38)",
-    text: "Bootcamp UX/UI en Neoland (600+ horas). Design Thinking, user research, Figma, Design Systems y Lean UX aplicados a proyectos reales de negocio.",
+    text: "Bootcamp UX/UI en Neoland (300 horas). Design Thinking, user research, Figma, Design Systems y Lean UX aplicados a proyectos reales de negocio.",
     skills: ["Figma", "Design Systems", "User Research", "Prototipado", "Lean UX"],
     power: 64,
   },
@@ -276,7 +276,7 @@ export const EXPERIENCE = [
       "Invitoo y la red rodd.es: fundé Invitoo yo solo (invitaciones digitales con RSVP automático y canciones creadas con IA) y desplegué más de 8 webs para probar IA generativa, CRO y rendimiento.",
     ],
     tags: ["Product Design", "Design Systems", "AI Agents", "Make · n8n", "React"] },
-  { role: "Gestor de Cobros Empresas +Orange", org: "Abai · Cliente Orange Empresas · Barcelona · rol simultáneo",
+  { role: "Gestor de Cobros Empresas +Orange", org: "Abai Group (antes Atento España, vía Adecco) · Cliente Orange Empresas · Barcelona · rol simultáneo",
     when: "2024 — hoy", now: true,
     desc: "Cuido una cartera de empresas clientes de Orange, desde las incidencias hasta los acuerdos de pago.",
     points: [
@@ -291,10 +291,10 @@ export const EXPERIENCE = [
       "Digitalicé protocolos internos con herramientas colaborativas: más trazabilidad y procesos más homogéneos.",
     ],
     tags: ["Team Leadership", "Digital Transformation", "Agile"] },
-  { role: "Senior Enterprise Account Manager", org: "Movistar Empresas (Telefónica) · Santiago, Chile", when: "2008 — 2019",
-    desc: "Once años cuidando las cuentas más importantes de Movistar Empresas en Chile.",
+  { role: "Account Manager / Asesor Comercial", org: "Atento Chile (servicio a Movistar Empresas) · Santiago, Chile", when: "2008 — 2019",
+    desc: "Once años en telecomunicaciones B2B: ocho como Account Manager y tres como analista de facturación.",
     points: [
-      "Gestioné más de 80 cuentas corporativas: retención de clientes VIP, negociación de contratos y relaciones a largo plazo.",
+      "Gestioné una cartera de más de 100 cuentas corporativas: atención personalizada, negociación de contratos, cierre de acuerdos y fidelización de cuentas estratégicas.",
       "Aquí aprendí a entender cómo decide una empresa grande, y hoy lo aplico al diseñar productos B2B con IA.",
     ],
     tags: ["Enterprise Sales", "KAM", "B2B Strategy", "Customer Retention"] },
@@ -305,7 +305,7 @@ export const IMPACT = [
   { v: "287", l: "recursos open source publicados en Rodd.es", s: "7 idiomas nativos" },
   { v: "−96%", l: "peso de datos en Events Planner", s: "3,76 MB → 0,13 MB" },
   { v: "27", l: "nodos n8n en Just Enjoy", s: "TFM calificado 10/10" },
-  { v: "+80", l: "cuentas enterprise B2B gestionadas", s: "Movistar / Telefónica" },
+  { v: "+100", l: "cuentas corporativas B2B gestionadas", s: "Atento Chile · servicio a Movistar Empresas" },
 ];
 
 // ===== Formación (cámara de gravedad) =====
@@ -317,7 +317,7 @@ export const EDUCATION: { title: string; org: string; when: string; state: strin
   { title: "Especialización en IA Generativa", org: "UDIA (Universidad de IA)", when: "2025 — 2026", state: "En curso",
     desc: "Prompt engineering avanzado, fine-tuning de modelos y producción de activos digitales con herramientas generativas de última generación." },
   { title: "Bootcamp UX/UI Design — Professional Track", org: "Neoland Madrid", when: "2024", state: "Finalizado",
-    desc: "Design Thinking, User Research, Figma, Design Systems, Agile UX y Lean UX. 600+ horas de práctica intensiva con proyectos reales.",
+    desc: "Design Thinking, User Research, Figma, Design Systems, Agile UX y Lean UX. 300 horas de práctica intensiva con proyectos reales.",
     links: [["Certificado (PDF)", `${SITE}/assets/legacy/Neoland.pdf`]] },
   { title: "Diseño Web Multimedia y Marketing Digital", org: "CIPSA · Barcelona", when: "2020 — 2022", state: "Finalizado",
     desc: "Front-end development, HTML/CSS/JS, WordPress, Digital Marketing, SEO/SEM y fundamentos de UX aplicados a negocios digitales." },
