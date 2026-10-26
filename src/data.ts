@@ -24,7 +24,7 @@ export const STATS = [
 
 export const LANGS = [
   { l: "Español", lv: "Nativo" },
-  { l: "Inglés", lv: "B2" },
+  { l: "Inglés", lv: "A2" },
   { l: "Catalán", lv: "A2" },
 ];
 
