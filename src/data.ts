@@ -267,8 +267,8 @@ export const LAB = [
 // ===== Trayectoria de combate (experiencia real) =====
 export const EXPERIENCE = [
   { role: "AI Product Designer & Automation Consultant", org: "Proyectos propios / Freelance · Barcelona · Remoto",
-    when: "Sep 2024 — hoy", now: true,
-    desc: "Convierto ideas en productos digitales que funcionan: investigo, diseño, construyo y lanzo, usando IA donde de verdad aporta.",
+    when: "2021 — hoy", now: true,
+    desc: "Freelance desde 2021 en diseño web y UX/UI; desde 2024, foco en producto con IA. Convierto ideas en productos digitales que funcionan: investigo, diseño, construyo y lanzo, usando IA donde de verdad aporta.",
     points: [
       "Events Planner (producto propio): la app con la que un equipo de wedding planners coordina hasta 12 bodas al año, incluso sin cobertura. Panel de trabajo, portal para la pareja, plano de mesas y contratos. Reduje el peso de los datos un 96 % (de 3,76 MB a 0,13 MB).",
       "Rodd.es (producto propio): una biblioteca open source de 287 recursos web en 7 idiomas nativos. Analicé la competencia (Shadcn, Motion.dev, React Bits), la ordené en 6 categorías y la lancé en Vercel.",
