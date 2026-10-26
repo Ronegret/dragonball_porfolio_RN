@@ -284,13 +284,13 @@ export const EXPERIENCE = [
       "Automatizo el reporting con Excel avanzado, Google Workspace y Notion para dedicar menos tiempo a lo repetitivo.",
     ],
     tags: ["Cobros B2B", "Orange Empresas", "Excel", "Operaciones"] },
-  { role: "Coordinador de Operaciones y Experiencia de Cliente", org: "Garden España · Barcelona", when: "2022 — 2024",
-    desc: "Coordinaba el día a día operativo y la experiencia de servicio para que nada se quedara atascado.",
+  { role: "Encargado de local y coordinador de equipo", org: "Garden España · Barcelona", when: "2022 — 2024",
+    desc: "Llevaba la operativa diaria del local y la atención al cliente, con un equipo a mi cargo.",
     points: [
-      "Coordinaba equipo, incidencias y procesos, y hacía de puente entre las distintas áreas.",
-      "Digitalicé protocolos internos con herramientas colaborativas: más trazabilidad y procesos más homogéneos.",
+      "Organizaba turnos y tareas del equipo, la logística de producto, la caja y los eventos, con estándares de calidad del servicio.",
+      "Detectaba fricciones operativas y mejoraba procesos para reducir errores.",
     ],
-    tags: ["Team Leadership", "Digital Transformation", "Agile"] },
+    tags: ["Team Leadership", "Atención al cliente", "Operaciones"] },
   { role: "Account Manager / Asesor Comercial", org: "Atento Chile (servicio a Movistar Empresas) · Santiago, Chile", when: "2008 — 2019",
     desc: "Once años en telecomunicaciones B2B: ocho como Account Manager y tres como analista de facturación.",
     points: [
