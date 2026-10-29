@@ -7,19 +7,19 @@ export const PROFILE = {
   kicker: "Guerrero Z del diseño de producto con IA",
   headline: ["Diseño flujos,", "interfaces y", "automatizaciones."],
   tagline:
-    "Diseño producto digital con IA, agentes conversacionales y automatizaciones. UX/UI (Neoland), Máster en Agentes IA (EBIS) y +17 años en negocio B2B y operaciones: sé qué hace falta para que un producto funcione en el mundo real.",
+    "Diseño producto digital con IA, agentes conversacionales y automatizaciones. UX/UI (Neoland), Máster en Agentes IA (EBIS) y 17 años de trayectoria, 11 de ellos en telecomunicaciones B2B: sé qué hace falta para que un producto funcione en el mundo real.",
   location: "Barcelona, España",
   status: ["Disponible ahora", "Barcelona · Remoto EU", "Full-time · Freelance"],
   roles: "AI Product Designer · AI Automation Specialist · Design Technologist",
   // descripción en clave Dragon Ball (hero)
-  saga: "Entrené UX/UI en la cámara del tiempo de Neoland, desbloqueé el Máster en Agentes IA de EBIS y llevo +17 años de combate en B2B enterprise. Mi técnica especial: productos con IA que funcionan en el mundo real.",
+  saga: "Entrené UX/UI en la cámara del tiempo de Neoland, desbloqueé el Máster en Agentes IA de EBIS y llevo 17 años de trayectoria, 11 de combate en B2B enterprise. Mi técnica especial: productos con IA que funcionan en el mundo real.",
 };
 
 export const STATS = [
   { n: "2+", l: "años enfocado en UX/IA" },
   { n: "11", l: "casos de estudio" },
   { n: "50+", l: "herramientas usadas" },
-  { n: "17+", l: "años en negocio B2B" },
+  { n: "17", l: "años de trayectoria" },
 ];
 
 export const LANGS = [
@@ -38,7 +38,7 @@ export const TRANSFORMATIONS = [
     title: "Negocio B2B & Fundamentos Web",
     aura: "#9fb6d4",
     soft: "rgba(159,182,212,.35)",
-    text: "El punto de partida: +17 años en negocio B2B y operaciones (telecomunicaciones en Chile), con más de 100 cuentas corporativas, más la base técnica de desarrollo web. Business acumen + código.",
+    text: "El punto de partida: 17 años de trayectoria, 11 en telecomunicaciones B2B en Santiago de Chile, con más de 100 grandes empresas, más la base técnica de desarrollo web. Business acumen + código.",
     skills: ["B2B Enterprise", "HTML/CSS/JS", "WordPress", "Negociación", "Operaciones"],
     power: 45,
   },

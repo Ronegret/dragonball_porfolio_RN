@@ -13,7 +13,7 @@ const BOLTS = [0, 0, 1, 1, 0, 0];
 const NAMES = ["Forma Base", "Super Saiyan", "Super Saiyan Fase 3", "Super Saiyan Blue", "Ultra Instinto", "Super Saiyan Fase 4"];
 // Mi evolución = mis estudios y desarrollo profesional
 const STUDY = [
-  "Fundamentos · +17 años B2B + Desarrollo Web",
+  "Fundamentos · 17 años de trayectoria + Desarrollo Web",
   "Diseño UX/UI · Bootcamp Neoland",
   "Producto Digital & Frontend · React · Figma",
   "Máster en IA Generativa · UDIA",
