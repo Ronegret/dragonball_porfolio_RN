@@ -178,7 +178,7 @@ export const PROJECTS: Project[] = [
     title: "Un sistema operativo para bodas",
     desc: "Web para wedding planners que trabajan sin cobertura: tres personas coordinan hasta 12 bodas al año en fincas sin internet. Panel de inicio, espacio de trabajo por boda, plano de mesas, proveedores, presupuesto, contrato imprimible, portal privado para cada pareja y dossieres. Se instala como app y abre sin conexión.",
     role: "Product design y desarrollo end-to-end", tech: ["Product design", "PWA offline", "Sistema visual", "Supabase"],
-    caseUrl: `${SITE}/aem/`, live: "https://aem.rodd.es/", liveLabel: "aem.rodd.es" },
+    caseUrl: `${SITE}/aem/`, live: "https://events.rodd.es/", liveLabel: "events.rodd.es" },
   { name: "ZODI", tag: "Caso destacado · AI product", cat: "IA & Auto.", year: "2026", star: true, cap: "#ffcc1f", img: "zodi",
     title: "Oráculo astral con IA y humor ácido",
     desc: "Producto digital completo para horóscopo, tarot, carta natal, numerología y comunidad: IA personalizada, 17 tipos de lectura, 4 tonos de respuesta, planes premium y una marca visual memorable.",
