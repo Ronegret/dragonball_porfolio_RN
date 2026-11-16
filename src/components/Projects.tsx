@@ -24,6 +24,11 @@ function capsuleBurst(x: number, y: number, color: string) {
   gsap.delayedCall(1.1, () => wrap.remove());
 }
 
+// Las 16 cápsulas se pintaron con el color de cada proyecto en su orden original: se buscan por nombre, no por posición en la lista.
+// shortcut: un proyecto sin cápsula propia (TorreZ) usa la naranja (cap06); para dar una propia a uno nuevo, añadir su capNN.webp y su nombre aquí.
+const CAP_IMG = ["Rodd.es", "Events Planner", "ZODI", "Dedícalo Play", "Just Enjoy", "Iberdata", "ZODI BTO", "Invitoo", "PDF Rodd", "Estudio CCSE", "Dedícalo", "ParaTuMundo", "Te Atiendo", "Aquae", "Travel of Vapers", "Tomapoly"];
+const capImg = (name: string) => `/assets/caps/cap${String(CAP_IMG.indexOf(name) + 1 || 6).padStart(2, "0")}.webp`;
+
 export default function Projects() {
   const [cat, setCat] = useState("Todos");
   const [sel, setSel] = useState<number | null>(null);
@@ -85,7 +90,7 @@ export default function Projects() {
                 <button className={"capsule" + (pr.star && !seen.includes(gi) ? " hot" : "")} style={{ ["--cap" as any]: pr.cap }} data-cursor
                   aria-label={`Cápsula ${String(gi + 1).padStart(2, "0")}: ${pr.name}. Abrir proyecto`}
                   onClick={(e) => open(gi, e)}>
-                  <img src={`/assets/caps/cap${String(gi + 1).padStart(2, "0")}.webp`} alt="" draggable={false} loading="lazy" decoding="async" />
+                  <img src={capImg(pr.name)} alt="" draggable={false} loading="lazy" decoding="async" />
                   {pr.star && <span className="star" title="Proyecto destacado">★</span>}
                   <span className="nm"><b>{String(gi + 1).padStart(2, "0")}</b> {pr.name}</span>
                 </button>
@@ -135,7 +140,7 @@ export default function Projects() {
                 <button className="close" data-cursor autoFocus onClick={() => setSel(null)} aria-label="Cerrar proyecto">✕</button>
                 <div className="pm-media" onPointerDown={(e) => { if (sheet) drag.start(e); }}>
                   <img src={`/assets/proj/${p.img}.webp`} alt={`${p.name} — imagen del proyecto`} />
-                  <img className="pm-cap" src={`/assets/caps/cap${String(sel! + 1).padStart(2, "0")}.webp`} alt="" />
+                  <img className="pm-cap" src={capImg(p.name)} alt="" />
                   <span className="pm-no">Nº{String(sel! + 1).padStart(2, "0")}</span>
                 </div>
                 <div className="pm-body">
