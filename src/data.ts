@@ -166,9 +166,23 @@ export const COMPETENCIAS = [
 const SITE = "https://www.rodrigonegrete.es";
 export type Project = {
   name: string; tag: string; cat: string; year: string; title: string; desc: string; role: string;
-  tech: string[]; img: string; caseUrl: string; live?: string; liveLabel?: string; cap: string; star?: boolean;
+  tech: string[]; img: string; imgAlt?: string; caseUrl?: string; live?: string; liveLabel?: string; cap: string; star?: boolean;
+  points?: [string, string][];   // detalle opcional en el holograma: [título, texto]
 };
 export const PROJECTS: Project[] = [
+  { name: "Casa Trío", tag: "Fusión · Caso de estudio", cat: "UX / UI", year: "2026", star: true, cap: "#e8452c", img: "casa-trio",
+    imgAlt: "Casa Trío en tres móviles: el sushi de Nami, la burger de Smash Club y la pizza de Fuoco despiezados con los ingredientes en el aire",
+    title: "Tres restaurantes fusionados en una sola web",
+    desc: "La danza de la fusión aplicada al diseño: un omakase de sushi, una hamburguesería smash y una pizzería napolitana (grupo ficticio en Barcelona) en una sola web. Tres identidades completamente distintas, con tipografía, color y movimiento propios, y un solo producto con carta interactiva y reserva por voz.",
+    points: [
+      ["UX", "Los ingredientes flotan en el aire con su etiqueta y, al hacer scroll, caen y se arman: la carta enseña lo que lleva cada plato antes de que preguntes. Carta interactiva con fichas (bottom sheet en móvil) y reserva en tres velocidades: formulario, lenguaje natural («mesa para 4 el viernes a las 9 y media») y voz."],
+      ["Marca", "Sistema de 4 logotipos (Casa Trío, Nami, Smash Club y Fuoco): cada uno en la cabecera de su página y con su propio favicon por ruta."],
+      ["IA", "224 fotos generadas en local con Z-Image-Turbo en una GPU portátil de 8 GB (de ~10 min a ~45 s por imagen), con 78 prompts reescritos como director de fotografía. Dirigí un equipo de agentes de IA (tres de front-end, uno por restaurante, y uno de contenido) y una anfitriona de voz con ElevenLabs que consulta disponibilidad y reserva."],
+      ["Ingeniería", "Reservas atómicas en Supabase: aforo comprobado y guardado en una sola transacción con bloqueo por horario, para que dos personas nunca se queden la última plaza. Auditoría visual automatizada con Playwright en móvil, tablet y escritorio."],
+      ["Resultados", "3 identidades en 4 páginas, 224 fotos con coste de imagen 0 €, 0 solapes en 12 vistas auditadas y ≈ 175 kB de JS por página."],
+    ],
+    role: "AI Product Designer: UX/UI, dirección de arte con IA y front-end", tech: ["Next.js 15", "GSAP · Lenis", "Supabase", "ElevenLabs (voz)", "Z-Image-Turbo local", "Agentes IA", "Playwright"],
+    caseUrl: `${SITE}/casa-trio/`, live: "https://casatrio.rodd.es", liveLabel: "casatrio.rodd.es" },
   { name: "Rodd.es", tag: "Proyecto principal · Open source", cat: "Producto", year: "2026", star: true, cap: "#e0383b", img: "rodd",
     title: "Biblioteca open source multilingüe de 287 recursos web",
     desc: "Directorio abierto en 7 idiomas nativos (ES · EN · CA · FR · IT · DE · PT) con efectos, animaciones, componentes React, microinteracciones, fondos animados y escenas 3D listos para probar en vivo, editar y copiar el código.",

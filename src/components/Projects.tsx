@@ -139,7 +139,7 @@ export default function Projects() {
                 <button className="pm-grab" aria-hidden tabIndex={-1} onPointerDown={(e) => drag.start(e)}><i /></button>
                 <button className="close" data-cursor autoFocus onClick={() => setSel(null)} aria-label="Cerrar proyecto">✕</button>
                 <div className="pm-media" onPointerDown={(e) => { if (sheet) drag.start(e); }}>
-                  <img src={`/assets/proj/${p.img}.webp`} alt={`${p.name} — imagen del proyecto`} />
+                  <img src={`/assets/proj/${p.img}.webp`} alt={p.imgAlt ?? `${p.name} — imagen del proyecto`} />
                   <img className="pm-cap" src={capImg(p.name)} alt="" />
                   <span className="pm-no">Nº{String(sel! + 1).padStart(2, "0")}</span>
                 </div>
@@ -149,6 +149,7 @@ export default function Projects() {
                     <h3 id="pm-title">{p.name}</h3>
                     <p className="pm-sub">{p.title}</p>
                     <p className="pm-desc">{p.desc}</p>
+                    {p.points && <ul className="pm-points">{p.points.map(([h, t]) => <li key={h}><b>{h}</b> {t}</li>)}</ul>}
                     <dl className="pm-meta">
                       <div><dt>Mi papel</dt><dd>{p.role}</dd></div>
                       <div><dt>Categoría</dt><dd>{p.cat}</dd></div>
@@ -156,7 +157,7 @@ export default function Projects() {
                     <div className="pm-chips">{p.tech.map((t) => <i key={t}>{t}</i>)}</div>
                   </div>
                   <div className="pm-cta">
-                    <a className="btn solid" data-cursor href={p.caseUrl} target="_blank" rel="noopener">Ver caso completo ↗</a>
+                    {p.caseUrl && <a className="btn solid" data-cursor href={p.caseUrl} target="_blank" rel="noopener">Ver caso completo ↗</a>}
                     {p.live && <a className="btn gold" data-cursor href={p.live} target="_blank" rel="noopener">{p.liveLabel ?? "Ver en vivo"} ↗</a>}
                   </div>
                 </div>
